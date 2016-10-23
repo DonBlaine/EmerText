@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
+//  Function to just check if we have SEND_SMS permission
     public boolean checkSMS(View view){
         boolean permissionGranted = ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
         if (permissionGranted) {
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+// Function to check if we have SEND_SMS and request it if we don't.
     public boolean requestSMS(View view){
         if (checkSMS(view)){
             return true;
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enterDetails(View view){
-        //Below is a small chunk of code which checks if the user granted the SMS permission or not
             if (requestSMS(view)){
             Intent intent = new Intent(this, DetailsForm.class);
             startActivity(intent);}

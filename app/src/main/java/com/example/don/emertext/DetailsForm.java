@@ -37,7 +37,11 @@ public class DetailsForm extends Activity {
                 0,
                 resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        text.sendTextMessage(number, null, message,null,intent);
+        text.sendTextMessage(number // Number to send to
+                ,null               // Message centre to send to (we'll never want to change this)
+                ,message            // Message to send
+                ,null               // The PendingIntent to perform when the message is successfully sent
+                ,intent);           // The PendingIntent to perform when the message is successfully delivered
         TextView textView = (TextView) findViewById(R.id.return_message);
         textView.setVisibility(view.VISIBLE);
     }
