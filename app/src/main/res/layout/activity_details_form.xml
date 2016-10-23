@@ -46,7 +46,8 @@
                     android:inputType="textPostalAddress"
                     android:ems="10"
                     android:id="@+id/address1"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                android:layout_height="wrap_content" />
 
         <EditText
             android:layout_width="match_parent"
