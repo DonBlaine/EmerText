@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">EmerText</string>
+    <string name="helloworld" translatable="false">Hello world!</string>
+    <string name="firstname">First name</string>
+    <string name="surname">Surname</string>
+    <string name="title_activity_details_form">Enter your details</string>
+
+    <string-array name="county_list">
+        <item>Dublin</item>
+        <item>Cork</item>
+    </string-array>
+
 </resources>

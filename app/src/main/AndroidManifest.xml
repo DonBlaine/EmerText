@@ -15,6 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DetailsForm"
+            android:label="@string/title_activity_details_form"></activity>
     </application>
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
 
 </manifest>
