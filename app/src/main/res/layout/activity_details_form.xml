@@ -15,6 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <EditText
+            android:text="0831453528"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/overrideNumber"
+            android:visibility="gone" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -28,7 +37,8 @@
                 android:hint="@string/firstname"
 
                 android:id="@+id/fnameInput"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="revealOverride" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -47,7 +57,7 @@
                     android:ems="10"
                     android:id="@+id/address1"
                     android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -66,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button2"
-            android:onClick="sendSMS" />
+            android:onClick="postDetails" />
 
         <TextView
             android:text="I will return to the main screen when message is delivered!"
