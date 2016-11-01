@@ -10,4 +10,10 @@
         <item>Cork</item>
     </string-array>
 
+    <string name="title_activity_location">EmerText</string>
+    <string name="location">Location</string>
+    <string name="emertype">Emergency Type</string>
+    <string name="whois">People With You?</string>
+    <string name="exdetails">Extra Details</string>
+    <string name="title_activity_map_pin">Map</string>
 </resources>
