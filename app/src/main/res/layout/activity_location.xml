@@ -14,46 +14,66 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/location"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Current Location"
             android:background="@color/white"/>
 
-        <Button
-            android:text="Refine Location"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/location_button"
-            android:onClick="" />
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:text="Refine Location"
+                android:layout_width="275dp"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_button"
+                android:onClick=""
+                android:gravity="center"
+                android:orientation="vertical"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/emertype"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:id="@+id/emertype_spinner"
             android:entries="@array/emer_type"
+            android:background="@color/white"
+            android:textColor="@color/black"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/whois"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:padding="10dp"
             android:inputType="textPersonName"
             android:id="@+id/people_with_you"
             android:background="@color/white"/>
@@ -61,22 +81,32 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/exdetails"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="115dp"
             android:inputType="textPersonName"
+            android:padding="10dp"
             android:id="@+id/extra_details"
             android:background="@color/white"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
         <Button
             android:text="Send Text"
-            android:layout_width="match_parent"
+            android:layout_width="275dp"
+            android:padding="10dp"
             android:layout_height="wrap_content"
             android:id="@+id/send_text"
             android:onClick="" />
 
+        </LinearLayout>
 
     </LinearLayout>
 
