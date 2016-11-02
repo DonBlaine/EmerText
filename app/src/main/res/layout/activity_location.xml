@@ -13,12 +13,20 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/location"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current Location"
+            android:background="@color/white"/>
 
         <Button
             android:text="Refine Location"
@@ -32,9 +40,11 @@
             android:layout_height="wrap_content"
             android:text="@string/emertype"/>
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emertype_spinner" />
+            android:id="@+id/emertype_spinner"
+            android:entries="@array/emer_type"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -57,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:id="@+id/people_with_you"
+            android:id="@+id/extra_details"
             android:background="@color/white"/>
 
         <Button
