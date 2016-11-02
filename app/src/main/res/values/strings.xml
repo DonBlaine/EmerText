@@ -15,6 +15,14 @@
     <string name="emertype">Emergency Type</string>
     <string name="whois">People With You?</string>
     <string name="exdetails">Extra Details</string>
+
+    <string-array name="emer_type">
+        <item>Heart Attack</item>
+        <item>Injury</item>
+        <item>Seizure</item>
+        <item>Fall</item>
+    </string-array>
+
     <string name="title_activity_map_pin">Map</string>
     <string name="button">Button</string>
 </resources>
