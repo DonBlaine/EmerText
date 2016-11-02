@@ -16,4 +16,5 @@
     <string name="whois">People With You?</string>
     <string name="exdetails">Extra Details</string>
     <string name="title_activity_map_pin">Map</string>
+    <string name="button">Button</string>
 </resources>

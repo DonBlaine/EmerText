@@ -14,22 +14,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.net.HttpURLConnection;
 
 
 public class DetailsForm extends Activity {
 
     private boolean overrideNumber = false;
-    private String EMERGENCY_NUMBER = "0831453528";
+    private String EMERGENCY_NUMBER = "08313528";
     private int overrideCounter = 0;
-
+    private EditText sendNumberEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +34,8 @@ public class DetailsForm extends Activity {
                 R.array.county_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-
-
+        sendNumberEditText = (EditText) findViewById(R.id.overrideNumber);
+        sendNumberEditText.setText(EMERGENCY_NUMBER);
     }
 
 
@@ -55,27 +46,23 @@ public class DetailsForm extends Activity {
         EditText lastname = (EditText) findViewById(R.id.lnamepinput);
         EditText address1 = (EditText) findViewById(R.id.address1);
         EditText address2 = (EditText) findViewById(R.id.address2);
+        Spinner county = (Spinner) findViewById(R.id.county_select_spinner);
 
         String message = firstname.getText().toString() + " " +
                 lastname.getText().toString() + " " +
                 address1.getText().toString() + " " +
                 address2.getText().toString() + " " +
+                county.getSelectedItem().toString() + " " +
                 "requires an ambulance.";
         return message;
     }
 
 
-    public void checkNetwork(View view) {
-        TelephonyManager tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String networkOperator = tel.getNetworkOperator();
-        if (networkOperator.equals("27203")) {
-
-        }
-    }
 
     public void revealOverride(View view) {
         if (++overrideCounter >= 5) {
-            (findViewById(R.id.overrideNumber)).setVisibility(View.VISIBLE);
+
+            sendNumberEditText.setVisibility(View.VISIBLE);
             overrideNumber = true;
         }
     }
@@ -85,7 +72,7 @@ public class DetailsForm extends Activity {
         SmsManager text = SmsManager.getDefault();
         String number;
         if (overrideNumber) {
-            number = ((EditText) findViewById(R.id.overrideNumber)).getText().toString();
+            number = sendNumberEditText.getText().toString();
         } else {
             number = EMERGENCY_NUMBER;
         }

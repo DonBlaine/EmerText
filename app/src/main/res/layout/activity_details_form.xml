@@ -72,11 +72,11 @@
             android:id="@+id/county_select_spinner" />
 
         <Button
-            android:text="Send Gerard a blank message!"
+            android:text="Send dummy message!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button2"
-            android:onClick="postDetails" />
+            android:onClick="sendSMS" />
 
         <TextView
             android:text="I will return to the main screen when message is delivered!"

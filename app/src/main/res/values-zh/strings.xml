@@ -8,5 +8,6 @@
     <string-array name="county_list">
         <item>都柏林</item>
         <item>科克</item>
+        <item>Wicklow</item>
     </string-array>
 </resources>
