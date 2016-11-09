@@ -1,21 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+
     </style>
 
-    <style name="SpinnerItem" parent="android:Widget.TextView.SpinnerItem">
-        <item name="android:textAppearance">@style/TextSpinnerItem</item>
-    </style>
-
-    <style name="TextSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:textColor">@color/black</item>
-    </style>
 
 </resources>
 
