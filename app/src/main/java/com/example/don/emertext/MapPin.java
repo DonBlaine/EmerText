@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import android.Manifest;
@@ -67,7 +68,9 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
     @Override
     protected void onResume() {
         super.onResume();
-        mGoogleApiClient.connect();
+        if (!mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+        }
         setUpMapIfNeeded();
 
     }
@@ -106,8 +109,9 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
 
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
-                .title("I am here!").draggable(true);
-        mMap.addMarker(options);
+                .title("I am here!").draggable(true).visible(true);
+        Marker marker = mMap.addMarker(options);
+        marker.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
         if (Build.VERSION.SDK_INT >= 23) {
