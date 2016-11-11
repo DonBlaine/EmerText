@@ -29,7 +29,7 @@
             android:name=".DetailsForm"
             android:label="@string/title_activity_details_form" />
         <activity
-            android:name=".Location"
+            android:name=".LocationDetails"
             android:label="@string/title_activity_location" />
 
         <activity

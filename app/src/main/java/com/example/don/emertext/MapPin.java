@@ -2,7 +2,6 @@ package com.example.don.emertext;
 
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.*;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.*;
 import com.google.android.gms.location.LocationListener;
@@ -21,22 +19,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-
 import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Plus;
-
 import static android.Manifest.permission_group.LOCATION;
 
 // This code was inspired by the tutorial http://blog.teamtreehouse.com/beginners-guide-location-android
@@ -78,8 +67,9 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
         mGoogleApiClient.connect();
+        setUpMapIfNeeded();
+
     }
 
     @Override
@@ -201,3 +191,9 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         handleNewLocation(location);
     }
 }
+
+//    Intent i = getIntent();
+//    //The second parameter below is the default string returned if the value is not there.
+//    String txtData = i.getExtras().getString("txtData","");
+//    EditText txtInput2 = (EditText)findViewById(R.id.txtInput2);
+//txtInput2.setText(txtData)

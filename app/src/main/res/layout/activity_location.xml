@@ -30,7 +30,8 @@
             android:padding="10dp"
             android:inputType="textPersonName"
             android:id="@+id/curLocation"
-            android:background="@color/darkGrey"/>
+            android:background="@color/darkGrey"
+            android:hint="Enter Location"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +107,7 @@
             android:padding="10dp"
             android:layout_height="wrap_content"
             android:id="@+id/send_text"
-            android:onClick="" />
+            android:onClick="submitInfo" />
 
         </LinearLayout>
 
