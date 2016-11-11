@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/button"
 
-        android:onClick="enterDetails"
+        android:onClick="launchLocation"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

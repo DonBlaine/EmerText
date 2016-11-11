@@ -19,46 +19,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+    }
 
-        }
-
-//  Function to just check if we have SEND_SMS permission
-    public boolean checkSMS(View view){
-        boolean permissionGranted = ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+    //  Function to just check if we have SEND_SMS permission
+    public boolean checkSMS(View view) {
+        boolean permissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
         if (permissionGranted) {
             return true;
-        }
-        else
-        {  return false;
+        } else {
+            return false;
         }
     }
 
-// Function to check if we have SEND_SMS and request it if we don't.
-    public boolean requestSMS(View view){
-        if (checkSMS(view)){
+    // Function to check if we have SEND_SMS and request it if we don't.
+    public boolean requestSMS(View view) {
+        if (checkSMS(view)) {
             return true;
-        }
-        else{
+        } else {
             //try to get permission
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.SEND_SMS},
                     6);
             if (checkSMS(view)) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
     }
 
-    public void enterDetails(View view){
-            if (requestSMS(view)){
-            Intent intent = new Intent(this, DetailsForm.class);
-            startActivity(intent);}
-        else {
-                Button button = (Button) findViewById(R.id.button);
-                button.setText("You haven't granted SMS permissions");
-            }
+//    public void enterDetails(View view){
+//            if (requestSMS(view)){
+//            Intent intent = new Intent(this, DetailsForm.class);
+//            startActivity(intent);}
+//        else {
+//                Button button = (Button) findViewById(R.id.button);
+//                button.setText("You haven't granted SMS permissions");
+//            }
+//
+//    }
 
-}}
+    public void launchLocation(View view) {
+        {
+            Intent intent = new Intent(MainActivity.this, LocationDetails.class);
+            startActivity(intent);
+        }
+    }
+}

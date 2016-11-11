@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.don.emertext.Location">
+    tools:context="com.example.don.emertext.LocationDetails">
 
     <LinearLayout
         android:orientation="vertical"
@@ -24,12 +24,13 @@
             android:padding="10dp"
             android:text="@string/location"/>
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:padding="10dp"
-            android:text="Current Location"
-            android:background="@color/white"/>
+            android:inputType="textPersonName"
+            android:id="@+id/curLocation"
+            android:background="@color/darkGrey"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                 android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/location_button"
-                android:onClick=""
+                android:onClick="startMap"
                 android:gravity="center"
                 android:orientation="vertical"/>
 
@@ -60,9 +61,10 @@
             android:padding="10dp"
             android:id="@+id/emertype_spinner"
             android:entries="@array/emer_type"
-            android:background="@color/white"
-            android:textColor="@color/black"
+            android:background="@color/darkGrey"
             />
+            <!--android:textColor="@color/black"-->
+
 
         <TextView
             android:layout_width="match_parent"
@@ -76,7 +78,7 @@
             android:padding="10dp"
             android:inputType="textPersonName"
             android:id="@+id/people_with_you"
-            android:background="@color/white"/>
+            android:background="@color/darkGrey"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -87,10 +89,10 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="115dp"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences|textAutoCorrect"
             android:padding="10dp"
             android:id="@+id/extra_details"
-            android:background="@color/white"/>
+            android:background="@color/darkGrey"/>
 
     <LinearLayout
         android:layout_width="match_parent"
