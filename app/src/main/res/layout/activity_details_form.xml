@@ -12,86 +12,114 @@
     tools:context="com.example.don.emertext.DetailsForm">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
         <EditText
-            android:text="0831453528"
+            android:id="@+id/overrideNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"
             android:ems="10"
-            android:id="@+id/overrideNumber"
+            android:inputType="phone"
+            android:text="@string/default_emergency_number"
             android:visibility="gone" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/fnameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:hint="@string/firstname"
-
-                android:id="@+id/fnameInput"
                 android:layout_weight="1"
+                android:ems="10"
+
+                android:hint="@string/firstName"
+                android:inputType="textPersonName"
                 android:onClick="revealOverride" />
 
             <EditText
+                android:id="@+id/lnamepinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="@string/surname"
+                android:layout_weight="1"
                 android:ems="10"
 
-                android:id="@+id/lnamepinput"
-                android:layout_weight="1" />
+                android:hint="@string/surname"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
-            <EditText
-                    android:layout_width="match_parent"
-                    android:inputType="textPostalAddress"
-                    android:ems="10"
-                    android:id="@+id/address1"
-                    android:layout_weight="1"
-                android:layout_height="0dp" />
+        <EditText
+            android:id="@+id/address1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/address_line_1"
+            android:inputType="textPostalAddress" />
 
         <EditText
+            android:id="@+id/address2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
             android:ems="10"
-            android:id="@+id/address2" />
+            android:hint="@string/address_line_2"
+            android:inputType="textPostalAddress" />
 
-        <Spinner
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/county_select_spinner" />
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/eircode_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/eircode"
+                android:onClick="autosetDublin"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:maxLength="7" />
+
+            <AutoCompleteTextView
+                android:id="@+id/county_select_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:completionThreshold="1"
+
+                android:hint="@string/county"/>
+        </LinearLayout>
 
         <Button
-            android:text="Send dummy message!"
+            android:id="@+id/details_form_send_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
-            android:onClick="sendSMS" />
+            android:onClick="sendSMS"
+            android:text="@string/send_message" />
+
+        <Button
+            android:id="@+id/save_values"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="saveValues"
+            android:text="@string/save_form_values" />
 
         <TextView
-            android:text="I will return to the main screen when message is delivered!"
+            android:id="@+id/return_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/return_message"
+            android:text="@string/delivery_pending"
             android:visibility="invisible" />
 
 
-
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EmerText</string>
-    <string name="firstname">名</string>
-    <string name="surname">性</string>
+    <string name="firstName">名 （拼音）</string>
+    <string name="surname">性 （拼音）</string>
     <string name="title_activity_details_form">请输入个人资料</string>
 
-    <string-array name="county_list">
-        <item>都柏林</item>
-        <item>科克</item>
-        <item>Wicklow</item>
-    </string-array>
 </resources>
