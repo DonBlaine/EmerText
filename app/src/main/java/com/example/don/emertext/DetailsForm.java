@@ -3,17 +3,15 @@ package com.example.don.emertext;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.telephony.SmsManager;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 
 
 public class DetailsForm extends Activity {
@@ -23,40 +21,114 @@ public class DetailsForm extends Activity {
     private int overrideCounter = 0;
     private EditText sendNumberEditText;
 
+    private EditText firstname_edittext;
+    private EditText lastname_edittext;
+    private EditText address1_edittext;
+    private EditText address2_edittext;
+    private AutoCompleteTextView county_autocomplete;
+    private EditText eircode_edittext;
+
+
+    SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_form);
 
-        //Set the contents for the county selector
-        Spinner spinner = (Spinner) findViewById(R.id.county_select_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.county_list, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
         sendNumberEditText = (EditText) findViewById(R.id.overrideNumber);
         sendNumberEditText.setText(EMERGENCY_NUMBER);
+
+        //Make EditTexts easily finadable
+        firstname_edittext = (EditText) findViewById(R.id.fnameInput);
+        lastname_edittext = (EditText) findViewById(R.id.lnamepinput);
+        address1_edittext = (EditText) findViewById(R.id.address1);
+        address2_edittext = (EditText) findViewById(R.id.address2);
+        county_autocomplete = (AutoCompleteTextView) findViewById(R.id.county_select_input);
+        eircode_edittext = (EditText) findViewById(R.id.eircode_edittext);
+
+
+        //Set the contents for the county selector
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.county_list, android.R.layout.simple_dropdown_item_1line);
+
+        county_autocomplete.setAdapter(adapter);
+
+        sharedPref = getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+        restoreSavedValue();
+
     }
 
 
+    public void restoreSavedValue() {
+        String blankString = "";
+        String savedFirstname = sharedPref.getString(getString(R.string.firstName), blankString);
+        String savedLastname = sharedPref.getString(getString(R.string.surname), blankString);
+        String savedAddress1 = sharedPref.getString(getString(R.string.address_line_1), blankString);
+        String savedAddress2 = sharedPref.getString(getString(R.string.address_line_2), blankString);
+        String savedCounty = sharedPref.getString(getString(R.string.county), blankString);
+        String savedEircode = sharedPref.getString(getString(R.string.eircode), blankString);
+
+        firstname_edittext.setText(savedFirstname);
+        lastname_edittext.setText(savedLastname);
+        address1_edittext.setText(savedAddress1);
+        address2_edittext.setText(savedAddress2);
+        county_autocomplete.setText(savedCounty);
+        eircode_edittext.setText(savedEircode);
+
+    }
+
+    public void autosetDublin(View view){
+    autosetDublin();
+}
+
+    public void autosetDublin() {
+        String eircode = eircode_edittext.getText().toString();
+        if (eircode.length() > 3 && eircode.toCharArray()[0] == 'D') {
+            String post = eircode.substring(1, 3);
+            if (post.toCharArray()[0] == '0') {
+                post = post.substring(1, 2);
+            }
+            county_autocomplete.setText("Dublin " + post);
+        }
+    }
 
 
     public String composeMessage(View view) {
-        EditText firstname = (EditText) findViewById(R.id.fnameInput);
-        EditText lastname = (EditText) findViewById(R.id.lnamepinput);
-        EditText address1 = (EditText) findViewById(R.id.address1);
-        EditText address2 = (EditText) findViewById(R.id.address2);
-        Spinner county = (Spinner) findViewById(R.id.county_select_spinner);
+        AutoCompleteTextView county = (AutoCompleteTextView) findViewById(R.id.county_select_input);
 
-        String message = firstname.getText().toString() + " " +
-                lastname.getText().toString() + " " +
-                address1.getText().toString() + " " +
-                address2.getText().toString() + " " +
-                county.getSelectedItem().toString() + " " +
+        String message = firstname_edittext.getText().toString() + " " +
+                lastname_edittext.getText().toString() + " " +
+                address1_edittext.getText().toString() + " " +
+                address2_edittext.getText().toString() + " " +
+                county.getText().toString() + " " +
                 "requires an ambulance.";
         return message;
     }
 
+
+    public void saveValues(View view) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        String firstnamevalue = firstname_edittext.getText().toString();
+        String lastnamevalue = lastname_edittext.getText().toString();
+        String address1value = address1_edittext.getText().toString();
+        String address2value = address2_edittext.getText().toString();
+        String countyvalue = county_autocomplete.getText().toString();
+        String eircodevalue = eircode_edittext.getText().toString();
+
+        editor.putString(getString(R.string.firstName), firstnamevalue);
+        editor.putString(getString(R.string.surname), lastnamevalue);
+        editor.putString(getString(R.string.address_line_1), address1value);
+        editor.putString(getString(R.string.address_line_2), address2value);
+        editor.putString(getString(R.string.county), countyvalue);
+        editor.putString(getString(R.string.eircode), eircodevalue);
+
+        editor.apply();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
     public void revealOverride(View view) {
