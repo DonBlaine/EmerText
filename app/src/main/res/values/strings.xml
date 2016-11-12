@@ -22,6 +22,7 @@
         <item>Seizure</item>
         <item>Fall</item>
     </string-array>
+    <string name="action_settings">Settings</string>
 
     <string name="title_activity_map_pin">Map</string>
     <string name="button">Button</string>
