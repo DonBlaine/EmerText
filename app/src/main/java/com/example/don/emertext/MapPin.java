@@ -1,5 +1,7 @@
 package com.example.don.emertext;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -47,7 +49,7 @@ import static android.Manifest.permission_group.LOCATION;
 public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnCameraIdleListener {
 
     public static final String TAG = MapPin.class.getSimpleName();
     private GoogleMap mMap;
@@ -134,31 +136,43 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
                     .title("Set Location").draggable(true).visible(true);
             marker = mMap.addMarker(options);
             marker.showInfoWindow();
+            mMap.setOnInfoWindowClickListener(this);
 
 
             String address = getLocation(mMap.getCameraPosition().target);
             TextView locationTextBox = (TextView) findViewById(R.id.user_address);
             locationTextBox.setText(address);
 
+            mMap.setOnCameraIdleListener(this);
 
         }else{
             Toast.makeText(this, "Error, unable to display map", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    @Override
+    public void onCameraIdle() {
+        mMap.clear();
+        MarkerOptions options = new MarkerOptions()
+                .position(mMap.getCameraPosition().target)
+                .title("Set Location").draggable(true).visible(true);
+        marker = mMap.addMarker(options);
+        marker.showInfoWindow();
 
-//        googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-//
-//            @Override
-//            public void onCameraChange(CameraPosition position) {
-//                // TODO Auto-generated method stub
-//
-//                Log.w(""+position.target.latitude, ""+position.target.longitude);
-//
-//                new ReverseGeocodingTask().execute(position.target);
-//
-//
-//            }
-//        });
+        String address = getLocation(mMap.getCameraPosition().target);
+        TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+        locationTextBox.setText(address);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        String result = getLocation(mMap.getCameraPosition().target);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",result);
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
+        //Toast.makeText(this, "Info window clicked",
+        //        Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -256,6 +270,7 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         }
         return addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality();
     }
+
 }
 
 //    Intent i = getIntent();

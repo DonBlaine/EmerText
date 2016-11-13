@@ -77,9 +77,24 @@ public class LocationDetails extends Activity implements GoogleApiClient.Connect
     public void startMap(View view) {
         if (locationEnabled){
             Intent intent = new Intent(LocationDetails.this, MapPin.class);
-            startActivity(intent);
+            startActivityForResult(intent,1);
         }else{
             Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result = data.getStringExtra("result");
+                EditText loc = (EditText)findViewById(R.id.curLocation);
+                loc.setText(result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Error getting location", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
