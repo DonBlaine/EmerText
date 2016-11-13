@@ -2,6 +2,8 @@ package com.example.don.emertext;
 
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.*;
 import com.google.android.gms.location.LocationListener;
@@ -17,16 +20,26 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+
 import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import static android.Manifest.permission_group.LOCATION;
 
 // This code was inspired by the tutorial http://blog.teamtreehouse.com/beginners-guide-location-android
@@ -36,11 +49,12 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    public static final String TAG = MapPin.class.getSimpleName();
     private GoogleMap mMap;
     private LocationRequest mLocationRequest;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
-    public static final String TAG = MapPin.class.getSimpleName();
+    private Marker marker;
     private static final int REQUEST_LOCATION = 1;
 
 
@@ -72,7 +86,6 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
             mGoogleApiClient.connect();
         }
         setUpMapIfNeeded();
-
     }
 
     @Override
@@ -96,33 +109,56 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onMapReady(GoogleMap map) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // This check is handled in the onConnected method.
+            return;
+        }
         mMap = map;
-
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
+    //create marker on map with clickable label that repositions on camera move and displays address
+    //in textview
     private void handleNewLocation(Location location) {
         Log.d(TAG, location.toString());
 
-        double currentLatitude = location.getLatitude();
-        double currentLongitude = location.getLongitude();
-        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+        if (mMap != null){
+            double currentLatitude = location.getLatitude();
+            double currentLongitude = location.getLongitude();
+            LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng)
+                    .title("Set Location").draggable(true).visible(true);
+            marker = mMap.addMarker(options);
+            marker.showInfoWindow();
 
-        MarkerOptions options = new MarkerOptions()
-                .position(latLng)
-                .title("I am here!").draggable(true).visible(true);
-        Marker marker = mMap.addMarker(options);
-        marker.showInfoWindow();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
-                        REQUEST_LOCATION);
-            }
+            String address = getLocation(mMap.getCameraPosition().target);
+            TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+            locationTextBox.setText(address);
+
+
+        }else{
+            Toast.makeText(this, "Error, unable to display map", Toast.LENGTH_SHORT).show();
         }
-        mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
+//        googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+//
+//            @Override
+//            public void onCameraChange(CameraPosition position) {
+//                // TODO Auto-generated method stub
+//
+//                Log.w(""+position.target.latitude, ""+position.target.longitude);
+//
+//                new ReverseGeocodingTask().execute(position.target);
+//
+//
+//            }
+//        });
     }
 
     @Override
@@ -163,16 +199,20 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (location == null) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (location != null){
+                handleNewLocation(location);
+            }
         }
         else {
             handleNewLocation(location);
         }
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Location services suspended. Please reconnect.");
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -191,8 +231,30 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
+        if (location == null){
+            return;
+        }
+        if (marker == null){
+            handleNewLocation(location);
+        }
+    }
 
-        handleNewLocation(location);
+    @Nullable
+    private String getLocation(LatLng curLocation){
+
+        double latitude = curLocation.latitude;
+        double longitude = curLocation.longitude;
+
+        Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+        List<Address> addresses;
+
+        try {
+            addresses = gcd.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality();
     }
 }
 
