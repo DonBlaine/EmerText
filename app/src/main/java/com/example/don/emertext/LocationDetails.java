@@ -42,6 +42,7 @@ public class LocationDetails extends Activity implements GoogleApiClient.Connect
     private static final int REQUEST_LOCATION = 1;
     private boolean locationEnabled = false;
     private Location mlocation;
+    private boolean userEnteredLocation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +92,10 @@ public class LocationDetails extends Activity implements GoogleApiClient.Connect
                 String result = data.getStringExtra("result");
                 EditText loc = (EditText)findViewById(R.id.curLocation);
                 loc.setText(result);
+                userEnteredLocation = true;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, "Error getting location", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error! You did not select a location.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -124,7 +126,7 @@ public class LocationDetails extends Activity implements GoogleApiClient.Connect
         Log.i(TAG, "Location services connected.");
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                Log.i(TAG, "test1.");
+
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
                         REQUEST_LOCATION);
@@ -135,7 +137,6 @@ public class LocationDetails extends Activity implements GoogleApiClient.Connect
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
         else {
-            Log.i(TAG, "test2.");
             locationEnabled = true;
             populateLocation(mlocation);
         }
@@ -207,13 +208,19 @@ public class LocationDetails extends Activity implements GoogleApiClient.Connect
             e.printStackTrace();
             return null;
         }
-        String fullAddress = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality();
-        return fullAddress;
+        return addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality();
     }
 
     public void populateLocation(Location curLocation){
-        String locationInfo = getLocation(curLocation);
-        EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
-        locationTextBox.setText(locationInfo);
+        Log.i(TAG, "Test redo");
+
+        if (!userEnteredLocation){
+            String locationInfo = getLocation(curLocation);
+            EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
+            locationTextBox.setText(locationInfo);
+        }
+    }
+
+    public void submitInfo(View view) {
     }
 }

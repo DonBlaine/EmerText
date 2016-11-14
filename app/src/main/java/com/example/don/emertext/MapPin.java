@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,15 +51,18 @@ import static android.Manifest.permission_group.LOCATION;
 public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnCameraIdleListener {
+        LocationListener,
+        GoogleMap.OnCameraIdleListener,
+        GoogleMap.OnCameraMoveListener {
 
     public static final String TAG = MapPin.class.getSimpleName();
     private GoogleMap mMap;
     private LocationRequest mLocationRequest;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
-    private Marker marker;
+    //private Marker marker;
     private static final int REQUEST_LOCATION = 1;
+    private TextView markerButton;
 
 
     @Override
@@ -118,31 +123,30 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
         mMap = map;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 
     //create marker on map with clickable label that repositions on camera move and displays address
     //in textview
     private void handleNewLocation(Location location) {
         Log.d(TAG, location.toString());
+        markerButton = (TextView) findViewById(R.id.markerbutton);
 
         if (mMap != null){
             double currentLatitude = location.getLatitude();
             double currentLongitude = location.getLongitude();
             LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title("Set Location").draggable(true).visible(true);
-            marker = mMap.addMarker(options);
-            marker.showInfoWindow();
-            mMap.setOnInfoWindowClickListener(this);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
 
-
-            String address = getLocation(mMap.getCameraPosition().target);
-            TextView locationTextBox = (TextView) findViewById(R.id.user_address);
-            locationTextBox.setText(address);
-
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    String address = getLocation(mMap.getCameraPosition().target);
+                    TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+                    locationTextBox.setText(address);
+                }
+            });
+            mMap.setOnCameraMoveListener(this);
             mMap.setOnCameraIdleListener(this);
 
         }else{
@@ -151,21 +155,21 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
     }
 
     @Override
+    public void onCameraMove() {
+        markerButton.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public void onCameraIdle() {
-        mMap.clear();
-        MarkerOptions options = new MarkerOptions()
-                .position(mMap.getCameraPosition().target)
-                .title("Set Location").draggable(true).visible(true);
-        marker = mMap.addMarker(options);
-        marker.showInfoWindow();
+
+        markerButton.setVisibility(View.VISIBLE);
 
         String address = getLocation(mMap.getCameraPosition().target);
         TextView locationTextBox = (TextView) findViewById(R.id.user_address);
         locationTextBox.setText(address);
     }
 
-    @Override
-    public void onInfoWindowClick(Marker marker) {
+    public void submitAddress(View view) {
         String result = getLocation(mMap.getCameraPosition().target);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",result);
@@ -245,12 +249,7 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
-        if (location == null){
-            return;
-        }
-        if (marker == null){
-            handleNewLocation(location);
-        }
+
     }
 
     @Nullable
@@ -258,12 +257,17 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
 
         double latitude = curLocation.latitude;
         double longitude = curLocation.longitude;
+        String lat = Double.toString(latitude);
+        String lon = Double.toString(longitude);
+        Log.i(TAG, lat);
+        Log.i(TAG, lon);
 
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
         List<Address> addresses;
 
         try {
             addresses = gcd.getFromLocation(latitude, longitude, 1);
+            Log.i(TAG, Arrays.toString(addresses.toArray()));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
