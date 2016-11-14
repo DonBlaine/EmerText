@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -48,7 +49,7 @@ import static android.Manifest.permission_group.LOCATION;
 
 // This code was inspired by the tutorial http://blog.teamtreehouse.com/beginners-guide-location-android
 // which deals with creating google map with the user's current location.
-public class MapPin extends FragmentActivity implements OnMapReadyCallback,
+public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
@@ -136,7 +137,7 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
             double currentLatitude = location.getLatitude();
             double currentLongitude = location.getLongitude();
             LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,19));
 
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
@@ -272,7 +273,7 @@ public class MapPin extends FragmentActivity implements OnMapReadyCallback,
             e.printStackTrace();
             return null;
         }
-        return addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality();
+        return addresses.get(0).getAddressLine(0);
     }
 
 }

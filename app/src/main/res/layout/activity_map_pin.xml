@@ -23,22 +23,6 @@
         android:background="@mipmap/pin"
         android:contentDescription="@string/app_name" />
 
-    <TextView
-        android:id="@+id/markerbutton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_corners"
-        android:backgroundTint="@color/black"
-        android:gravity="center"
-        android:minWidth="100dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:text=" Set Location "
-        android:onClick="submitAddress"
-        android:textColor="@android:color/white"
-        android:layout_above="@+id/markerWindow"
-        android:layout_centerHorizontal="true" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,5 +47,24 @@
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/markerbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corners"
+        android:backgroundTint="@color/black"
+        android:gravity="center"
+        android:minWidth="100dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text=" Set Location "
+        android:onClick="submitAddress"
+        android:textColor="@android:color/white"
+        android:layout_above="@+id/markerWindow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
 
 </RelativeLayout>

@@ -34,12 +34,7 @@
 
         <activity
             android:name=".MapPin"
-            android:label="@string/title_activity_map_pin">
-        <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.VIEW" />-->
-
-            <!--<category android:name="android.intent.category.BROWSABLE" />-->
-        <!--</intent-filter>-->
+            android:label="@string/title_activity_location">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
