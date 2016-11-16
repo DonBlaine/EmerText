@@ -103,19 +103,6 @@ public class BasicDetails extends Fragment {
         super.onDetach();
     }
 
-/*    @Override
-    public void onDestroy(){
-        //Release variables
-        sendNumberEditText = null;
-        firstname_edittext = null;
-        lastname_edittext = null;
-        address1_edittext = null;
-        address2_edittext = null;
-        county_autocomplete = null;
-        eircode_edittext = null;
-        sharedPref=null;
-        super.onDestroy();
-    }*/
 
     public void restoreSavedValue() {
         String blankString = "";
