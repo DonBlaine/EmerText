@@ -54,7 +54,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".UnsupportedNetwork"></activity>
+        <activity android:name=".UnsupportedNetwork" />
+        <activity
+            android:name=".TabbedDetails"
+            android:label="@string/title_activity_tabbed_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

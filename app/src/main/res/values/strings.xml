@@ -60,4 +60,12 @@
     <string name="default_emergency_number">0831453528</string>
     <string name="eircode">Eircode</string>
     <string name="personal_details_file">personaldets</string>
+    <string name="title_activity_tabbed_details">TabbedDetails</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="medicinal_allegies">Medicinal allegies</string>
+    <string name="basic_details">Basic details</string>
+    <string name="medical_information">Medical information</string>
 </resources>

@@ -4,5 +4,4 @@
     <string name="firstName">名 （拼音）</string>
     <string name="surname">性 （拼音）</string>
     <string name="title_activity_details_form">请输入个人资料</string>
-
 </resources>

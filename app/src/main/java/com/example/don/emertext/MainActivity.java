@@ -96,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         else {
                 Button button = (Button) findViewById(R.id.button);
                 button.setText("You haven't granted SMS permissions");
-            }
+            }}
 
-}}
+    public void enterFragment(View view){
+            Intent intent = new Intent(this, TabbedDetails.class);
+            startActivity(intent);
+
+    }}
