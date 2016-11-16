@@ -130,7 +130,6 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
                 public void onMapLoaded() {
                     LatLng curLocation = mMap.getCameraPosition().target;
                     String address = getLocation(curLocation);
-                    Log.i(TAG, address);
                     if (address == null){
                         double latitude = curLocation.latitude;
                         double longitude = curLocation.longitude;
@@ -164,7 +163,6 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     public void onCameraIdle() {
         LatLng curLocation = mMap.getCameraPosition().target;
         String address = getLocation(curLocation);
-        Log.i(TAG, address);
         if (address == null) {
             double latitude = curLocation.latitude;
             double longitude = curLocation.longitude;
@@ -276,17 +274,11 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
         double latitude = curLocation.latitude;
         double longitude = curLocation.longitude;
-        String lat = Double.toString(latitude);
-        String lon = Double.toString(longitude);
-        Log.i(TAG, lat);
-        Log.i(TAG, lon);
-
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
         List<Address> addresses;
 
         try {
             addresses = gcd.getFromLocation(latitude, longitude, 1);
-            Log.i(TAG, Arrays.toString(addresses.toArray()));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
