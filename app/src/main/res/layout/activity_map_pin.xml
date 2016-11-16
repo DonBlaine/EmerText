@@ -14,6 +14,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.don.emertext.MapPin" />
 
+    <!--Below image taken from
+    http://www.softicons.com/web-icons/vista-map-markers-icons-by-icons-land/map-marker-outside-azure-icon-->
     <ImageView
         android:layout_width="wrap_content"
         android:id="@+id/markerWindow"
