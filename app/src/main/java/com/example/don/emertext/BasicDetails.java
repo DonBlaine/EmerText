@@ -103,7 +103,7 @@ public class BasicDetails extends Fragment {
         super.onDetach();
     }
 
-    @Override
+/*    @Override
     public void onDestroy(){
         //Release variables
         sendNumberEditText = null;
@@ -115,7 +115,7 @@ public class BasicDetails extends Fragment {
         eircode_edittext = null;
         sharedPref=null;
         super.onDestroy();
-    }
+    }*/
 
     public void restoreSavedValue() {
         String blankString = "";
