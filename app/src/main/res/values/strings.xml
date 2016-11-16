@@ -63,6 +63,10 @@
     <string name="title_activity_tabbed_details">TabbedDetails</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+<!--Strings for the welcome page-->
+    <string name="Talk_str_btn" translatable="false">Talk to Passerby</string>
+    <string name="Per_Det_btn" translatable="false">Personal Details</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medicinal_allegies">Medicinal allegies</string>
