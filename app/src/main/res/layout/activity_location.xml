@@ -48,6 +48,7 @@
             android:id="@+id/curLocation"
             android:background="@color/white"
             android:hint="Enter Location"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             tools:ignore="HardcodedText" />
 
@@ -86,46 +87,17 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/emertype"
-            android:textColor="@color/black"/>
-
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/emertype_spinner"
             android:hint="Enter Emergency Type"
             android:textColorHint="@color/black"
             android:entries="@array/emer_type"
             android:background="@color/white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/whois"
-            android:textColor="@color/black"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:hint="Enter People With You"
-            android:textColorHint="@color/black"
-            android:inputType="textPersonName"
-            android:id="@+id/people_with_you"
-            android:background="@color/white"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:text="@string/exdetails"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -133,11 +105,26 @@
             android:textColorHint="@color/black"
             android:hint="Enter Details"
             android:gravity="top|left"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:minLines="1"
             android:padding="10dp"
             android:inputType="textCapSentences|textAutoCorrect"
             android:id="@+id/extra_details"
             android:background="@color/white"/>
+
+        <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="Enter People With You"
+        android:textColorHint="@color/black"
+        android:inputType="textPersonName"
+        android:id="@+id/people_with_you"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"/>
+
 
     </LinearLayout>
 
