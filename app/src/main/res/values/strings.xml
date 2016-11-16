@@ -21,6 +21,9 @@
         <item>Injury</item>
         <item>Seizure</item>
         <item>Fall</item>
+        <item>Crime</item>
+        <item>Fire</item>
+        <item>Stroke</item>
     </string-array>
 
     <string name="title_activity_map_pin">Map</string>

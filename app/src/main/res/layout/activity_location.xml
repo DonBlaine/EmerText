@@ -51,6 +51,17 @@
                 android:orientation="vertical"
                 tools:ignore="HardcodedText" />
 
+            <Button
+                android:text="Use Home Address"
+                android:layout_width="275dp"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_home"
+                android:onClick=""
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="HardcodedText" />
+
         </LinearLayout>
 
         <TextView
@@ -58,7 +69,8 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/emertype"/>
-        <Spinner
+
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -66,8 +78,6 @@
             android:entries="@array/emer_type"
             android:background="@color/darkGrey"
             />
-        <!--android:textColor="@color/black"-->
-
 
         <TextView
             android:layout_width="match_parent"
@@ -81,7 +91,6 @@
             android:padding="10dp"
             android:inputType="textPersonName"
             android:id="@+id/people_with_you"
-            android:minLines="1"
             android:background="@color/darkGrey"/>
 
         <TextView
@@ -92,19 +101,24 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="115dp"
+            android:layout_height="wrap_content"
             android:gravity="top|left"
-            android:minLines="3"
+            android:minLines="1"
             android:padding="10dp"
             android:inputType="textCapSentences|textAutoCorrect"
             android:id="@+id/extra_details"
             android:background="@color/darkGrey"/>
 
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:text="Send Text"
@@ -113,10 +127,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/send_text"
             android:onClick="submitInfo"
+            android:background="@color/colorAccent"
             tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
 

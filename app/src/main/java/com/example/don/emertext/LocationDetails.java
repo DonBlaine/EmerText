@@ -16,7 +16,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,15 +39,20 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
     private LocationRequest mLocationRequest;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
-    public static final String TAG = MapPin.class.getSimpleName();
+    public static final String TAG = LocationDetails.class.getSimpleName();
     private static final int REQUEST_LOCATION = 1;
     private boolean locationEnabled = false;
     private Location mlocation;
+    private String gps = null;
+    private String stringLocation = null;
     private boolean userEnteredLocation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Intent i = getIntent();
+        //Boolean longPress = i.getExtras().getBoolean("longpress");
+
         setContentView(R.layout.activity_location);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -56,6 +64,17 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1000); // 1 second, in milliseconds
+
+        String[] spinnerArray = getResources().getStringArray(R.array.emer_type);
+        ((AutoCompleteTextView) findViewById(R.id.emertype_spinner)).setAdapter(
+                new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
+                        spinnerArray));
+
+//            Intent intent = new Intent(LocationDetails.this, finalscreen.class);
+//            intent.putExtra("location",stringLocation);
+//            intent.putExtra("gps",gps);
+//            startActivityForResult(intent,1);
+
     }
 
     @Override
@@ -87,9 +106,10 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                String result = data.getStringExtra("result");
+                stringLocation = data.getStringExtra("locationaddress");
                 EditText loc = (EditText)findViewById(R.id.curLocation);
-                loc.setText(result);
+                gps = data.getStringExtra("gps");
+                loc.setText(stringLocation);
                 userEnteredLocation = true;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -97,27 +117,6 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
             }
         }
     }
-
-//    public void submitInfo(View view){
-//        Intent i = new Intent(LocationDetails.this, MapPin.class);
-//
-//        //Set the Data to pass
-//        EditText loc = (EditText)findViewById(R.id.curLocation);
-//        Spinner emt = (Spinner) findViewById(R.id.emertype_spinner);
-//        EditText pw = (EditText)findViewById(R.id.people_with_you);
-//        EditText ed = (EditText)findViewById(R.id.extra_details);
-//        String userLocation = loc.getText().toString();
-//        String emergencyType = emt.getSelectedItem().toString();
-//        String peopleWith = pw.getText().toString();
-//        String extraDetails = ed.getText().toString();
-//        i.putExtra("userLocation", userLocation);
-//        i.putExtra("emergencyType", emergencyType);
-//        i.putExtra("peopleWith", peopleWith);
-//        i.putExtra("extraDetails", extraDetails);
-//
-//        startActivity(i);
-//
-//    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -165,6 +164,7 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
+
         // Make sure it's our original READ_CONTACTS request
         if (requestCode == REQUEST_LOCATION) {
             if (grantResults.length == 1 &&
@@ -196,7 +196,7 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
 
         double latitude = curLocation.getLatitude();
         double longitude = curLocation.getLongitude();
-
+        gps = "Lat: " + Double.toString(latitude) + ", Lon: " + Double.toString(longitude);
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
         List<android.location.Address> addresses;
 
@@ -210,16 +210,42 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
     }
 
     public void populateLocation(Location curLocation){
-        if (!userEnteredLocation){
-            String locationInfo = getLocation(curLocation);
-            if (locationInfo == null){
+        if (!userEnteredLocation && isNetworkConnected()){
+            stringLocation = getLocation(curLocation);
+
+            if (stringLocation == null){
                 locationEnabled = false;
             }else{
                 EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
-                locationTextBox.setText(locationInfo);
+                locationTextBox.setText(stringLocation);
             }
         }
     }
-    public void submitInfo(View view) {
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void submitInfo(View view){
+        Intent i = new Intent(LocationDetails.this, MapPin.class);
+
+        //Set the Data to pass
+        EditText loc = (EditText)findViewById(R.id.curLocation);
+        AutoCompleteTextView emt = (AutoCompleteTextView) findViewById(R.id.emertype_spinner);
+        EditText pw = (EditText)findViewById(R.id.people_with_you);
+        EditText ed = (EditText)findViewById(R.id.extra_details);
+        String userLocation = loc.getText().toString();
+        String emergencyType = emt.getText().toString();
+        String peopleWith = pw.getText().toString();
+        String extraDetails = ed.getText().toString();
+        i.putExtra("userLocation", userLocation);
+        i.putExtra("emergencyType", emergencyType);
+        i.putExtra("peopleWith", peopleWith);
+        i.putExtra("extraDetails", extraDetails);
+        i.putExtra("gps",gps);
+
+        startActivity(i);
     }
 }
