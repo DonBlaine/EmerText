@@ -33,6 +33,7 @@ public class UnsupportedNetwork extends AppCompatActivity {
             if (mnc.equals(operators[index])) {
                 value = index;
             }}
+        //Network codes 27205 and 27202 are both for Three IE, so return the same value
             if (value == 3) {
                 value = 1;
             }

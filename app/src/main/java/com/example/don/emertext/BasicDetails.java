@@ -43,12 +43,6 @@ public class BasicDetails extends Fragment {
         // Required empty public constructor
     }
 
-@Override
-public void onDetach(){
-    //Save values on detach view
-    saveValues();
-    super.onDetach();
-}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +93,28 @@ public void onDetach(){
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         restoreSavedValue();
         return rootView;
+    }
+
+
+    @Override
+    public void onDetach(){
+        //Save values on detach view
+        saveValues();
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroy(){
+        //Release variables
+        sendNumberEditText = null;
+        firstname_edittext = null;
+        lastname_edittext = null;
+        address1_edittext = null;
+        address2_edittext = null;
+        county_autocomplete = null;
+        eircode_edittext = null;
+        sharedPref=null;
+        super.onDestroy();
     }
 
     public void restoreSavedValue() {
