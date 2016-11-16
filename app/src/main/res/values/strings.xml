@@ -63,7 +63,7 @@
     <string name="title_activity_tabbed_details">TabbedDetails</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-<!--Strings for the welcome page-->
+    <!--Strings for the welcome page-->
     <string name="Talk_str_btn" translatable="false">Talk to Passerby</string>
     <string name="Per_Det_btn" translatable="false">Personal Details</string>
 
@@ -72,4 +72,6 @@
     <string name="medicinal_allegies">Medicinal allegies</string>
     <string name="basic_details">Basic details</string>
     <string name="medical_information">Medical information</string>
+    <string name="useFingerprint_key">useFingerprint</string>
+    <string name="details_initialised_key">details_initialised</string>
 </resources>

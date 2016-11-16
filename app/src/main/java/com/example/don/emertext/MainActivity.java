@@ -15,15 +15,32 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         View view=getCurrentFocus();
         checkNetwork(view);
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+
+        if (!sharedPref.getBoolean(getString(R.string.details_initialised_key),false)){
+            Intent intent=new Intent(this, TabbedDetails.class);
+            startActivity(intent);
+        }
+
+            if (sharedPref.getBoolean(getString(R.string.useFingerprint_key),false)){
+                String finger = "Trying to access fingerprint authentication";
+                Toast toast = Toast.makeText(this,finger,Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
 
         }
 

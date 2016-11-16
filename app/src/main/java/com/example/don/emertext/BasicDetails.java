@@ -3,9 +3,11 @@ package com.example.don.emertext;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +41,7 @@ public class BasicDetails extends Fragment {
     private EditText eircode_edittext;
     SharedPreferences sharedPref;
     private View rootView;
+    private CheckBox fingerprint_checkbox;
 
     public BasicDetails() {
         // Required empty public constructor
@@ -60,6 +64,7 @@ public class BasicDetails extends Fragment {
         address2_edittext = (EditText) rootView.findViewById(R.id.address2);
         county_autocomplete = (AutoCompleteTextView) rootView.findViewById(R.id.county_select_input);
         eircode_edittext = (EditText) rootView.findViewById(R.id.eircode_edittext);
+        fingerprint_checkbox = (CheckBox) rootView.findViewById(R.id.fingerprint_checkbox);
         Button save_button=(Button) rootView.findViewById(R.id.save_values_button);
 
 
@@ -92,6 +97,7 @@ public class BasicDetails extends Fragment {
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         restoreSavedValue();
+
         return rootView;
     }
 
@@ -112,6 +118,7 @@ public class BasicDetails extends Fragment {
         String savedAddress2 = sharedPref.getString(getString(R.string.address_line_2), blankString);
         String savedCounty = sharedPref.getString(getString(R.string.county), blankString);
         String savedEircode = sharedPref.getString(getString(R.string.eircode), blankString);
+        boolean useFingerprint = sharedPref.getBoolean(getString(R.string.useFingerprint_key),false);
 
         firstname_edittext.setText(savedFirstname);
         lastname_edittext.setText(savedLastname);
@@ -119,6 +126,7 @@ public class BasicDetails extends Fragment {
         address2_edittext.setText(savedAddress2);
         county_autocomplete.setText(savedCounty);
         eircode_edittext.setText(savedEircode);
+        fingerprint_checkbox.setChecked(useFingerprint);
 
     }
 
@@ -160,6 +168,7 @@ public class BasicDetails extends Fragment {
         String address2value = address2_edittext.getText().toString();
         String countyvalue = county_autocomplete.getText().toString();
         String eircodevalue = eircode_edittext.getText().toString();
+        boolean activateFingerprint = fingerprint_checkbox.isChecked();
 
         editor.putString(getString(R.string.firstName), firstnamevalue);
         editor.putString(getString(R.string.surname), lastnamevalue);
@@ -167,7 +176,9 @@ public class BasicDetails extends Fragment {
         editor.putString(getString(R.string.address_line_2), address2value);
         editor.putString(getString(R.string.county), countyvalue);
         editor.putString(getString(R.string.eircode), eircodevalue);
-
+        editor.putString(getString(R.string.eircode), eircodevalue);
+        editor.putBoolean(getString(R.string.useFingerprint_key),activateFingerprint);
+        editor.putBoolean(getString(R.string.details_initialised_key),true);
         editor.apply();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getContext(), "Saved", duration);
