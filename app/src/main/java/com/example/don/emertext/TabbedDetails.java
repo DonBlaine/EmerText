@@ -33,6 +33,7 @@ public class TabbedDetails extends AppCompatActivity {
         setContentView(R.layout.activity_tabbed_details);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         basicDetails=new BasicDetails();

@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void enterDetails(View view){
             if (requestSMS(view)){
-            Intent intent = new Intent(this, DetailsForm.class);
+            Intent intent = new Intent(this, UnsupportedNetwork.class);
             startActivity(intent);}
         else {
                 Button button = (Button) findViewById(R.id.button);

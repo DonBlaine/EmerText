@@ -12,7 +12,7 @@
     tools:context="com.example.don.emertext.UnsupportedNetwork">
 
     <TextView
-        android:text="Unsupported network"
+        android:text="Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,16 +21,62 @@
         android:id="@+id/unsupported_title"
         android:textSize="30sp" />
 
-    <TextView
-        android:text="The current network is not in the whitelist of supported networks."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/unsupported_title"
-        android:layout_alignParentLeft="true"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp"
-        android:id="@+id/textView2"
-        android:textSize="18sp" />
+        android:layout_below="@+id/unsupported_title">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/yellow_warning"
+                android:id="@+id/network_icon"
+                android:layout_weight="1"
+                android:layout_below="@+id/net_status_text"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="Network Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/net_status_text"
+                android:layout_weight="1"
+                android:layout_below="@+id/unsupported_title"
+                android:layout_toEndOf="@+id/unsupported_title"
+                android:layout_marginStart="33dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/yellow_warning"
+                android:id="@+id/sim_icon"
+                android:layout_weight="1"
+                android:layout_below="@+id/net_status_text"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="SIM Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sim_status_text"
+                android:layout_weight="1"
+                android:layout_below="@+id/unsupported_title"
+                android:layout_toEndOf="@+id/unsupported_title"
+                android:layout_marginStart="33dp" />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
