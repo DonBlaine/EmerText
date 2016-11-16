@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_location"
     android:layout_width="match_parent"
@@ -8,108 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#cacaca"
     tools:context="com.example.don.emertext.LocationDetails">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/location"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:inputType="textPersonName"
-            android:id="@+id/curLocation"
-            android:background="@color/darkGrey"
-            android:hint="Enter Location"
-            tools:ignore="HardcodedText" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <Button
-                android:text="Refine Location"
-                android:layout_width="275dp"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/location_button"
-                android:onClick="startMap"
-                android:gravity="center"
-                android:orientation="vertical"
-                tools:ignore="HardcodedText" />
-
-            <Button
-                android:text="Use Home Address"
-                android:layout_width="275dp"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/add_home"
-                android:onClick=""
-                android:gravity="center"
-                android:orientation="vertical"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/emertype"/>
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/emertype_spinner"
-            android:entries="@array/emer_type"
-            android:background="@color/darkGrey"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/whois"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:inputType="textPersonName"
-            android:id="@+id/people_with_you"
-            android:background="@color/darkGrey"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/exdetails"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top|left"
-            android:minLines="1"
-            android:padding="10dp"
-            android:inputType="textCapSentences|textAutoCorrect"
-            android:id="@+id/extra_details"
-            android:background="@color/darkGrey"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,8 +28,117 @@
             android:layout_height="wrap_content"
             android:id="@+id/send_text"
             android:onClick="submitInfo"
-            android:background="@color/colorAccent"
+            android:background="@drawable/plain_btn"
             tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:inputType="textPersonName"
+            android:id="@+id/curLocation"
+            android:background="@color/white"
+            android:hint="Enter Location"
+            android:textColorHint="@color/black"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <Button
+                android:text="Refine Location"
+                android:layout_width="275dp"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_button"
+                android:onClick="startMap"
+                android:gravity="center"
+                android:background="@drawable/plain_btn"
+                android:orientation="vertical"
+                tools:ignore="HardcodedText"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"/>
+
+            <Button
+                android:text="Use Home Address"
+                android:layout_width="275dp"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_home"
+                android:onClick=""
+                android:background="@drawable/plain_btn"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/emertype"
+            android:textColor="@color/black"/>
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/emertype_spinner"
+            android:hint="Enter Emergency Type"
+            android:textColorHint="@color/black"
+            android:entries="@array/emer_type"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/whois"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="Enter People With You"
+            android:textColorHint="@color/black"
+            android:inputType="textPersonName"
+            android:id="@+id/people_with_you"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:text="@string/exdetails"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black"
+            android:hint="Enter Details"
+            android:gravity="top|left"
+            android:minLines="1"
+            android:padding="10dp"
+            android:inputType="textCapSentences|textAutoCorrect"
+            android:id="@+id/extra_details"
+            android:background="@color/white"/>
+
     </LinearLayout>
 
 

@@ -27,4 +27,8 @@
     </string-array>
 
     <string name="title_activity_map_pin">Map</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+
+    <string name="Talk_str_btn" translatable="false">Talk to Passerby</string>
+    <string name="Per_Det_btn" translatable="false">Personal Details</string>
 </resources>
