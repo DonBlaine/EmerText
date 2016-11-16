@@ -1,10 +1,12 @@
 package com.example.don.emertext;
 
-import android.*;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,21 +17,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 import android.location.Location;
-
 import static android.Manifest.permission_group.LOCATION;
 
 public class LocationDetails extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -81,7 +78,7 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
             Intent intent = new Intent(LocationDetails.this, MapPin.class);
             startActivityForResult(intent,1);
         }else{
-            Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error, location data is unavailable", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -213,15 +210,16 @@ public class LocationDetails extends AppCompatActivity implements GoogleApiClien
     }
 
     public void populateLocation(Location curLocation){
-        Log.i(TAG, "Test redo");
-
         if (!userEnteredLocation){
             String locationInfo = getLocation(curLocation);
-            EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
-            locationTextBox.setText(locationInfo);
+            if (locationInfo == null){
+                locationEnabled = false;
+            }else{
+                EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
+                locationTextBox.setText(locationInfo);
+            }
         }
     }
-
     public void submitInfo(View view) {
     }
 }

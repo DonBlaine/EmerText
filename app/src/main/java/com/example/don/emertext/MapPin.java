@@ -1,15 +1,12 @@
 package com.example.don.emertext;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -53,7 +50,6 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     //private Marker marker;
     private static final int REQUEST_LOCATION = 1;
     private TextView markerButton;
-    private boolean hasInternetAccess = false;
 
 
     @Override
@@ -132,13 +128,22 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
                 public void onMapLoaded() {
-                    String address = getLocation(mMap.getCameraPosition().target);
-                    if (isNetworkAvailable() && address != null){
+                    LatLng curLocation = mMap.getCameraPosition().target;
+                    String address = getLocation(curLocation);
+                    Log.i(TAG, address);
+                    if (address == null){
+                        double latitude = curLocation.latitude;
+                        double longitude = curLocation.longitude;
+                        String lat = Double.toString(latitude);
+                        String lon = Double.toString(longitude);
+                        Toast.makeText(getApplicationContext(), "Error, address data is unavailable",
+                                Toast.LENGTH_SHORT).show();
+                        address = "Lat: " + lat + ", Lon: " + lon;
                         TextView locationTextBox = (TextView) findViewById(R.id.user_address);
                         locationTextBox.setText(address);
                     }else{
-                        Toast.makeText(getApplicationContext(), "Error, data access is unavailable",
-                                Toast.LENGTH_SHORT).show();
+                        TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+                        locationTextBox.setText(address);
                     }
                 }
             });
@@ -157,19 +162,27 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     public void onCameraIdle() {
-        if (hasInternetAccess){
+        LatLng curLocation = mMap.getCameraPosition().target;
+        String address = getLocation(curLocation);
+        Log.i(TAG, address);
+        if (address == null) {
+            double latitude = curLocation.latitude;
+            double longitude = curLocation.longitude;
+            String lat = Double.toString(latitude);
+            String lon = Double.toString(longitude);
+            Toast.makeText(getApplicationContext(), "Error, address data is unavailable",
+                    Toast.LENGTH_SHORT).show();
+            address = "Lat: " + lat + ", Lon: " + lon;
+            TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+            locationTextBox.setText(address);
+            Toast.makeText(this, "Error, data access is unavailable",
+                    Toast.LENGTH_SHORT).show();
+        }else{
             markerButton.setVisibility(View.VISIBLE);
-            String address = getLocation(mMap.getCameraPosition().target);
-
-            if (address == null){
-                Toast.makeText(this, "Error, data access is unavailable",
-                        Toast.LENGTH_SHORT).show();
-                hasInternetAccess = false;
-            }else{
-                TextView locationTextBox = (TextView) findViewById(R.id.user_address);
-                locationTextBox.setText(address);
+            TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+            locationTextBox.setText(address);
             }
-        }
+
     }
 
     public void submitAddress(View view) {
@@ -279,13 +292,6 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
             return null;
         }
         return addresses.get(0).getAddressLine(0);
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }
