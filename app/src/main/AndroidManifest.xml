@@ -3,9 +3,6 @@
     package="com.example.don.emertext">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -14,11 +11,10 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -30,11 +26,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".DetailsForm"
+            android:label="@string/title_activity_details_form" />
+        <activity
             android:name=".LocationDetails"
             android:label="@string/title_activity_location" />
+
         <activity
             android:name=".MapPin"
-            android:label="@string/title_activity_location"></activity>
+            android:label="@string/title_activity_location">
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -46,17 +47,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".UnsupportedNetwork" />
-        <activity
-            android:name=".TabbedDetails"
-            android:label="@string/title_activity_tabbed_details"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".WelcomeActivity"
-            android:label="Emergency text"></activity>
     </application>
 
 </manifest>

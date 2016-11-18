@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Got help from http://stackoverflow.com/questions/15333529/how-to-provide-shadow-to-button -->
+<<<<<<< HEAD
     <!--for this code-->
+=======
+<!--for this code-->
+>>>>>>> origin/Don_Branch
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false">
         <layer-list>

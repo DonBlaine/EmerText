@@ -1,21 +1,21 @@
 package com.example.don.emertext;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.*;
 import com.google.android.gms.location.LocationListener;
@@ -23,32 +23,21 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-
 import android.Manifest;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
 import static android.Manifest.permission_group.LOCATION;
 
 // This code was inspired by the tutorial http://blog.teamtreehouse.com/beginners-guide-location-android
 // which deals with creating google map with the user's current location.
+
 public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -61,9 +50,10 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     private LocationRequest mLocationRequest;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
-    //private Marker marker;
     private static final int REQUEST_LOCATION = 1;
     private TextView markerButton;
+    private String locationAddress = null;
+    private String gps = null;
 
 
     @Override
@@ -142,9 +132,19 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
                 public void onMapLoaded() {
-                    String address = getLocation(mMap.getCameraPosition().target);
-                    TextView locationTextBox = (TextView) findViewById(R.id.user_address);
-                    locationTextBox.setText(address);
+                    Log.i(TAG, Boolean.toString(isNetworkConnected()));
+                    markerButton.setVisibility(View.VISIBLE);
+                    if (isNetworkConnected()){
+                        locationAddress = getLocation(mMap.getCameraPosition().target);
+                    }
+                    gps = getGPS(mMap.getCameraPosition().target);
+                    if (locationAddress == null){
+                        Toast.makeText(getApplicationContext(), "Error, address data is unavailable",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+                        locationTextBox.setText(locationAddress);
+                    }
                 }
             });
             mMap.setOnCameraMoveListener(this);
@@ -162,22 +162,26 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     public void onCameraIdle() {
-
         markerButton.setVisibility(View.VISIBLE);
-
-        String address = getLocation(mMap.getCameraPosition().target);
-        TextView locationTextBox = (TextView) findViewById(R.id.user_address);
-        locationTextBox.setText(address);
+        if (isNetworkConnected()){
+            locationAddress = getLocation(mMap.getCameraPosition().target);
+        }
+        gps = getGPS(mMap.getCameraPosition().target);
+        if (locationAddress == null){
+            Toast.makeText(getApplicationContext(), "Error, address data is unavailable",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            TextView locationTextBox = (TextView) findViewById(R.id.user_address);
+            locationTextBox.setText(locationAddress);
+        }
     }
 
     public void submitAddress(View view) {
-        String result = getLocation(mMap.getCameraPosition().target);
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",result);
+        returnIntent.putExtra("locationaddress",locationAddress);
+        returnIntent.putExtra("gps",gps);
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
-        //Toast.makeText(this, "Info window clicked",
-        //        Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -250,7 +254,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
-
+        //no override necessary
     }
 
     @Nullable
@@ -258,17 +262,11 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
         double latitude = curLocation.latitude;
         double longitude = curLocation.longitude;
-        String lat = Double.toString(latitude);
-        String lon = Double.toString(longitude);
-        Log.i(TAG, lat);
-        Log.i(TAG, lon);
-
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
         List<Address> addresses;
 
         try {
             addresses = gcd.getFromLocation(latitude, longitude, 1);
-            Log.i(TAG, Arrays.toString(addresses.toArray()));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -276,10 +274,18 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         return addresses.get(0).getAddressLine(0);
     }
 
-}
+    private String getGPS (LatLng curLocation){
+        double latitude = curLocation.latitude;
+        double longitude = curLocation.longitude;
 
-//    Intent i = getIntent();
-//    //The second parameter below is the default string returned if the value is not there.
-//    String txtData = i.getExtras().getString("txtData","");
-//    EditText txtInput2 = (EditText)findViewById(R.id.txtInput2);
-//txtInput2.setText(txtData)
+        return "Lat: " + Double.toString(latitude) + ", Lon: " + Double.toString(longitude);
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+}
