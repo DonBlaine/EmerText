@@ -91,11 +91,12 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
             switch (view.getId()){
                 case R.id.details_btn:
-                    //Intent intent = new Intent(WelcomeActivity.this, BasicDetails.class);
-                    //startActivity(intent);
+                    //change to point to user details page
+                    Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
+                    startActivity(intent);
                     break;
                 case R.id.talk_stranger_btn:
-// change to point to the talk to stranger page
+                    //change to point to the talk to stranger page
                     //Intent intent2 = new Intent(WelcomeActivity.this, MedicalInformation.class);
                     //startActivity(intent2);
                     break;
