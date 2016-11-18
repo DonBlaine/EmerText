@@ -26,16 +26,14 @@ public class LocationDetails extends AppCompatActivity{
     private String gps = null;
     private String stringLocation = null;
     private boolean userEnteredLocation = false;
-    private double lat;
-    private double lon;
     private String buttonSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
-        lat = i.getExtras().getDouble("lat");
-        lon = i.getExtras().getDouble("lon");
+        double lat = i.getExtras().getDouble("lat");
+        double lon = i.getExtras().getDouble("lon");
         buttonSelected = i.getExtras().getString("buttonselected");
 
         setContentView(R.layout.activity_location);
@@ -44,7 +42,7 @@ public class LocationDetails extends AppCompatActivity{
                 new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                         spinnerArray));
 
-        populateLocation(lat,lon);
+        populateLocation(lat, lon);
     }
 
     @Override
@@ -136,8 +134,7 @@ public class LocationDetails extends AppCompatActivity{
         i.putExtra("peopleWith", peopleWith);
         i.putExtra("extraDetails", extraDetails);
         i.putExtra("buttonselected", buttonSelected);
-        i.putExtra("lat",lat);
-        i.putExtra("lon",lon);
+        i.putExtra("gps",gps);
 
         startActivity(i);
     }

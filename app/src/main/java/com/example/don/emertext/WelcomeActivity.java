@@ -38,7 +38,6 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     public static final String TAG = WelcomeActivity.class.getSimpleName();
     private static final int REQUEST_LOCATION = 1;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private boolean networkConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1000);
-        networkConnected = isNetworkConnected();
     } // end onCreate
 
     @Override
@@ -174,14 +172,19 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                         REQUEST_LOCATION);
             }
         }
-        Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mlocation == null) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        if (isNetworkConnected()){
+            Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (mlocation == null) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            }
+            else {
+                lat = mlocation.getLatitude();
+                lon = mlocation.getLongitude();
+            }
+        }else{
+            Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
         }
-        else {
-            lat = mlocation.getLatitude();
-            lon = mlocation.getLongitude();
-        }
+
         // help gotten from https://www.youtube.com/watch?v=gh4nX-m6BEo
         // define all the buttons on the screen
         defineButtons();
