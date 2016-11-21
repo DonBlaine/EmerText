@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -31,7 +32,8 @@ public class EmergencyContactDetails extends Fragment {
     private View rootView;
     private EditText contact_name_edittext;
     private EditText contact_number_edittext;
-    final int CONTACT_REQUEST_CODE = 1;
+    final int CONTACT_INTENT_CODE = 1;
+    private final int REQUEST_CONTACTS_CODE = 10;
     SharedPreferences sharedPref;
     public EmergencyContactDetails() {
         // Required empty public constructor
@@ -67,7 +69,7 @@ public class EmergencyContactDetails extends Fragment {
     public void getContacts(View view){
         if (requestContactsPermission(view)) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(intent, CONTACT_REQUEST_CODE);
+            startActivityForResult(intent, CONTACT_INTENT_CODE);
         } else {
             String message = getString(R.string.no_contacts_permission_error);
             Toast toast = Toast.makeText(getContext().getApplicationContext(), message, Toast.LENGTH_SHORT);
@@ -76,12 +78,13 @@ public class EmergencyContactDetails extends Fragment {
 
     }
 
+
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
         switch (reqCode) {
-            case (CONTACT_REQUEST_CODE):
+            case (CONTACT_INTENT_CODE):
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     Cursor c = getContext().getContentResolver().query(contactData, null, null, null, null);
@@ -95,6 +98,7 @@ public class EmergencyContactDetails extends Fragment {
                             phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                             String nameContact = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                            cNumber = stripPhone(cNumber);
                             contact_name_edittext.setText(nameContact);
                             contact_number_edittext.setText(cNumber);
                             saveViewValue(contact_name_edittext);
@@ -116,6 +120,18 @@ public class EmergencyContactDetails extends Fragment {
         }
     }
 
+    public String stripPhone(String phone) {
+        char[] chars = phone.toCharArray();
+        String out = "";
+        for (char x : chars) {
+            if ((x >= '0' && x <= '9') || x == '+') {
+                out = out + x;
+            }
+        }
+        return out;
+    }
+
+
     // Function to check if we have SEND_SMS and request it if we don't.
     public boolean requestContactsPermission(View view){
         if (checkContactsPermission(view)){
@@ -125,7 +141,7 @@ public class EmergencyContactDetails extends Fragment {
             //try to get permission
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.READ_CONTACTS},
-                    10);
+                    REQUEST_CONTACTS_CODE);
             if (checkContactsPermission(view)) {
                 return true;
             }
