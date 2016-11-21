@@ -34,18 +34,17 @@ public class MainActivity extends AppCompatActivity {
         if (!sharedPref.getBoolean(getString(R.string.details_initialised_key),false)){
             Intent intent=new Intent(this, TabbedDetails.class);
             startActivity(intent);
-        }
+        } else {
 
-            if (sharedPref.getBoolean(getString(R.string.useFingerprint_key),false)){
+            if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
                 String finger = "Trying to access fingerprint authentication";
-                Toast toast = Toast.makeText(this,finger,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, finger, Toast.LENGTH_SHORT);
                 toast.show();
-            }
-            else {
-                Intent intent=new Intent(this, WelcomeActivity.class);
+            } else {
+                Intent intent = new Intent(this, WelcomeActivity.class);
                 startActivity(intent);
             }
-
+        }
         }
 
 

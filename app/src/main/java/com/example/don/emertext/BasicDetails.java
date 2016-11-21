@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import java.text.Normalizer;
 
+import static com.example.don.emertext.R.string.details_initialised_key;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -84,6 +86,9 @@ public class BasicDetails extends Fragment {
 
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(details_initialised_key), true);
+        editor.apply();
         restoreAllValues();
         return rootView;
     }

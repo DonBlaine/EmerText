@@ -134,14 +134,14 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
                 public void onMapLoaded() {
                     Log.i(TAG, Boolean.toString(isNetworkConnected()));
                     markerButton.setVisibility(View.VISIBLE);
-                    if (isNetworkConnected()){
+                    if (isNetworkConnected()) {
                         locationAddress = getLocation(mMap.getCameraPosition().target);
                     }
                     gps = getGPS(mMap.getCameraPosition().target);
-                    if (locationAddress == null){
+                    if (locationAddress == null) {
                         Toast.makeText(getApplicationContext(), "Error, address data is unavailable",
                                 Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         TextView locationTextBox = (TextView) findViewById(R.id.user_address);
                         locationTextBox.setText(locationAddress);
                     }
@@ -163,14 +163,14 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onCameraIdle() {
         markerButton.setVisibility(View.VISIBLE);
-        if (isNetworkConnected()){
+        if (isNetworkConnected()) {
             locationAddress = getLocation(mMap.getCameraPosition().target);
         }
         gps = getGPS(mMap.getCameraPosition().target);
-        if (locationAddress == null){
+        if (locationAddress == null) {
             Toast.makeText(getApplicationContext(), "Error, address data is unavailable",
                     Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             TextView locationTextBox = (TextView) findViewById(R.id.user_address);
             locationTextBox.setText(locationAddress);
         }
@@ -178,8 +178,8 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
     public void submitAddress(View view) {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("locationaddress",locationAddress);
-        returnIntent.putExtra("gps",gps);
+        returnIntent.putExtra("locationaddress", locationAddress);
+        returnIntent.putExtra("gps", gps);
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
@@ -274,7 +274,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         return addresses.get(0).getAddressLine(0);
     }
 
-    private String getGPS (LatLng curLocation){
+    private String getGPS(LatLng curLocation) {
         double latitude = curLocation.latitude;
         double longitude = curLocation.longitude;
 

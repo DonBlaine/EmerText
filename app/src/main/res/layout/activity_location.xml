@@ -71,7 +71,7 @@
                 android:orientation="vertical"
                 tools:ignore="HardcodedText"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <Button
                 android:text="Use Home Address"
@@ -111,19 +111,19 @@
             android:padding="10dp"
             android:inputType="textCapSentences|textAutoCorrect"
             android:id="@+id/extra_details"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
         <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:hint="Enter People With You"
-        android:textColorHint="@color/black"
-        android:inputType="textPersonName"
-        android:id="@+id/people_with_you"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"/>
+            android:padding="10dp"
+            android:hint="Enter People With You"
+            android:textColorHint="@color/black"
+            android:inputType="textPersonName"
+            android:id="@+id/people_with_you"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white" />
 
 
     </LinearLayout>

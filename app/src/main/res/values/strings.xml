@@ -67,6 +67,13 @@
     <string name="title_activity_tabbed_details">Personal details</string>
 
 
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="lock_using_fingerprint">Lock using fingerprint</string>
+    <string name="medical_allergies_hint">Enter any medical allergies you might need noted here.</string>
+    <string name="current_meds_hint">Enter any medication you may be taking here</string>
+    <string name="next_kin_details">Next-of-kin details</string>
+
     <!--Strings for the welcome page-->
     <string name="talk_str_btn">Talk to Passerby</string>
     <string name="Per_Det_btn">Personal Details</string>
@@ -75,11 +82,10 @@
     <string name="medicinal_allegies">Medicinal allergies</string>
     <string name="basic_details">Basic details</string>
     <string name="medical_information">Medical information</string>
-    <string name="details_initialised_key">details_initialised</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="current_medications">Current medications</string>
 
-
-
+    <!-- Stored value keys here-->
     <string name="useFingerprint_key" translatable="false">useFingerprint</string>
     <string name="details_initialised_key" translatable="false">details_initialised</string>
     <string name="fname_key" translatable="false">fname_key</string>
@@ -88,13 +94,8 @@
     <string name="address_2_key" translatable="false">address_2_key</string>
     <string name="county_key" translatable="false">county_key</string>
     <string name="eircode_key" translatable="false">eircode_key</string>
-    <string name="current_medications">Current medications</string>
+
     <string name="allergies_key">allergies_key</string>
     <string name="current_meds_key">current_meds_key</string>
-    <string name="name">Name</string>
-    <string name="address">Address</string>
-    <string name="lock_using_fingerprint">Lock using fingerprint</string>
-    <string name="medical_allergies_hint">Enter any medical allergies you might need noted here.</string>
-    <string name="current_meds_hint">Enter any medication you may be taking here</string>
-    <string name="next_kin_details">Next-of-kin details</string>
+
 </resources>

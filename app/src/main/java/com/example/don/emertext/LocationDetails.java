@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class LocationDetails extends AppCompatActivity{
+public class LocationDetails extends AppCompatActivity {
 
 
     private boolean locationEnabled = false;
@@ -46,7 +46,7 @@ public class LocationDetails extends AppCompatActivity{
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
@@ -82,7 +82,7 @@ public class LocationDetails extends AppCompatActivity{
     }
 
     @Nullable
-    private String getLocation(Double latitude, Double longitude){
+    private String getLocation(Double latitude, Double longitude) {
 
         gps = "Lat: " + Double.toString(latitude) + ", Lon: " + Double.toString(longitude);
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
@@ -97,19 +97,20 @@ public class LocationDetails extends AppCompatActivity{
         return addresses.get(0).getAddressLine(0);
     }
 
-    public void populateLocation(Double latitude, Double longitude){
-        if (!userEnteredLocation && isNetworkConnected()){
-            stringLocation = getLocation(latitude,longitude);
+    public void populateLocation(Double latitude, Double longitude) {
+        if (!userEnteredLocation && isNetworkConnected()) {
+            stringLocation = getLocation(latitude, longitude);
 
-            if (stringLocation == null){
+            if (stringLocation == null) {
                 locationEnabled = false;
-            }else{
+            } else {
                 EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
                 locationTextBox.setText(stringLocation);
                 locationEnabled = true;
             }
         }
     }
+
     private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -117,14 +118,14 @@ public class LocationDetails extends AppCompatActivity{
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void submitInfo(View view){
+    public void submitInfo(View view) {
         Intent i = new Intent(LocationDetails.this, MapPin.class);
 
         //Set the Data to pass
-        EditText loc = (EditText)findViewById(R.id.curLocation);
+        EditText loc = (EditText) findViewById(R.id.curLocation);
         AutoCompleteTextView emt = (AutoCompleteTextView) findViewById(R.id.emertype_spinner);
-        EditText pw = (EditText)findViewById(R.id.people_with_you);
-        EditText ed = (EditText)findViewById(R.id.extra_details);
+        EditText pw = (EditText) findViewById(R.id.people_with_you);
+        EditText ed = (EditText) findViewById(R.id.extra_details);
         String userLocation = loc.getText().toString();
         String emergencyType = emt.getText().toString();
         String peopleWith = pw.getText().toString();
@@ -134,7 +135,7 @@ public class LocationDetails extends AppCompatActivity{
         i.putExtra("peopleWith", peopleWith);
         i.putExtra("extraDetails", extraDetails);
         i.putExtra("buttonselected", buttonSelected);
-        i.putExtra("gps",gps);
+        i.putExtra("gps", gps);
 
         startActivity(i);
     }

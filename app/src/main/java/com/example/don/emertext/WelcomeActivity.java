@@ -120,11 +120,11 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
     }; // end OnClickListener
 
-    private void LaunchNext(){
+    private void LaunchNext() {
         Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
-        intent3.putExtra("buttonselected",buttonSelected);
-        intent3.putExtra("lat",lat);
-        intent3.putExtra("lon",lon);
+        intent3.putExtra("buttonselected", buttonSelected);
+        intent3.putExtra("lat", lat);
+        intent3.putExtra("lon", lon);
         startActivity(intent3);
     }
 
@@ -154,11 +154,11 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
     }; // end OnLongClickListener
 
-    private void LaunchFinal(){
+    private void LaunchFinal() {
         Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
-        intent3.putExtra("buttonselected",buttonSelected);
-        intent3.putExtra("lat",lat);
-        intent3.putExtra("lon",lon);
+        intent3.putExtra("buttonselected", buttonSelected);
+        intent3.putExtra("lat", lat);
+        intent3.putExtra("lon", lon);
         startActivity(intent3);
     }
 
@@ -169,20 +169,19 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, LOCATION},
                         REQUEST_LOCATION);
             }
         }
-        if (isNetworkConnected()){
+        if (isNetworkConnected()) {
             Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mlocation == null) {
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            }
-            else {
+            } else {
                 lat = mlocation.getLatitude();
                 lon = mlocation.getLongitude();
             }
-        }else{
+        } else {
             Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
         }
 
@@ -211,6 +210,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
@@ -225,7 +225,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale( this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
                 }
 
                 if (!showRationale) {
