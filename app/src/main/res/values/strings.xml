@@ -49,10 +49,14 @@
         <item>Injury</item>
         <item>Seizure</item>
         <item>Fall</item>
+        <item>Crime</item>
+        <item>Fire</item>
+        <item>Stroke</item>
     </string-array>
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_map_pin">Map</string>
+
     <string name="button">Button</string>
     <string name="send_message">Send dummy message!</string>
     <string name="delivery_pending">I will return to the main screen when message is delivered!</string>
@@ -64,14 +68,16 @@
 
 
     <!--Strings for the welcome page-->
-    <string name="Talk_str_btn" translatable="false">Talk to Passerby</string>
-    <string name="Per_Det_btn" translatable="false">Personal Details</string>
+    <string name="talk_str_btn">Talk to Passerby</string>
+    <string name="Per_Det_btn">Personal Details</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medicinal_allegies">Medicinal allergies</string>
     <string name="basic_details">Basic details</string>
     <string name="medical_information">Medical information</string>
+    <string name="details_initialised_key">details_initialised</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+
 
 
     <string name="useFingerprint_key" translatable="false">useFingerprint</string>
