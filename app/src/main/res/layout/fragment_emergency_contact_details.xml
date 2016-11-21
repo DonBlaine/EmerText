@@ -8,49 +8,44 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <Button
-            android:text="Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button2"
-             />
 
         <TextView
         android:text="@string/next_kin_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
         />
-        <LinearLayout
+
+        <EditText
+            android:id="@+id/emergency_contact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="0"
+            android:ems="10"
 
-            <EditText
-                android:id="@+id/fnameInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+            android:hint="@string/contact_name"
+            android:inputType="textPersonName"
+            android:tag="@string/emergency_contact_name_key" />
 
-                android:hint="@string/firstName"
-                android:inputType="textPersonName"
-                android:tag="@string/fname_key" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:hint="@string/emergency_contact_phone_number"
+            android:ems="10"
+            android:id="@+id/emergency_contact_phone"
+            android:tag="@string/emergency_contact_number_key" />
 
-            <EditText
-                android:id="@+id/lnamepinput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+        <Button
+            android:text="@string/from_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fetch_button"
+            android:layout_weight="0" />
 
-                android:hint="@string/surname"
-                android:inputType="textPersonName"
-                android:tag="@string/lname_key" />
-
-        </LinearLayout>
 
     </LinearLayout>
+
 </FrameLayout>

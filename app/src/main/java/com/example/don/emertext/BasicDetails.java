@@ -55,7 +55,8 @@ public class BasicDetails extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_basic_details, container, false);
         sendNumberEditText = (EditText) rootView.findViewById(R.id.overrideNumber);
         sendNumberEditText.setText(EMERGENCY_NUMBER);
-
+        sharedPref = getContext().getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
         Button save_button=(Button) rootView.findViewById(R.id.save_values_button);
         save_button.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +85,7 @@ public class BasicDetails extends Fragment {
 
         county_autocomplete.setAdapter(adapter);
 
-        sharedPref = getContext().getSharedPreferences(
-                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(details_initialised_key), true);
         editor.apply();
@@ -103,26 +103,7 @@ public class BasicDetails extends Fragment {
         restoreViewValue(eircode_edittext);
         restoreViewValue(fingerprint_checkbox);
     }
-    public void restoreViewValue(EditText e){
-        FormUtilities.restoreViewValue(sharedPref,e);
 
-    }
-    public void restoreViewValue(CheckBox c){
-        FormUtilities.restoreViewValue(sharedPref,c);
-    }
-    public void setEditableFocusChangeAutosave(final EditText e){
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref,e);
-    }
-    public void saveViewValue(EditText e){
-        FormUtilities.saveViewValue(sharedPref,e);
-    }
-    public void saveViewValue(CheckBox c){
-        FormUtilities.saveViewValue(sharedPref,c);
-
-    }
-    public void setEditableFocusChangeAutosave(CheckBox c){
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref,c);
-    }
 
 
     public void autosetDublin(View view){
@@ -217,4 +198,30 @@ public class BasicDetails extends Fragment {
         textView.setVisibility(view.VISIBLE);
     }
 
+    //Form helper methods here
+    public void restoreViewValue(EditText e) {
+        FormUtilities.restoreViewValue(sharedPref, e);
+
+    }
+
+    public void restoreViewValue(CheckBox c) {
+        FormUtilities.restoreViewValue(sharedPref, c);
+    }
+
+    public void setEditableFocusChangeAutosave(final EditText e) {
+        FormUtilities.setEditableFocusChangeAutosave(sharedPref, e);
+    }
+
+    public void saveViewValue(EditText e) {
+        FormUtilities.saveViewValue(sharedPref, e);
+    }
+
+    public void saveViewValue(CheckBox c) {
+        FormUtilities.saveViewValue(sharedPref, c);
+
+    }
+
+    public void setEditableFocusChangeAutosave(CheckBox c) {
+        FormUtilities.setEditableFocusChangeAutosave(sharedPref, c);
+    }
 }

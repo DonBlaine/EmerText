@@ -172,7 +172,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, LOCATION},
                         REQUEST_LOCATION);
             }
-        }
+        } else {
         if (isNetworkConnected()) {
             Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mlocation == null) {
@@ -183,6 +183,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             }
         } else {
             Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
+        }
         }
 
         // help gotten from https://www.youtube.com/watch?v=gh4nX-m6BEo

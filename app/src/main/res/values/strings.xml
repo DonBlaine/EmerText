@@ -84,6 +84,10 @@
     <string name="medical_information">Medical information</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="current_medications">Current medications</string>
+    <string name="contact_name">Contact name</string>
+    <string name="emergency_contact_phone_number">Contact\'s phone number</string>
+    <string name="from_contacts">From contacts</string>
+    <string name="no_contacts_permission_error">You must grant contacts permission.</string>
 
     <!-- Stored value keys here-->
     <string name="useFingerprint_key" translatable="false">useFingerprint</string>
@@ -97,5 +101,8 @@
 
     <string name="allergies_key">allergies_key</string>
     <string name="current_meds_key">current_meds_key</string>
+    <string name="emergency_contact_name_key">emergency_contact_name_key</string>
+
+    <string name="emergency_contact_number_key">emergency_contact_number_key</string>
 
 </resources>
