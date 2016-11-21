@@ -1,13 +1,10 @@
 package com.example.don.emertext;
 
 
-import android.app.Activity;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
@@ -18,11 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.don.emertext.R;
+import java.text.Normalizer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,21 +51,11 @@ public class BasicDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_basic_details, container, false);
-
         sendNumberEditText = (EditText) rootView.findViewById(R.id.overrideNumber);
         sendNumberEditText.setText(EMERGENCY_NUMBER);
 
-        //Make EditTexts easily finadable
-        firstname_edittext = (EditText) rootView.findViewById(R.id.fnameInput);
-        lastname_edittext = (EditText) rootView.findViewById(R.id.lnamepinput);
-        address1_edittext = (EditText) rootView.findViewById(R.id.address1);
-        address2_edittext = (EditText) rootView.findViewById(R.id.address2);
-        county_autocomplete = (AutoCompleteTextView) rootView.findViewById(R.id.county_select_input);
-        eircode_edittext = (EditText) rootView.findViewById(R.id.eircode_edittext);
-        fingerprint_checkbox = (CheckBox) rootView.findViewById(R.id.fingerprint_checkbox);
+        findEditViews();
         Button save_button=(Button) rootView.findViewById(R.id.save_values_button);
-
-
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,38 +84,39 @@ public class BasicDetails extends Fragment {
 
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
-        restoreSavedValue();
-
+        restoreAllValues();
         return rootView;
     }
 
 
-    @Override
-    public void onDetach(){
-        //Save values on detach view
-        saveValues();
-        super.onDetach();
+    public void restoreAllValues() {
+        restoreViewValue(firstname_edittext);
+        restoreViewValue(lastname_edittext);
+        restoreViewValue(address1_edittext);
+        restoreViewValue(address2_edittext);
+        restoreViewValue(county_autocomplete);
+        restoreViewValue(eircode_edittext);
+        restoreViewValue(fingerprint_checkbox);
     }
+    public void restoreViewValue(EditText e){
+        FormUtilities.restoreViewValue(sharedPref,e);
 
+    }
+    public void restoreViewValue(CheckBox c){
+        FormUtilities.restoreViewValue(sharedPref,c);
+    }
+    public void setEditableFocusChangeAutosave(final EditText e){
+        FormUtilities.setEditableFocusChangeAutosave(sharedPref,e);
+    }
+    public void saveViewValue(EditText e){
+        FormUtilities.saveViewValue(sharedPref,e);
+    }
+    public void saveViewValue(CheckBox c){
+        FormUtilities.saveViewValue(sharedPref,c);
 
-    public void restoreSavedValue() {
-        String blankString = "";
-        String savedFirstname = sharedPref.getString(getString(R.string.firstName), blankString);
-        String savedLastname = sharedPref.getString(getString(R.string.surname), blankString);
-        String savedAddress1 = sharedPref.getString(getString(R.string.address_line_1), blankString);
-        String savedAddress2 = sharedPref.getString(getString(R.string.address_line_2), blankString);
-        String savedCounty = sharedPref.getString(getString(R.string.county), blankString);
-        String savedEircode = sharedPref.getString(getString(R.string.eircode), blankString);
-        boolean useFingerprint = sharedPref.getBoolean(getString(R.string.useFingerprint_key),false);
-
-        firstname_edittext.setText(savedFirstname);
-        lastname_edittext.setText(savedLastname);
-        address1_edittext.setText(savedAddress1);
-        address2_edittext.setText(savedAddress2);
-        county_autocomplete.setText(savedCounty);
-        eircode_edittext.setText(savedEircode);
-        fingerprint_checkbox.setChecked(useFingerprint);
-
+    }
+    public void setEditableFocusChangeAutosave(CheckBox c){
+        FormUtilities.setEditableFocusChangeAutosave(sharedPref,c);
     }
 
 
@@ -159,29 +148,34 @@ public class BasicDetails extends Fragment {
         return message;
     }
 
+    public void findEditViews(){
+        firstname_edittext = (EditText) rootView.findViewById(R.id.fnameInput);
+        lastname_edittext = (EditText) rootView.findViewById(R.id.lnamepinput);
+        address1_edittext = (EditText) rootView.findViewById(R.id.address1);
+        address2_edittext = (EditText) rootView.findViewById(R.id.address2);
+        county_autocomplete = (AutoCompleteTextView) rootView.findViewById(R.id.county_select_input);
+        eircode_edittext = (EditText) rootView.findViewById(R.id.eircode_edittext);
+        fingerprint_checkbox = (CheckBox) rootView.findViewById(R.id.fingerprint_checkbox);
+        setEditableFocusChangeAutosave(firstname_edittext);
+        setEditableFocusChangeAutosave(lastname_edittext);
+        setEditableFocusChangeAutosave(address1_edittext);
+        setEditableFocusChangeAutosave(address2_edittext);
+        setEditableFocusChangeAutosave(county_autocomplete);
+        setEditableFocusChangeAutosave(eircode_edittext);
+        setEditableFocusChangeAutosave(fingerprint_checkbox);
+    }
 
     public void saveValues() {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        String firstnamevalue = firstname_edittext.getText().toString();
-        String lastnamevalue = lastname_edittext.getText().toString();
-        String address1value = address1_edittext.getText().toString();
-        String address2value = address2_edittext.getText().toString();
-        String countyvalue = county_autocomplete.getText().toString();
-        String eircodevalue = eircode_edittext.getText().toString();
-        boolean activateFingerprint = fingerprint_checkbox.isChecked();
 
-        editor.putString(getString(R.string.firstName), firstnamevalue);
-        editor.putString(getString(R.string.surname), lastnamevalue);
-        editor.putString(getString(R.string.address_line_1), address1value);
-        editor.putString(getString(R.string.address_line_2), address2value);
-        editor.putString(getString(R.string.county), countyvalue);
-        editor.putString(getString(R.string.eircode), eircodevalue);
-        editor.putString(getString(R.string.eircode), eircodevalue);
-        editor.putBoolean(getString(R.string.useFingerprint_key),activateFingerprint);
-        editor.putBoolean(getString(R.string.details_initialised_key),true);
-        editor.apply();
+        saveViewValue(firstname_edittext);
+        saveViewValue(lastname_edittext);
+        saveViewValue(address1_edittext);
+        saveViewValue(address2_edittext);
+        saveViewValue(county_autocomplete);
+        saveViewValue(eircode_edittext);
+        saveViewValue(fingerprint_checkbox);
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getContext(), "Saved", duration);
+        Toast toast = Toast.makeText(getContext(), "Save", duration);
         toast.show();
     }
 

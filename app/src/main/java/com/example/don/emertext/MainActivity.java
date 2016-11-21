@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
 
+        //If never initialised redirect to details edit screen
         if (!sharedPref.getBoolean(getString(R.string.details_initialised_key),false)){
             Intent intent=new Intent(this, TabbedDetails.class);
             startActivity(intent);
@@ -40,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(this,finger,Toast.LENGTH_SHORT);
                 toast.show();
             }
-
+            else {
+                Intent intent=new Intent(this, WelcomeActivity.class);
+                startActivity(intent);
+            }
 
         }
 

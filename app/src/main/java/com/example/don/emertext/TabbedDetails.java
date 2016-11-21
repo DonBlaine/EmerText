@@ -27,6 +27,7 @@ public class TabbedDetails extends AppCompatActivity {
 
     Fragment basicDetails;
     Fragment medicalInfo;
+    Fragment nextkin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class TabbedDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         basicDetails=new BasicDetails();
         medicalInfo= new MedicalInformation();
+        nextkin= new EmergencyContactDetails();
         // Setup spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(new MyAdapter(
@@ -45,7 +47,7 @@ public class TabbedDetails extends AppCompatActivity {
                 new String[]{
                         getString(R.string.basic_details),
                         getString(R.string.medical_information),
-                        "Section 3",
+                        getString(R.string.next_kin_details),
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -60,7 +62,7 @@ public class TabbedDetails extends AppCompatActivity {
                         break;
                     case 1: fragment = medicalInfo;
                         break;
-                    case 2: fragment = basicDetails;
+                    case 2: fragment = nextkin;
                         break;
                 }
 
