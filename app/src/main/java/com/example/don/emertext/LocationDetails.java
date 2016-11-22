@@ -32,8 +32,8 @@ public class LocationDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
-        double lat = i.getExtras().getDouble("lat");
-        double lon = i.getExtras().getDouble("lon");
+        Double lat = i.getExtras().getDouble("lat");
+        Double lon = i.getExtras().getDouble("lon");
         buttonSelected = i.getExtras().getString("buttonselected");
 
         setContentView(R.layout.activity_location);
@@ -42,7 +42,9 @@ public class LocationDetails extends AppCompatActivity {
                 new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                         spinnerArray));
 
-        populateLocation(lat, lon);
+        if (lat != null){
+            populateLocation(lat, lon);
+        }
     }
 
     @Override
