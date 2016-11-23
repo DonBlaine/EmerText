@@ -3,6 +3,7 @@ package com.example.don.emertext;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import static java.security.AccessController.getContext;
+
 public class LocationDetails extends AppCompatActivity {
 
 
@@ -27,6 +30,7 @@ public class LocationDetails extends AppCompatActivity {
     private String stringLocation = null;
     private boolean userEnteredLocation = false;
     private String buttonSelected;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,12 @@ public class LocationDetails extends AppCompatActivity {
         Double lat = i.getExtras().getDouble("lat");
         Double lon = i.getExtras().getDouble("lon");
         buttonSelected = i.getExtras().getString("buttonselected");
+        sharedPref = getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+        String fullAddress = sharedPref.getString(getString(R.string.address_1_key), "")
+                + sharedPref.getString(getString(R.string.address_2_key), "")
+                + sharedPref.getString(getString(R.string.county_key), "")
+                + sharedPref.getString(getString(R.string.eircode_key), "");
 
         setContentView(R.layout.activity_location);
         String[] spinnerArray = getResources().getStringArray(R.array.emer_type);
