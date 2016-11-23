@@ -47,6 +47,7 @@ public class EmergencyContactDetails extends Fragment {
         rootView= inflater.inflate(R.layout.fragment_emergency_contact_details, container, false);
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+
         viewSetup();
         restoreAllValues();
         return rootView;
