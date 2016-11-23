@@ -253,4 +253,14 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public void launchDetails(View view){
+        Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
+        startActivity(intent);
+    }
+
+    public void launchPasserby(View view){
+        Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
+        startActivity(intent);
+    }
+
 }// end main activity
