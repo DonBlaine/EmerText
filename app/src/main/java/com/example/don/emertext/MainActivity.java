@@ -37,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
-                String finger = "Trying to access fingerprint authentication";
-                Toast toast = Toast.makeText(this, finger, Toast.LENGTH_SHORT);
-                toast.show();
+                //String finger = "Trying to access fingerprint authentication";
+                //Toast toast = Toast.makeText(this, finger, Toast.LENGTH_SHORT);
+                //toast.show();
+                Intent intent = new Intent(this, FingerScannerActivity.class);
+                startActivity(intent);
             } else {
                 Intent intent = new Intent(this, WelcomeActivity.class);
                 startActivity(intent);
