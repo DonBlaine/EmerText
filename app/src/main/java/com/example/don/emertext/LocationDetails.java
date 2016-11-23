@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import static java.security.AccessController.getContext;
 
@@ -30,7 +32,6 @@ public class LocationDetails extends AppCompatActivity {
     private String stringLocation = null;
     private boolean userEnteredLocation = false;
     private String buttonSelected;
-    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,7 @@ public class LocationDetails extends AppCompatActivity {
         Double lat = i.getExtras().getDouble("lat");
         Double lon = i.getExtras().getDouble("lon");
         buttonSelected = i.getExtras().getString("buttonselected");
-        sharedPref = getSharedPreferences(
-                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
-        String fullAddress = sharedPref.getString(getString(R.string.address_1_key), "")
-                + sharedPref.getString(getString(R.string.address_2_key), "")
-                + sharedPref.getString(getString(R.string.county_key), "")
-                + sharedPref.getString(getString(R.string.eircode_key), "");
+
 
         setContentView(R.layout.activity_location);
         String[] spinnerArray = getResources().getStringArray(R.array.emer_type);
@@ -52,8 +48,23 @@ public class LocationDetails extends AppCompatActivity {
                 new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                         spinnerArray));
 
-        if (lat != null){
-            populateLocation(lat, lon);
+        populateLocation(lat, lon);
+    }
+
+    public void getHome(View view){
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
+        String fullAddress = sharedPref.getString(getString(R.string.address_1_key), "")
+                + sharedPref.getString(getString(R.string.address_2_key), "")
+                + sharedPref.getString(getString(R.string.county_key), "")
+                + sharedPref.getString(getString(R.string.eircode_key), "");
+
+        if (Objects.equals(fullAddress, "")) {
+            Toast.makeText(this, "Error, no home address stored", Toast.LENGTH_SHORT).show();
+        } else {
+            EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
+            locationTextBox.setText(fullAddress);
+            userEnteredLocation = true;
         }
     }
 
