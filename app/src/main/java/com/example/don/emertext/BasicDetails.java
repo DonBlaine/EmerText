@@ -29,7 +29,7 @@ import static com.example.don.emertext.R.string.details_initialised_key;
  */
 public class BasicDetails extends Fragment {
     private boolean overrideNumber = false;
-    private String EMERGENCY_NUMBER = getString(R.string.default_emergency_number);
+    private String EMERGENCY_NUMBER = "0831453528";
     private int overrideCounter = 0;
     private EditText sendNumberEditText;
 

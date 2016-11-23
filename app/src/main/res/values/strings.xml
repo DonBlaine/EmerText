@@ -104,5 +104,7 @@
     <string name="emergency_contact_name_key">emergency_contact_name_key</string>
 
     <string name="emergency_contact_number_key">emergency_contact_number_key</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

@@ -37,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
         network_image = (ImageView) findViewById(R.id.network_icon);
         sim_text = (TextView) findViewById(R.id.sim_status_text);
         sim_image = (ImageView) findViewById(R.id.sim_icon);
-        checkNetwork();
-        checkSim();
-
-
         if (checkNetwork() && checkSim() && false) {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {

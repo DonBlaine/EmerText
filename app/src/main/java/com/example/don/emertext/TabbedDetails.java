@@ -28,6 +28,7 @@ public class TabbedDetails extends AppCompatActivity {
     Fragment basicDetails;
     Fragment medicalInfo;
     Fragment nextkin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,9 @@ public class TabbedDetails extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        basicDetails=new BasicDetails();
-        medicalInfo= new MedicalInformation();
-        nextkin= new EmergencyContactDetails();
+        basicDetails = new BasicDetails();
+        medicalInfo = new MedicalInformation();
+        nextkin = new EmergencyContactDetails();
         // Setup spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(new MyAdapter(
@@ -57,12 +58,15 @@ public class TabbedDetails extends AppCompatActivity {
                 // container view.
 
                 Fragment fragment = basicDetails;
-                switch (position){
-                    case 0: fragment= basicDetails;
+                switch (position) {
+                    case 0:
+                        fragment = basicDetails;
                         break;
-                    case 1: fragment = medicalInfo;
+                    case 1:
+                        fragment = medicalInfo;
                         break;
-                    case 2: fragment = nextkin;
+                    case 2:
+                        fragment = nextkin;
                         break;
                 }
 
@@ -77,10 +81,30 @@ public class TabbedDetails extends AppCompatActivity {
         });
 
 
-
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
@@ -121,9 +145,9 @@ public class TabbedDetails extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
-basicDetails=null;
-        medicalInfo=null;
+    public void onDestroy() {
+        basicDetails = null;
+        medicalInfo = null;
         super.onDestroy();
     }
 
