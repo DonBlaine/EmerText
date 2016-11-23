@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+
+repositories {
+    jcenter()
 }
 
 dependencies {
@@ -32,4 +38,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:support-v13:23.4.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.guardanis:applock:1.0.7'
+    compile 'com.android.support:multidex:1.0.0'
 }
