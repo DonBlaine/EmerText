@@ -60,7 +60,7 @@
     <string name="button">Button</string>
     <string name="send_message">Send dummy message!</string>
     <string name="delivery_pending">I will return to the main screen when message is delivered!</string>
-    <string name="save_form_values">Save values</string>
+    <string name="welcome_screen_button">Go to welcome screen</string>
     <string name="default_emergency_number">0831453528</string>
     <string name="eircode">Eircode</string>
     <string name="personal_details_file">personaldets</string>
@@ -106,5 +106,13 @@
     <string name="emergency_contact_number_key">emergency_contact_number_key</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="connected_to_supported_network">Connected to supported network</string>
+    <string name="sim_operator_is_of_supported_network">SIM operator is of supported network</string>
+    <string name="sim_and_connected_network_matches">SIM and connected network matches</string>
+    <string name="status">Status</string>
+    <string name="welcome">Welcome!</string>
+    <string name="welcome_splash">In order to get you set up, you should first register for the SMS service below, and then proceed to enter any details you may wish to have on hand.</string>
+    <string name="register">Register</string>
+    <string name="enter_your_details_button_text">Enter your details</string>
 
 </resources>

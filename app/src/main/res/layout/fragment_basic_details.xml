@@ -120,11 +120,11 @@
                 android:tag="@string/useFingerprint_key" />
 
             <Button
-                android:id="@+id/save_values_button"
+                android:id="@+id/welcom_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:text="@string/save_form_values" />
+                android:text="@string/welcome_screen_button" />
 
             <TextView
                 android:id="@+id/return_message"

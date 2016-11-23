@@ -1,6 +1,7 @@
 package com.example.don.emertext;
 
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.Normalizer;
 
 import static com.example.don.emertext.R.string.details_initialised_key;
 
@@ -58,11 +55,11 @@ public class BasicDetails extends Fragment {
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
-        Button save_button=(Button) rootView.findViewById(R.id.save_values_button);
-        save_button.setOnClickListener(new View.OnClickListener() {
+        Button return_button = (Button) rootView.findViewById(R.id.welcom_button);
+        return_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveValues();
+                goToWelcomeScreen();
             }
         });
         firstname_edittext.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +82,9 @@ public class BasicDetails extends Fragment {
 
         county_autocomplete.setAdapter(adapter);
 
+        if (sharedPref.getBoolean(getString(R.string.details_initialised_key), false)) {
+            return_button.setVisibility(View.GONE);
+        }
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(details_initialised_key), true);
@@ -92,6 +92,7 @@ public class BasicDetails extends Fragment {
         restoreAllValues();
         return rootView;
     }
+
 
 
     public void restoreAllValues() {
@@ -151,18 +152,10 @@ public class BasicDetails extends Fragment {
         setEditableFocusChangeAutosave(fingerprint_checkbox);
     }
 
-    public void saveValues() {
+    public void goToWelcomeScreen() {
+        Intent intent = new Intent(getContext(), WelcomeActivity.class);
+        startActivity(intent);
 
-        saveViewValue(firstname_edittext);
-        saveViewValue(lastname_edittext);
-        saveViewValue(address1_edittext);
-        saveViewValue(address2_edittext);
-        saveViewValue(county_autocomplete);
-        saveViewValue(eircode_edittext);
-        saveViewValue(fingerprint_checkbox);
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getContext(), "Save", duration);
-        toast.show();
     }
 
 
