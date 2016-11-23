@@ -41,12 +41,7 @@ public class MainActivity extends AppCompatActivity {
         checkSim();
 
 
-        if (checkNetwork() && checkSim()) {
-        //If never initialised redirect to details edit screen
-        if (!sharedPref.getBoolean(getString(R.string.details_initialised_key),false)){
-            Intent intent=new Intent(this, TabbedDetails.class);
-            startActivity(intent);
-        } else {
+        if (checkNetwork() && checkSim() && false) {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
                 String finger = "Trying to access fingerprint authentication";
@@ -56,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, WelcomeActivity.class);
                 startActivity(intent);
             }
-        }
         }
         }
 
