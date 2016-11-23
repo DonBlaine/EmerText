@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
         if (checkNetwork() && checkSim() && false) {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
-                Intent intent = new Intent(this, WelcomeActivity.class);
-                //File not currently available, remove comment when it is
-                //Intent intent = new Intent(this, FingerScannerActivity.class);
+                Intent intent = new Intent(this, FingerScannerActivity.class);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, WelcomeActivity.class);
