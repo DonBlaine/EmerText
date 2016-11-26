@@ -40,10 +40,14 @@
 
         <Button
             android:text="@string/from_contacts"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fetch_button"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            android:drawableLeft="@drawable/contacts_icon"
+            android:elevation="0dp"
+            android:drawablePadding="10dp"
+            android:layout_gravity="center" />
 
 
     </LinearLayout>

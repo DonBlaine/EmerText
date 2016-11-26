@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +23,10 @@ import android.widget.Toast;
 import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
-    TextView network_text;
-    TextView sim_text;
-    TextView network_match_text;
+    private TextView network_text;
+    private TextView sim_text;
+    private TextView network_match_text;
+    private final int SMS_REQUEST_CODE = 2;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,12 +173,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.SEND_SMS},
                     6);
-            if (checkSMS(view)) {
-                return true;
-            }
-            else{
-                return false;
-            }
+            return false;
         }
     }
 
@@ -188,6 +186,35 @@ public class MainActivity extends AppCompatActivity {
                 Button button = (Button) findViewById(R.id.register_button);
                 button.setText("You haven't granted SMS permissions");
             }}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+
+
+        // Make sure it's our original READ_CONTACTS request
+        if (requestCode == SMS_REQUEST_CODE) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendRegistrationText();
+            } else {
+                // showRationale = false if user clicks Never Ask Again, otherwise true
+                boolean showRationale = false;
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+
+                if (!showRationale) {
+                    String message = getString(R.string.no_contacts_permission_error);
+                    Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
     public void sendRegistrationText() {
 

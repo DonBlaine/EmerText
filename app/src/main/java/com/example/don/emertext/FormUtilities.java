@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 public class FormUtilities {
 
+
     public static void restoreViewValue(SharedPreferences sharedPref, EditText e){
         String key=e.getTag().toString();
         String retrievedValue = sharedPref.getString(key, "");

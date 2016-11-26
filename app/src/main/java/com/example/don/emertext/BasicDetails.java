@@ -25,11 +25,8 @@ import static com.example.don.emertext.R.string.details_initialised_key;
  * A simple {@link Fragment} subclass.
  */
 public class BasicDetails extends Fragment {
-    private boolean overrideNumber = false;
-    private String EMERGENCY_NUMBER = "0831453528";
-    private int overrideCounter = 0;
-    private EditText sendNumberEditText;
 
+    private String EMERGENCY_NUMBER;
     private EditText firstname_edittext;
     private EditText lastname_edittext;
     private EditText address1_edittext;
@@ -50,8 +47,8 @@ public class BasicDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_basic_details, container, false);
-        sendNumberEditText = (EditText) rootView.findViewById(R.id.overrideNumber);
-        sendNumberEditText.setText(EMERGENCY_NUMBER);
+        EMERGENCY_NUMBER = getString(R.string.default_emergency_number);
+
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
@@ -60,12 +57,6 @@ public class BasicDetails extends Fragment {
             @Override
             public void onClick(View v) {
                 goToWelcomeScreen();
-            }
-        });
-        firstname_edittext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                revealOverride(v);
             }
         });
         county_autocomplete.setOnClickListener(new View.OnClickListener() {
@@ -159,23 +150,11 @@ public class BasicDetails extends Fragment {
     }
 
 
-    public void revealOverride(View view) {
-        if (++overrideCounter >= 5) {
-
-            sendNumberEditText.setVisibility(View.VISIBLE);
-            overrideNumber = true;
-        }
-    }
 
     public void sendSMS(View view) {
 
         SmsManager text = SmsManager.getDefault();
-        String number;
-        if (overrideNumber) {
-            number = sendNumberEditText.getText().toString();
-        } else {
-            number = EMERGENCY_NUMBER;
-        }
+        String number = EMERGENCY_NUMBER;
         String message = composeMessage(view);
         Intent resultIntent = new Intent(getContext(), MainActivity.class);
         PendingIntent intent = PendingIntent.getActivity(getContext(),
@@ -187,8 +166,7 @@ public class BasicDetails extends Fragment {
                 , message            // Message to send
                 , null               // The PendingIntent to perform when the message is successfully sent
                 , intent);           // The PendingIntent to perform when the message is successfully delivered
-        TextView textView = (TextView) rootView.findViewById(R.id.return_message);
-        textView.setVisibility(view.VISIBLE);
+
     }
 
     //Form helper methods here

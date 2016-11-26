@@ -79,6 +79,35 @@ public class EmergencyContactDetails extends Fragment {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+
+
+        // Make sure it's our original READ_CONTACTS request
+        if (requestCode == REQUEST_CONTACTS_CODE) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, CONTACT_INTENT_CODE);
+            } else {
+                // showRationale = false if user clicks Never Ask Again, otherwise true
+                boolean showRationale = false;
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+
+                if (!showRationale) {
+                    String message = getString(R.string.no_contacts_permission_error);
+                    Toast toast = Toast.makeText(getContext().getApplicationContext(), message, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -110,6 +139,8 @@ public class EmergencyContactDetails extends Fragment {
                 }
         }
     }
+
+
     //  Function to just check if we have SEND_SMS permission
     public boolean checkContactsPermission(View view){
         boolean permissionGranted = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
@@ -140,7 +171,7 @@ public class EmergencyContactDetails extends Fragment {
         }
         else{
             //try to get permission
-            ActivityCompat.requestPermissions(getActivity(),
+            requestPermissions(
                     new String[]{Manifest.permission.READ_CONTACTS},
                     REQUEST_CONTACTS_CODE);
             if (checkContactsPermission(view)) {

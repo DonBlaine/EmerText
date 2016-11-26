@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.don.emertext.BasicDetails">
 
 
@@ -17,14 +17,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 />
-            <EditText
-                android:id="@+id/overrideNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="phone"
-                android:text="@string/default_emergency_number"
-                android:visibility="gone" />
 
             <TextView
                 android:text="@string/name"
@@ -125,13 +117,6 @@
                 android:layout_height="wrap_content"
 
                 android:text="@string/welcome_screen_button" />
-
-            <TextView
-                android:id="@+id/return_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delivery_pending"
-                android:visibility="invisible" />
 
 
         </LinearLayout>
