@@ -47,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
                 Intent intent = new Intent(this, FingerScannerActivity.class);
+
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, WelcomeActivity.class);
+
                 startActivity(intent);
             }
         } else {
@@ -153,39 +155,20 @@ public class MainActivity extends AppCompatActivity {
         return isSupported;
     }
 
-//  Function to just check if we have SEND_SMS permission
-    public boolean checkSMS(View view){
-        boolean permissionGranted = ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-        if (permissionGranted) {
-            return true;
-        }
-        else
-        {  return false;
-        }
-    }
-// Function to check if we have SEND_SMS and request it if we don't.
-    public boolean requestSMS(View view){
-        if (checkSMS(view)){
-            return true;
-        }
-        else{
+
+    public void registerForService(View view) {
+        Context context = getApplicationContext();
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            //sendRegistrationText();
+            //((Button) view).setText("Sent");
+            } else {
             //try to get permission
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.SEND_SMS},
-                    6);
-            return false;
+                    SMS_REQUEST_CODE);
         }
     }
-
-    public void registerForService(View view) {
-            if (requestSMS(view)){
-                sendRegistrationText();
-                ((Button) view).setText("Sent");
-            }
-        else {
-                Button button = (Button) findViewById(R.id.register_button);
-                button.setText("You haven't granted SMS permissions");
-            }}
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

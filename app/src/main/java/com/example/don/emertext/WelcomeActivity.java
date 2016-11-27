@@ -221,7 +221,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
         // Make sure it's our original READ_CONTACTS request
         if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length == 1 &&
+            if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
             } else {
