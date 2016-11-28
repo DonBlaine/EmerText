@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView network_text;
     private TextView sim_text;
     private TextView network_match_text;
-    private final int SMS_REQUEST_CODE = 2;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         network_match_text = (TextView) findViewById(R.id.network_match_text);
         sim_text = (TextView) findViewById(R.id.sim_status_text);
         boolean statusOK = checkMatch() && checkSim() && checkNetwork();
-        if (statusOK
-                && sharedPref.getBoolean(getString(R.string.details_initialised_key), false)
-                ) {
+        statusOK = true;
+
+        if (statusOK && sharedPref.getBoolean(getString(R.string.details_initialised_key), false)) {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
                 Intent intent = new Intent(this, FingerScannerActivity.class);
@@ -55,13 +54,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         } else {
-            if (!statusOK) {
-                View statusBlock = findViewById(R.id.network_status_layout_block);
-                statusBlock.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(this, Initial.class);
+            startActivity(intent);
+
+
             }
 
         }
-        }
+
 
     public int operatorCode(String mnc) {
         int value = -1;
@@ -156,65 +157,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void registerForService(View view) {
-        Context context = getApplicationContext();
-
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-            //sendRegistrationText();
-            //((Button) view).setText("Sent");
-            } else {
-            //try to get permission
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.SEND_SMS},
-                    SMS_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
 
 
-        // Make sure it's our original READ_CONTACTS request
-        if (requestCode == SMS_REQUEST_CODE) {
-            if (grantResults.length == 1 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                sendRegistrationText();
-            } else {
-                // showRationale = false if user clicks Never Ask Again, otherwise true
-                boolean showRationale = false;
-                if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
-                }
-
-                if (!showRationale) {
-                    String message = getString(R.string.no_contacts_permission_error);
-                    Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    public void sendRegistrationText() {
-
-        SmsManager text = SmsManager.getDefault();
-        String number = getString(R.string.default_emergency_number);
-        String message = "register";
-
-        text.sendTextMessage(number // Number to send to
-                , null               // Message centre to send to (we'll never want to change this)
-                , message            // Message to send
-                , null               // The PendingIntent to perform when the message is successfully sent
-                , null);           // The PendingIntent to perform when the message is successfully delivered
-    }
-    public void enterFragment(View view){
-            Intent intent = new Intent(this, TabbedDetails.class);
-            startActivity(intent);
-
-    }
 
 }

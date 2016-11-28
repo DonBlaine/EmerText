@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,11 +60,13 @@
             android:name=".WelcomeActivity"
             android:label="Emergency text" />
         <activity android:name=".MessageScreenInteraction" />
-        <activity android:name=".DrawNotifyScreen"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TextSpeech"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".DrawNotifyScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TextSpeech"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Initial"></activity>
     </application>
 
 </manifest>
