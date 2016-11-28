@@ -109,7 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fingerprint_checkbox"
-                android:tag="@string/useFingerprint_key" />
+                android:tag="@string/useFingerprint_key"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/welcom_button"

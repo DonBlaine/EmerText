@@ -6,8 +6,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.example.don.emertext.R.string.details_initialised_key;
 
@@ -66,6 +71,19 @@ public class BasicDetails extends Fragment {
             }
         });
 
+
+        //Check for Fingerprint sensor presence and reveal checkbox if there
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(Activity.FINGERPRINT_SERVICE);
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    android.Manifest.permission.USE_FINGERPRINT) ==
+                    PackageManager.PERMISSION_GRANTED) {
+
+                if (fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints()) {
+                    fingerprint_checkbox.setVisibility(View.VISIBLE);
+                }
+            }
+        }
 
         //Set the contents for the county selector
        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
