@@ -16,17 +16,33 @@ import android.widget.TextView;
 
 public class MessageScreenInteraction extends AppCompatActivity {
     Boolean colorChanger=true;
+    String message = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen_interaction);
+        Intent i = getIntent();
+        String gps = i.getExtras().getString("gps");
+        String buttonSelected = i.getExtras().getString("buttonselected");
+        String userLocation = i.getExtras().getString("userLocation");
+        String emergencyType = i.getExtras().getString("emergencyType");
+        String peopleWith = i.getExtras().getString("peopleWith");
+        String extraDetails = i.getExtras().getString("extraDetails");
+        message = "I am hearing impaired and need help. " +
+                "Please send: " + buttonSelected + ". " +
+                "Location: " + userLocation + ". " +
+                "GPS: " + gps + ". " +
+                "Emergency Type: " + emergencyType + ". " +
+                "People with me: " + peopleWith + ". " +
+                "Additional details: " + extraDetails + ".";
+        TextView messageBox = (TextView) findViewById(R.id.messageText);
+        messageBox.setText(message);
     }
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
         String number = "0868303866";  // The number on which you want to send SMS
-        String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
         if (q.getText()!=null){message = q.getText().toString();}
         Intent resultIntent = new Intent(this, MainActivity.class);
@@ -73,7 +89,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                             currentSMS = getIncomingMessage(aObject, bundle);
 
                             sender = currentSMS.getDisplayOriginatingAddress();
-                            message = currentSMS.getDisplayMessageBody().toString();
+                            message = currentSMS.getDisplayMessageBody();
 
                             if(PhoneNumberUtils.compare(sender, "0868303866")) {
 
@@ -99,7 +115,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
             }
             return currentSMS;
         }
-    };
+    }
 
 
     // Code for timer

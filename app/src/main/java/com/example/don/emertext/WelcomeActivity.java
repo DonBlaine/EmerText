@@ -166,8 +166,8 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         if (smsGranted){
             Intent intent3 = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
             intent3.putExtra("buttonselected", buttonSelected);
-            intent3.putExtra("lat", lat);
-            intent3.putExtra("lon", lon);
+            String gps = "Lat: " + Double.toString(lat) + ", Lon: " + Double.toString(lon);
+            intent3.putExtra("gps", gps);
             startActivity(intent3);
         }
     }
