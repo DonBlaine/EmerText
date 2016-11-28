@@ -12,16 +12,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:text="@string/basic_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/basic_details"
                 android:textSize="18sp"
                 />
 
             <TextView
-                android:text="@string/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/name"
                  />
 
             <LinearLayout
@@ -52,9 +52,9 @@
                     android:tag="@string/lname_key" />
             </LinearLayout>
             <TextView
-                android:text="@string/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/address"
                 />
             <EditText
                 android:id="@+id/address1"
@@ -100,16 +100,17 @@
                     android:completionThreshold="1"
 
                     android:hint="@string/county"
+                    android:inputType="text"
                     android:tag="@string/county_key" />
             </LinearLayout>
 
 
             <CheckBox
-                android:text="@string/lock_using_pin"
+                android:id="@+id/fingerprint_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fingerprint_checkbox"
-                android:tag="@string/useFingerprint_key" />
+                android:tag="@string/useFingerprint_key"
+                android:text="@string/lock_using_pin" />
 
             <Button
                 android:id="@+id/welcom_button"
