@@ -263,7 +263,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
     public void launchPasserby(View view){
         if (smsGranted){
-            Intent intent = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
+            Intent intent = new Intent(WelcomeActivity.this, TextSpeech.class);
             startActivity(intent);
         }
     }
