@@ -1,6 +1,7 @@
 package com.example.don.emertext;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 public class DrawNotifyScreen extends AppCompatActivity {
-
     // contained locally to the class
     private RelativeLayout rl;
 
@@ -22,12 +22,19 @@ public class DrawNotifyScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_notify_screen);
-        rl = (RelativeLayout) findViewById(R.id.activity_draw_notify_screen);
+        rl = (RelativeLayout) findViewById(R.id.imageHolder);
         //adding a new view with our canvas and paint
         rl.addView(new MyView(this));
+
+
     }
 
-    class MyView extends View {
+    public void simonGoBack(View v){
+        Intent i = new Intent(DrawNotifyScreen.this,TextSpeech.class);
+        startActivity(i);
+    }
+
+    class MyView extends View{
 
         //variables defined for storing touch points
         float x,y;
@@ -45,15 +52,14 @@ public class DrawNotifyScreen extends AppCompatActivity {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            Bitmap b= BitmapFactory.decodeResource(getResources(), R.drawable.my_img);
+            Bitmap b=BitmapFactory.decodeResource(getResources(), R.drawable.my_img);
             // 0, 0 represents the matrix position of the image
             DisplayMetrics displaymetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-            int h = displaymetrics.heightPixels;
-            int w = displaymetrics.widthPixels;
+            int h = rl.getHeight();
+            int w = rl.getWidth();
 
-            h = h - 400;
 
             Bitmap resized = Bitmap.createScaledBitmap(b,w,h,true);
             canvas.drawBitmap(resized, 0, 0, paint);
@@ -76,5 +82,4 @@ public class DrawNotifyScreen extends AppCompatActivity {
         }
 
     }
-
 }
