@@ -112,12 +112,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/details_btn"
-                android:onClick="launchDetails"
                 android:layout_above="@+id/talk_stranger_btn"
                 android:layout_alignLeft="@+id/talk_stranger_btn"
                 android:layout_alignStart="@+id/talk_stranger_btn"
                 android:background="@drawable/plain_btn"
-                android:elevation="5dp"
                 android:textColor="@android:color/background_light" />
         </LinearLayout>
 
@@ -137,7 +135,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/talk_stranger_btn"
-                android:onClick="launchPasserby"
                 android:background="@drawable/plain_btn"
                 android:textColor="@android:color/background_light" />
         </LinearLayout>

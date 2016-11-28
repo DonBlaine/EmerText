@@ -78,7 +78,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
-    public  void defineButtons(){
+    public void defineButtons(){
         findViewById(R.id.details_btn).setOnClickListener(buttonClickListener);
         findViewById(R.id.talk_stranger_btn).setOnClickListener(buttonClickListener);
 
@@ -91,8 +91,8 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         findViewById(R.id.ambu_btn).setOnLongClickListener(buttonLongClickListener);
         findViewById(R.id.garda_btn).setOnLongClickListener(buttonLongClickListener);
         findViewById(R.id.coast_btn).setOnLongClickListener(buttonLongClickListener);
+    }
 
-    } // end defineButtons
     private View.OnClickListener buttonClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
@@ -100,13 +100,11 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             switch (view.getId()){
                 case R.id.details_btn:
                     //change to point to user details page
-                    Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
-                    startActivity(intent);
+                    launchDetails(view);
                     break;
                 case R.id.talk_stranger_btn:
                     //change to point to the talk to stranger page
-                    //Intent intent2 = new Intent(WelcomeActivity.this, MedicalInformation.class);
-                    //startActivity(intent2);
+                    launchPasserby(view);
                     break;
                 case R.id.fire_btn:
                     buttonSelected = "Fire";
@@ -185,25 +183,23 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                         REQUEST_LOCATION);
             }
         } else {
-        if (isNetworkConnected()) {
-            Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (mlocation == null) {
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            if (isNetworkConnected()) {
+                Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                if (mlocation == null) {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                } else {
+                    lat = mlocation.getLatitude();
+                    lon = mlocation.getLongitude();
+                }
             } else {
-                lat = mlocation.getLatitude();
-                lon = mlocation.getLongitude();
+                Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
         }
-        }
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Location services suspended. Please reconnect.");
-
     }
 
     @Override
@@ -266,8 +262,8 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     public void launchPasserby(View view){
-        if (smsGranted) {
-            Intent intent = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
+        if (smsGranted){
+            Intent intent = new Intent(WelcomeActivity.this, TextSpeech.class);
             startActivity(intent);
         }
     }
