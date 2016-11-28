@@ -24,19 +24,21 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".LocationDetails"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_location" />
         <activity
             android:name=".MapPin"
-            android:label="@string/title_activity_location" />
+            android:screenOrientation="portrait"
+            android:label="MapPin" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -58,15 +60,22 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WelcomeActivity"
-            android:label="Emergency text" />
-        <activity android:name=".MessageScreenInteraction" />
+            android:label="Emergency text"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MessageScreenInteraction"
+            android:screenOrientation="portrait"
+            android:label="Text Screen"/>
         <activity
             android:name=".DrawNotifyScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TextSpeech"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Initial"></activity>
+            android:screenOrientation="portrait"
+            android:label="Text Speech" />
+        <activity
+            android:name=".Initial"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
