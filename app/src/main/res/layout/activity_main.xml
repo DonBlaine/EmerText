@@ -12,45 +12,14 @@
     android:orientation="vertical"
     tools:context="com.example.don.emertext.MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/initial_screen_display_block">
 
-        <TextView
-            android:text="@string/welcome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/maintext"
-            android:text="@string/welcome_splash" />
-
-        <Button
-            android:text="@string/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/register_button"
-            android:onClick="registerForService" />
-
-        <Button
-            android:text="@string/enter_your_details_button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="enterFragment" />
-    </LinearLayout>
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/network_status_layout_block"
-        android:visibility="gone">
+        android:id="@+id/network_status_layout_block">
 
         <TextView
             android:text="@string/status"
