@@ -1,20 +1,18 @@
 package com.example.don.emertext;
 
-import android.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Toast;
 
 public class Initial extends AppCompatActivity {
-    private final int SMS_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +31,7 @@ public class Initial extends AppCompatActivity {
             //try to get permission
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.SEND_SMS},
-                    SMS_REQUEST_CODE);
+                    Utilities.SMS_REQUEST_CODE);
         }
     }
 
@@ -45,7 +43,7 @@ public class Initial extends AppCompatActivity {
 
 
         // Make sure it's our original READ_CONTACTS request
-        if (requestCode == SMS_REQUEST_CODE) {
+        if (requestCode == Utilities.SMS_REQUEST_CODE) {
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 sendRegistrationText();

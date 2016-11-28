@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
@@ -21,8 +20,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import static com.example.don.emertext.R.string.details_initialised_key;
 
@@ -31,6 +28,7 @@ import static com.example.don.emertext.R.string.details_initialised_key;
  */
 public class BasicDetails extends Fragment {
 
+    SharedPreferences sharedPref;
     private String EMERGENCY_NUMBER;
     private EditText firstname_edittext;
     private EditText lastname_edittext;
@@ -38,7 +36,6 @@ public class BasicDetails extends Fragment {
     private EditText address2_edittext;
     private AutoCompleteTextView county_autocomplete;
     private EditText eircode_edittext;
-    SharedPreferences sharedPref;
     private View rootView;
     private CheckBox fingerprint_checkbox;
 
@@ -189,28 +186,28 @@ public class BasicDetails extends Fragment {
 
     //Form helper methods here
     public void restoreViewValue(EditText e) {
-        FormUtilities.restoreViewValue(sharedPref, e);
+        Utilities.restoreViewValue(sharedPref, e);
 
     }
 
     public void restoreViewValue(CheckBox c) {
-        FormUtilities.restoreViewValue(sharedPref, c);
+        Utilities.restoreViewValue(sharedPref, c);
     }
 
     public void setEditableFocusChangeAutosave(final EditText e) {
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref, e);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, e);
     }
 
     public void saveViewValue(EditText e) {
-        FormUtilities.saveViewValue(sharedPref, e);
+        Utilities.saveViewValue(sharedPref, e);
     }
 
     public void saveViewValue(CheckBox c) {
-        FormUtilities.saveViewValue(sharedPref, c);
+        Utilities.saveViewValue(sharedPref, c);
 
     }
 
     public void setEditableFocusChangeAutosave(CheckBox c) {
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref, c);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, c);
     }
 }
