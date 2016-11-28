@@ -69,7 +69,8 @@
 
     <string name="name">Name</string>
     <string name="address">Address</string>
-    <string name="lock_using_fingerprint">Lock using fingerprint</string>
+    <string name="lock_using_fingerprint">Lock using fingerprint or PIN</string>
+    <string name="lock_using_pin">Lock using PIN</string>
     <string name="medical_allergies_hint">Enter any medical allergies you might need noted here.</string>
     <string name="current_meds_hint">Enter any medication you may be taking here</string>
     <string name="next_kin_details">Next-of-kin details</string>
