@@ -26,16 +26,20 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String gps = i.getExtras().getString("gps");
         String buttonSelected = i.getExtras().getString("buttonselected");
         String userLocation = i.getExtras().getString("userLocation");
+        if(userLocation == null) userLocation = "n/a";
         String emergencyType = i.getExtras().getString("emergencyType");
+        if(emergencyType == null) emergencyType = "n/a";
         String peopleWith = i.getExtras().getString("peopleWith");
+        if(peopleWith == null) peopleWith = "n/a";
         String extraDetails = i.getExtras().getString("extraDetails");
-        message = "I am hearing impaired and need help. " +
-                "Please send: " + buttonSelected + ". " +
-                "Location: " + userLocation + ". " +
-                "GPS: " + gps + ". " +
-                "Emergency Type: " + emergencyType + ". " +
-                "People with me: " + peopleWith + ". " +
-                "Additional details: " + extraDetails + ".";
+        if(extraDetails == null) extraDetails = "n/a";
+        message = "I am hearing impaired and need help. \n" +
+                "Please send: " + buttonSelected + ". \n" +
+                "Location: " + userLocation + ". \n" +
+                "GPS: " + gps + ". \n" +
+                "Emergency Type: " + emergencyType + ". \n" +
+                "People with me: " + peopleWith + ". \n" +
+                "Additional details: " + extraDetails + ". \n";
         TextView messageBox = (TextView) findViewById(R.id.messageText);
         messageBox.setText(message);
     }
