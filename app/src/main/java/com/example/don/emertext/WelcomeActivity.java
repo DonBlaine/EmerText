@@ -160,7 +160,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }; // end OnLongClickListener
 
     private void LaunchFinal() {
-        Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
+        Intent intent3 = new Intent(WelcomeActivity.this, MessageLoop.class);
         intent3.putExtra("buttonselected", buttonSelected);
         intent3.putExtra("lat", lat);
         intent3.putExtra("lon", lon);
@@ -259,7 +259,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     public void launchPasserby(View view){
-        Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
+        Intent intent = new Intent(WelcomeActivity.this, MessageLoop.class);
         startActivity(intent);
     }
 
