@@ -22,6 +22,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen_interaction);
+
+        //get data from previous activities
         Intent i = getIntent();
         String gps = i.getExtras().getString("gps");
         String buttonSelected = i.getExtras().getString("buttonselected");
@@ -33,6 +35,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
         if(peopleWith == null) peopleWith = "n/a";
         String extraDetails = i.getExtras().getString("extraDetails");
         if(extraDetails == null) extraDetails = "n/a";
+
+        //create initial sms message
         message = "I am hearing impaired and need help. \n" +
                 "Please send: " + buttonSelected + ". \n" +
                 "Location: " + userLocation + ". \n" +
@@ -40,8 +44,14 @@ public class MessageScreenInteraction extends AppCompatActivity {
                 "Emergency Type: " + emergencyType + ". \n" +
                 "People with me: " + peopleWith + ". \n" +
                 "Additional details: " + extraDetails + ". \n";
+
         TextView messageBox = (TextView) findViewById(R.id.messageText);
         messageBox.setText(message);
+
+        //send initial sms
+        View view = this.findViewById(android.R.id.content).getRootView();
+        sendSMS(view);
+        messageBox.setText("");
     }
 
     public void sendSMS(View view) {

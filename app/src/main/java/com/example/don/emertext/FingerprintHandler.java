@@ -10,26 +10,24 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.hardware.fingerprint.FingerprintManager.AuthenticationCallback;
 import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.EdgeEffectCompat;
 import android.widget.Toast;
 
 
-/**
- * Created by Abhijeet on 11/11/2016.
- */
+//
+// Created by Abhijeet on 11/11/2016.
+//
 @TargetApi(23)
-public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
-    private CancellationSignal cancellationSignal;
+class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
     private Context appContext;
 
-    public FingerprintHandler(Context context) {
+    FingerprintHandler(Context context) {
         appContext = context;
     }
 
-    public void startAuth(FingerprintManager manager,
-                          FingerprintManager.CryptoObject cryptoObject) {
+    void startAuth(FingerprintManager manager,
+                   FingerprintManager.CryptoObject cryptoObject) {
 
-        cancellationSignal = new CancellationSignal();
+        CancellationSignal cancellationSignal = new CancellationSignal();
 
         if (ActivityCompat.checkSelfPermission(appContext,
                 Manifest.permission.USE_FINGERPRINT) !=
