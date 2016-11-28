@@ -1,7 +1,10 @@
 package com.example.don.emertext;
 
+import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,6 +24,7 @@ import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.content.res.Resources.Theme;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TabbedDetails extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class TabbedDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabbed_details);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
