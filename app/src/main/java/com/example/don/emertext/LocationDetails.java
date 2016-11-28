@@ -142,7 +142,7 @@ public class LocationDetails extends AppCompatActivity {
     }
 
     public void submitInfo(View view) {
-        Intent i = new Intent(LocationDetails.this, MapPin.class);
+        Intent i = new Intent(LocationDetails.this, MessageLoop.class);
 
         //Set the Data to pass
         EditText loc = (EditText) findViewById(R.id.curLocation);

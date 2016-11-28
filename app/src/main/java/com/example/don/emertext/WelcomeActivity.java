@@ -160,7 +160,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }; // end OnLongClickListener
 
     private void LaunchFinal() {
-        Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
+        Intent intent3 = new Intent(WelcomeActivity.this, MessageLoop.class);
         intent3.putExtra("buttonselected", buttonSelected);
         intent3.putExtra("lat", lat);
         intent3.putExtra("lon", lon);
@@ -221,7 +221,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
         // Make sure it's our original READ_CONTACTS request
         if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length == 1 &&
+            if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
             } else {
@@ -259,7 +259,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     public void launchPasserby(View view){
-        Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
+        Intent intent = new Intent(WelcomeActivity.this, MessageLoop.class);
         startActivity(intent);
     }
 
