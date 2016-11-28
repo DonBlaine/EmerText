@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -38,11 +39,13 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     public static final String TAG = WelcomeActivity.class.getSimpleName();
     private static final int REQUEST_LOCATION = 1;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private boolean smsGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        enterDetails(null);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -126,11 +129,13 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }; // end OnClickListener
 
     private void LaunchNext() {
-        Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
-        intent3.putExtra("buttonselected", buttonSelected);
-        intent3.putExtra("lat", lat);
-        intent3.putExtra("lon", lon);
-        startActivity(intent3);
+        if (smsGranted){
+            Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
+            intent3.putExtra("buttonselected", buttonSelected);
+            intent3.putExtra("lat", lat);
+            intent3.putExtra("lon", lon);
+            startActivity(intent3);
+        }
     }
 
     private View.OnLongClickListener buttonLongClickListener = new View.OnLongClickListener(){
@@ -160,11 +165,13 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }; // end OnLongClickListener
 
     private void LaunchFinal() {
-        Intent intent3 = new Intent(WelcomeActivity.this, MessageLoop.class);
-        intent3.putExtra("buttonselected", buttonSelected);
-        intent3.putExtra("lat", lat);
-        intent3.putExtra("lon", lon);
-        startActivity(intent3);
+        if (smsGranted){
+            Intent intent3 = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
+            intent3.putExtra("buttonselected", buttonSelected);
+            intent3.putExtra("lat", lat);
+            intent3.putExtra("lon", lon);
+            startActivity(intent3);
+        }
     }
 
     @Override
@@ -259,8 +266,64 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     public void launchPasserby(View view){
-        Intent intent = new Intent(WelcomeActivity.this, MessageLoop.class);
-        startActivity(intent);
+        if (smsGranted) {
+            Intent intent = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
+            startActivity(intent);
+        }
     }
+
+    //  Function to just check if we have SEND_SMS permission
+    public boolean checkSendSMS(View view){
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) ==
+                PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Function to check if we have SEND_SMS and request it if we don't.
+    public boolean requestSendSMS(View view){
+        if (checkSendSMS(view)){
+            return true;
+        }
+        else{
+            //try to get permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.SEND_SMS},
+                    6);
+            return checkSendSMS(view);
+        }
+    }
+
+    //  Function to just check if we have Receive sms permission
+    public boolean checkReceiveSMS(View view){
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS) ==
+                PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Function to check if we have receive sms and request it if we don't.
+    public boolean requestReceiveSMS(View view){
+        if (checkReceiveSMS(view)){
+            return true;
+        }
+        else{
+            //try to get permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.RECEIVE_SMS},
+                    6);
+            return checkReceiveSMS(view);
+        }
+    }
+
+    public void enterDetails(View view){
+        if (requestSendSMS(view) & requestReceiveSMS(view)) {
+            smsGranted = true;
+        }else {
+            if (!requestSendSMS(view)) {
+                Toast.makeText(this, "You did not grant send sms permission", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "You did not grant receive sms permission", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
 }// end main activity

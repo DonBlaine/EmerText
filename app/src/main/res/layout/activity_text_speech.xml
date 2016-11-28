@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:id="@+id/agree"
+            android:text="Agree"
             />
 
         <Button
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:id="@+id/decline"
+            android:text="Decline"
             />
     </LinearLayout>
 
@@ -40,7 +42,8 @@
         android:layout_below="@id/topBar">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/saidMessage"/>
 
     </RelativeLayout>
 
@@ -50,7 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="3"
         android:layout_alignParentBottom="true"
         android:dividerPadding="4dp"
         >
@@ -60,35 +62,45 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/buttonRow1"
-            android:weightSum="1">
+            android:weightSum="4"
+            >
 
-            <Button
+
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="68dp"
+                android:layout_weight="1"
                 android:id="@+id/button11"
                 style="?android:buttonBarButtonStyle"
+                android:background="@drawable/watertap"
+                android:src="@drawable/round_view"
                 />
-            <Button
+
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button12"
                 style="?android:buttonBarButtonStyle"
+                android:background="@drawable/sprinklewater"
+                android:src="@drawable/round_view"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button13"
                 style="?android:buttonBarButtonStyle"
-                />
-            <Button
+                android:background="@drawable/backsupport"
+                android:src="@drawable/round_view" />
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button14"
                 style="?android:buttonBarButtonStyle"
+                android:background="@drawable/warm"
+                android:src="@drawable/round_view"
                 />
 
         </LinearLayout>
@@ -97,35 +109,45 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/buttonRow2"
-            android:weightSum="1"
+            android:weightSum="4"
             >
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="68dp"
+                android:layout_weight="1"
                 android:id="@+id/button21"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/call"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button22"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/standup"
+                android:contentDescription="Standup"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button23"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/find"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button24"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/family"
+
                 />
         </LinearLayout>
         <LinearLayout
@@ -133,35 +155,43 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/buttonRow3"
-            android:weightSum="1"
+            android:weightSum="4"
             >
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="68dp"
+                android:layout_weight="1"
                 android:id="@+id/button31"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/medbag"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button32"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/callcab"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button33"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/panic"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/button34"
                 style="?android:buttonBarButtonStyle"
+                android:src="@drawable/round_view"
+                android:background="@drawable/help"
                 />
         </LinearLayout>
 
@@ -182,20 +212,22 @@
         android:text="Show where you are hurt"
         android:layout_above="@id/buttonDisplayText" />
 
+
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
+        android:inputType="text"
         android:id="@+id/editText"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/displayScreen"
-        android:paddingBottom="2dp"
-        android:paddingLeft="2dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
         android:paddingRight="2dp"
         android:paddingTop="2dp"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:background="@drawable/round_view"
+        android:singleLine="true"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -208,7 +240,7 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/helperTextMessage"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/drawButton"
@@ -216,3 +248,4 @@
 
 
 </RelativeLayout>
+
