@@ -16,17 +16,24 @@
             android:text="@string/medical_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:text="@string/medicinal_allegies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
 
-            <EditText
-                android:id="@+id/allegies_input"
+        <EditText
+                android:id="@+id/allergies_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textMultiLine"
-                android:hint="@string/medicinal_allegies"
-               />
+                android:hint="@string/medical_allergies_hint"
+            android:minLines="2"
+            android:tag="@string/allergies_key"/>
 
 
         <EditText
@@ -34,16 +41,13 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/editText" />
+            android:id="@+id/current_medications_edittext"
+            android:hint="@string/current_meds_hint"
+            android:minLines="2"
+            android:tag="@string/current_meds_key"/>
 
 
 
-        <TextView
-            android:id="@+id/return_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delivery_pending"
-            android:visibility="invisible" />
 
 
     </LinearLayout>

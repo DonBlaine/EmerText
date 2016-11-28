@@ -27,6 +27,8 @@ public class TabbedDetails extends AppCompatActivity {
 
     Fragment basicDetails;
     Fragment medicalInfo;
+    Fragment nextkin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +38,9 @@ public class TabbedDetails extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        basicDetails=new BasicDetails();
-        medicalInfo= new MedicalInformation();
+        basicDetails = new BasicDetails();
+        medicalInfo = new MedicalInformation();
+        nextkin = new EmergencyContactDetails();
         // Setup spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(new MyAdapter(
@@ -45,7 +48,7 @@ public class TabbedDetails extends AppCompatActivity {
                 new String[]{
                         getString(R.string.basic_details),
                         getString(R.string.medical_information),
-                        "Section 3",
+                        getString(R.string.next_kin_details),
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -55,12 +58,15 @@ public class TabbedDetails extends AppCompatActivity {
                 // container view.
 
                 Fragment fragment = basicDetails;
-                switch (position){
-                    case 0: fragment= basicDetails;
+                switch (position) {
+                    case 0:
+                        fragment = basicDetails;
                         break;
-                    case 1: fragment = medicalInfo;
+                    case 1:
+                        fragment = medicalInfo;
                         break;
-                    case 2: fragment = basicDetails;
+                    case 2:
+                        fragment = nextkin;
                         break;
                 }
 
@@ -74,39 +80,11 @@ public class TabbedDetails extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tabbed_details, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
@@ -147,44 +125,10 @@ public class TabbedDetails extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
-basicDetails=null;
-        medicalInfo=null;
+    public void onDestroy() {
+        basicDetails = null;
+        medicalInfo = null;
         super.onDestroy();
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_basic_details, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
 }

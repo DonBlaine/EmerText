@@ -1,116 +1,124 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.don.emertext.BasicDetails">
 
 
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:text="@string/basic_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             />
-        <EditText
-            android:id="@+id/overrideNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="phone"
-            android:text="@string/default_emergency_number"
-            android:visibility="gone" />
-
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+            <TextView
+                android:text="@string/basic_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                />
 
-            <EditText
-                android:id="@+id/fnameInput"
+            <TextView
+                android:text="@string/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+                 />
 
-                android:hint="@string/firstName"
-                android:inputType="textPersonName"
-                android:onClick="revealOverride" />
-
-            <EditText
-                android:id="@+id/lnamepinput"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/fnameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+
+                    android:hint="@string/firstName"
+                    android:inputType="textPersonName"
+                    android:tag="@string/fname_key" />
+
+                <EditText
+                    android:id="@+id/lnamepinput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+
+                    android:hint="@string/surname"
+                    android:inputType="textPersonName"
+                    android:tag="@string/lname_key" />
+            </LinearLayout>
+            <TextView
+                android:text="@string/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <EditText
+                android:id="@+id/address1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="@string/address_line_1"
+                android:inputType="textPostalAddress"
+                android:tag="@string/address_1_key" />
 
-                android:hint="@string/surname"
-                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/address2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/address_line_2"
+                android:inputType="textPostalAddress"
+                android:tag="@string/address_2_key" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/eircode_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/eircode"
+                    android:inputType="textCapCharacters|textNoSuggestions"
+                    android:maxLength="7"
+                    android:tag="@string/eircode_key" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/county_select_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:completionThreshold="1"
+
+                    android:hint="@string/county"
+                    android:tag="@string/county_key" />
+            </LinearLayout>
+
+
+            <CheckBox
+                android:text="@string/lock_using_fingerprint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fingerprint_checkbox"
+                android:tag="@string/useFingerprint_key" />
+
+            <Button
+                android:id="@+id/welcom_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="@string/welcome_screen_button" />
+
+
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/address1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/address_line_1"
-            android:inputType="textPostalAddress" />
-
-        <EditText
-            android:id="@+id/address2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/address_line_2"
-            android:inputType="textPostalAddress" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <EditText
-                android:id="@+id/eircode_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/eircode"
-                android:inputType="textCapCharacters|textNoSuggestions"
-                android:maxLength="7" />
-
-            <AutoCompleteTextView
-                android:id="@+id/county_select_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:completionThreshold="1"
-
-                android:hint="@string/county"/>
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/save_values_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="saveValues"
-            android:text="@string/save_form_values" />
-
-        <TextView
-            android:id="@+id/return_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delivery_pending"
-            android:visibility="invisible" />
-
-
-    </LinearLayout>
 </FrameLayout>

@@ -49,27 +49,70 @@
         <item>Injury</item>
         <item>Seizure</item>
         <item>Fall</item>
+        <item>Crime</item>
+        <item>Fire</item>
+        <item>Stroke</item>
     </string-array>
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_map_pin">Map</string>
+
     <string name="button">Button</string>
     <string name="send_message">Send dummy message!</string>
     <string name="delivery_pending">I will return to the main screen when message is delivered!</string>
-    <string name="save_form_values">Save values</string>
+    <string name="welcome_screen_button">Go to welcome screen</string>
     <string name="default_emergency_number">0831453528</string>
     <string name="eircode">Eircode</string>
     <string name="personal_details_file">personaldets</string>
-    <string name="title_activity_tabbed_details">TabbedDetails</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_tabbed_details">Personal details</string>
 
-<!--Strings for the welcome page-->
-    <string name="Talk_str_btn" translatable="false">Talk to Passerby</string>
-    <string name="Per_Det_btn" translatable="false">Personal Details</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="lock_using_fingerprint">Lock using fingerprint</string>
+    <string name="medical_allergies_hint">Enter any medical allergies you might need noted here.</string>
+    <string name="current_meds_hint">Enter any medication you may be taking here</string>
+    <string name="next_kin_details">Next-of-kin details</string>
+
+    <!--Strings for the welcome page-->
+    <string name="talk_str_btn">Talk to Passerby</string>
+    <string name="Per_Det_btn">Personal Details</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="medicinal_allegies">Medicinal allegies</string>
+    <string name="medicinal_allegies">Medicinal allergies</string>
     <string name="basic_details">Basic details</string>
     <string name="medical_information">Medical information</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="current_medications">Current medications</string>
+    <string name="contact_name">Contact name</string>
+    <string name="emergency_contact_phone_number">Contact\'s phone number</string>
+    <string name="from_contacts">From contacts</string>
+    <string name="no_contacts_permission_error">You must grant contacts permission.</string>
+
+    <!-- Stored value keys here-->
+    <string name="useFingerprint_key" translatable="false">useFingerprint</string>
+    <string name="details_initialised_key" translatable="false">details_initialised</string>
+    <string name="fname_key" translatable="false">fname_key</string>
+    <string name="lname_key" translatable="false">lname_key</string>
+    <string name="address_1_key" translatable="false">address_1_key</string>
+    <string name="address_2_key" translatable="false">address_2_key</string>
+    <string name="county_key" translatable="false">county_key</string>
+    <string name="eircode_key" translatable="false">eircode_key</string>
+
+    <string name="allergies_key">allergies_key</string>
+    <string name="current_meds_key">current_meds_key</string>
+    <string name="emergency_contact_name_key">emergency_contact_name_key</string>
+
+    <string name="emergency_contact_number_key">emergency_contact_number_key</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="connected_to_supported_network">Connected to supported network</string>
+    <string name="sim_operator_is_of_supported_network">SIM operator is of supported network</string>
+    <string name="sim_and_connected_network_matches">SIM and connected network matches</string>
+    <string name="status">Status</string>
+    <string name="welcome">Welcome!</string>
+    <string name="welcome_splash">In order to get you set up, you should first register for the SMS service below, and then proceed to enter any details you may wish to have on hand.</string>
+    <string name="register">Register</string>
+    <string name="enter_your_details_button_text">Enter your details</string>
+
 </resources>

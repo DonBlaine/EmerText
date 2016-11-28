@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -9,40 +9,79 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.example.don.emertext.MainActivity">
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/maintext"
-        android:text="@string/helloworld"
-         />
+        android:id="@+id/initial_screen_display_block">
 
-    <Button
-        android:text="@string/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:onClick="enterDetails"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
+        <TextView
+            android:text="@string/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp" />
 
-    <Button
-        android:text="Go to fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="enterFragment"
-        android:layout_below="@+id/button"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/maintext"
+            android:text="@string/welcome_splash" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+        <Button
+            android:text="@string/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_button"
+            android:onClick="registerForService" />
+
+        <Button
+            android:text="@string/enter_your_details_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="enterFragment" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/yellow_warning"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp"
-        android:id="@+id/imageView2" />
-</RelativeLayout>
+        android:id="@+id/network_status_layout_block"
+        android:visibility="gone">
+
+        <TextView
+            android:text="@string/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp" />
+
+        <TextView
+            android:drawableLeft="@drawable/yellow_warning"
+            android:text="@string/connected_to_supported_network"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/net_status_text"
+            android:layout_weight="1" />
+
+        <TextView
+            android:drawableLeft="@drawable/yellow_warning"
+            android:text="@string/sim_operator_is_of_supported_network"
+            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sim_status_text"
+                android:layout_weight="1" />
+
+        <TextView
+            android:drawableLeft="@drawable/yellow_warning"
+            android:text="@string/sim_and_connected_network_matches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/network_match_text"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,105 +1,220 @@
 package com.example.don.emertext;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import static java.security.AccessController.getContext;
 
+public class MainActivity extends AppCompatActivity {
+    private TextView network_text;
+    private TextView sim_text;
+    private TextView network_match_text;
+    private final int SMS_REQUEST_CODE = 2;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        View view=getCurrentFocus();
-        checkNetwork(view);
-
-        }
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE);
 
 
-//  Function to just check if we have SEND_SMS permission
-    public boolean checkSMS(View view){
-        boolean permissionGranted = ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-        if (permissionGranted) {
-            return true;
-        }
-        else
-        {  return false;
-        }
-    }
+        network_text = (TextView) findViewById(R.id.net_status_text);
+        network_match_text = (TextView) findViewById(R.id.network_match_text);
+        sim_text = (TextView) findViewById(R.id.sim_status_text);
+        boolean statusOK = checkMatch() && checkSim() && checkNetwork();
+        if (statusOK
+                && sharedPref.getBoolean(getString(R.string.details_initialised_key), false)
+                ) {
 
-    public void checkNetwork(View view){
-        String[][] SUPPORTED_OPERATORS = {{"27201","Vodafone IE"},{"27202","3 IE"},{"27203", "Meteor"},{"27205","Three IE"}};
-        TelephonyManager tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String networkOperator = tel.getNetworkOperator();
-        String sim = tel.getSimOperator();
-        boolean isSupported=false;
-        int location=-1;
-        for (int i=0;i<SUPPORTED_OPERATORS.length;i++){
-            if (SUPPORTED_OPERATORS[i][0].equals(networkOperator)) {
-                isSupported=true;
-                location=i;}
-        }
-        if (!sim.equals(networkOperator)){
-            if (!(sim.equals("27202") || sim.equals("27205")) && (networkOperator.equals("27202") || networkOperator.equals("27205"))){
-                isSupported=false;
+            if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
+                Intent intent = new Intent(this, FingerScannerActivity.class);
+
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, WelcomeActivity.class);
+
+                startActivity(intent);
+            }
+        } else {
+            if (!statusOK) {
+                View statusBlock = findViewById(R.id.network_status_layout_block);
+                statusBlock.setVisibility(View.VISIBLE);
             }
 
         }
-        if (isSupported){
-        Context context = getApplicationContext();
-        CharSequence text = "You appear to be using " + SUPPORTED_OPERATORS[location][1] + ". This service should be supported";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
-    else {
-            Intent intent = new Intent(this, UnsupportedNetwork.class);
-            startActivity(intent);
-        }}
-
-// Function to check if we have SEND_SMS and request it if we don't.
-    public boolean requestSMS(View view){
-        if (checkSMS(view)){
-            return true;
         }
-        else{
+
+    public int operatorCode(String mnc) {
+        int value = -1;
+        String[] operators = {"27201", "27202", "27203", "27205"};
+        for (int index = 0; index < operators.length; index++) {
+            if (mnc.equals(operators[index])) {
+                value = index;
+            }
+        }
+        //Network codes 27205 and 27202 are both for Three IE, so return the same value
+        if (value == 3) {
+            value = 1;
+        }
+        return value;
+    }
+
+    public String operatorName(String mnc) {
+        String name = "Unknown";
+        switch (operatorCode(mnc)) {
+            case 0:
+                name = "Vodafone IE";
+                break;
+            case 1:
+                name = "Three IE";
+                break;
+            case 2:
+                name = "Meteor";
+                break;
+        }
+        return name;
+    }
+
+    public void setDrawableForStatusTextView(TextView textView, boolean value) {
+        if (value) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.green_check), null, null, null);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.red_block), null, null, null);
+
+        }
+    }
+
+    public void setDrawableForStatusTextView(TextView textView, boolean value, String networkCode) {
+        if (networkCode == null) {
+            networkCode = "";
+        }
+        String oldText = textView.getText().toString();
+        String newText = oldText + " (" + networkCode + " — " + operatorName(networkCode) + ")";
+        textView.setText(newText);
+        if (value) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.green_check), null, null, null);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.red_block), null, null, null);
+
+        }
+    }
+
+    public boolean checkMatch() {
+        TelephonyManager tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String connected = tel.getNetworkOperator();
+        String sim = tel.getSimOperator();
+
+        boolean isSupported = false;
+        if (operatorCode(connected) == operatorCode(sim) && operatorCode(connected) > 0) {
+            isSupported = true;
+        }
+
+        setDrawableForStatusTextView(network_match_text, isSupported);
+        return isSupported;
+    }
+
+    public boolean checkNetwork() {
+        TelephonyManager tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String networkOperator = tel.getNetworkOperator();
+        boolean isSupported = false;
+        if (operatorCode(networkOperator) >= 0) {
+            isSupported = true;
+        }
+
+        setDrawableForStatusTextView(network_text, isSupported, networkOperator);
+        return isSupported;
+    }
+
+    public boolean checkSim() {
+        TelephonyManager tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String networkOperator = tel.getSimOperator();
+        boolean isSupported = false;
+        if (operatorCode(networkOperator) >= 0) {
+            isSupported = true;
+        }
+        setDrawableForStatusTextView(sim_text, isSupported, networkOperator);
+        return isSupported;
+    }
+
+
+    public void registerForService(View view) {
+        Context context = getApplicationContext();
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            //sendRegistrationText();
+            //((Button) view).setText("Sent");
+            } else {
             //try to get permission
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.SEND_SMS},
-                    6);
-            if (checkSMS(view)) {
-                return true;
-            }
-            else{
-                return false;
-            }
+                    SMS_REQUEST_CODE);
         }
     }
 
-    public void enterDetails(View view){
-            if (requestSMS(view)){
-            Intent intent = new Intent(this, UnsupportedNetwork.class);
-            startActivity(intent);}
-        else {
-                Button button = (Button) findViewById(R.id.button);
-                button.setText("You haven't granted SMS permissions");
-            }}
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
 
+
+        // Make sure it's our original READ_CONTACTS request
+        if (requestCode == SMS_REQUEST_CODE) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendRegistrationText();
+            } else {
+                // showRationale = false if user clicks Never Ask Again, otherwise true
+                boolean showRationale = false;
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+
+                if (!showRationale) {
+                    String message = getString(R.string.no_contacts_permission_error);
+                    Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    public void sendRegistrationText() {
+
+        SmsManager text = SmsManager.getDefault();
+        String number = getString(R.string.default_emergency_number);
+        String message = "register";
+
+        text.sendTextMessage(number // Number to send to
+                , null               // Message centre to send to (we'll never want to change this)
+                , message            // Message to send
+                , null               // The PendingIntent to perform when the message is successfully sent
+                , null);           // The PendingIntent to perform when the message is successfully delivered
+    }
     public void enterFragment(View view){
             Intent intent = new Intent(this, TabbedDetails.class);
             startActivity(intent);
 
-    }}
+    }
+
+}
