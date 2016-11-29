@@ -54,7 +54,7 @@ public class BasicDetails extends Fragment {
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
-        Button return_button = (Button) rootView.findViewById(R.id.welcom_button);
+        Button return_button = (Button) rootView.findViewById(R.id.welcome_button);
         return_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +143,7 @@ public class BasicDetails extends Fragment {
 
     public void findEditViews(){
         firstname_edittext = (EditText) rootView.findViewById(R.id.fnameInput);
-        lastname_edittext = (EditText) rootView.findViewById(R.id.lnamepinput);
+        lastname_edittext = (EditText) rootView.findViewById(R.id.lnameinput);
         address1_edittext = (EditText) rootView.findViewById(R.id.address1);
         address2_edittext = (EditText) rootView.findViewById(R.id.address2);
         county_autocomplete = (AutoCompleteTextView) rootView.findViewById(R.id.county_select_input);

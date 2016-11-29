@@ -34,11 +34,11 @@ public class MedicalInformation extends Fragment {
 
         sharedPref = getContext().getSharedPreferences(getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
-        restoreSavedValue();
+        restoreAllSavedValues();
         return rootView;
     }
 
-    public void restoreSavedValue(){
+    public void restoreAllSavedValues() {
     restoreViewValue(allergies_edittext);
         restoreViewValue(current_med_edittext);
     }

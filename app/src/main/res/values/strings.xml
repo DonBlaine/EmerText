@@ -115,5 +115,7 @@
     <string name="welcome_splash">In order to get you set up, you should first register for the SMS service below, and then proceed to enter any details you may wish to have on hand.</string>
     <string name="register">Register</string>
     <string name="enter_your_details_button_text">Enter your details</string>
+    <string name="required_permissions">Required permissions</string>
+    <string name="send_sms">Send SMS</string>
 
 </resources>

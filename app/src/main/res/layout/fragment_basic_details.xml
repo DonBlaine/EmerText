@@ -35,20 +35,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-
                     android:hint="@string/firstName"
                     android:inputType="textPersonName"
+                    android:nextFocusDown="@+id/lnameinput"
                     android:tag="@string/fname_key" />
 
                 <EditText
-                    android:id="@+id/lnamepinput"
+                    android:id="@+id/lnameinput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-
                     android:hint="@string/surname"
                     android:inputType="textPersonName"
+                    android:nextFocusDown="@+id/address1"
                     android:tag="@string/lname_key" />
             </LinearLayout>
             <TextView
@@ -64,6 +64,7 @@
                 android:ems="10"
                 android:hint="@string/address_line_1"
                 android:inputType="textPostalAddress"
+                android:nextFocusDown="@+id/address2"
                 android:tag="@string/address_1_key" />
 
             <EditText
@@ -73,14 +74,13 @@
                 android:ems="10"
                 android:hint="@string/address_line_2"
                 android:inputType="textPostalAddress"
+                android:nextFocusDown="@+id/eircode_edittext"
                 android:tag="@string/address_2_key" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-
                 <EditText
                     android:id="@+id/eircode_edittext"
                     android:layout_width="match_parent"
@@ -88,8 +88,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/eircode"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapCharacters|textNoSuggestions"
                     android:maxLength="7"
+                    android:nextFocusDown="@+id/county_select_input"
                     android:tag="@string/eircode_key" />
 
                 <AutoCompleteTextView
@@ -100,7 +102,7 @@
                     android:completionThreshold="1"
 
                     android:hint="@string/county"
-                    android:inputType="text"
+                    android:inputType="textPostalAddress"
                     android:tag="@string/county_key" />
             </LinearLayout>
 
@@ -113,13 +115,10 @@
                 android:text="@string/lock_using_pin" />
 
             <Button
-                android:id="@+id/welcom_button"
+                android:id="@+id/welcome_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:text="@string/welcome_screen_button" />
-
-
         </LinearLayout>
 
 </FrameLayout>
