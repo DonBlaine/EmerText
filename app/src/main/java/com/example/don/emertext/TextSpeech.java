@@ -1,14 +1,17 @@
 package com.example.don.emertext;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,16 +21,19 @@ public class TextSpeech extends AppCompatActivity {
 
     TextToSpeech ts;
     String toSpeak;
-    TextView helperText;
+    LinearLayout helperText;
     TextView speakText;
+    int i=1;
+    EditText writable;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_speech);
-        helperText = (TextView) findViewById(R.id.helperTextMessage);
+        helperText = (LinearLayout) findViewById(R.id.helperTextMessage);
         speakText = (TextView) findViewById(R.id.saidMessage);
+        writable = (EditText) findViewById(R.id.editText);
 
     }
 
@@ -49,12 +55,39 @@ public class TextSpeech extends AppCompatActivity {
 
                 if  ((actionId == EditorInfo.IME_ACTION_DONE)) {
 
-                    helperText.setText(((EditText) findViewById(R.id.editText)).getText());
+                    showMessage();
                 }
 
                 return false;
             }
         });
+    }
+
+
+    public void showMessage(){
+
+        i+=1;
+        LinearLayout ll1 = (LinearLayout)findViewById(R.id.helperTextMessage);
+
+        TextView nmsg = new TextView(this);
+        nmsg.setText(writable.getText());
+
+        if(i%2==0) {
+            nmsg.setBackgroundResource(R.drawable.message_received_wrap);
+        }
+        else {
+            nmsg.setBackgroundResource(R.drawable.message_wrap);
+        }
+        nmsg.setTextColor(Color.BLACK);
+        LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        prop.setMargins(0,0,0,8);
+
+        nmsg.setLayoutParams(prop);
+        nmsg.setPadding(5,5,5,5);
+        nmsg.setTextSize(18);
+
+        ll1.addView(nmsg);
+        writable.setText("");
     }
 
     protected void onRestart(){
