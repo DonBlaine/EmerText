@@ -174,10 +174,10 @@
         android:paddingTop="2dp"
         android:imeOptions="actionDone"
         android:background="@drawable/round_view"
-        android:singleLine="true"
+        android:maxLines="1"
         android:hint="Start typing"
         android:textColor="@color/black"
-        android:textColorHint="#0000ff"
+        android:textColorHint="@color/darkGrey"
         />
 
 
@@ -206,10 +206,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show where you are hurt"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/picture_btn"
         android:layout_above="@+id/buttonHolder"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/picture_btn"/>
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
 
