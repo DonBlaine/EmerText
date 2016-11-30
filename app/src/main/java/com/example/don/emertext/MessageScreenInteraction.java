@@ -4,12 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
-import android.telephony.SmsMessage;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +50,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
         if (peopleWith != null && !peopleWith.equals(""))
             message = message + "People with me: " + peopleWith + ". \n";
-        if (peopleWith != null && !peopleWith.equals(""))
+        if (extraDetails != null && !extraDetails.equals(""))
             message = message + "Additional details: " + extraDetails + ". \n";
         if (emergencyType != null && !emergencyType.equals(""))
             message = message + "Emergency Type: " + emergencyType + ". \n";
@@ -124,7 +121,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     // taken from mobiforge
 
-    public class SmsReceiver extends BroadcastReceiver
+    private BroadcastReceiver SmsReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent)
@@ -149,7 +146,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                 Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    };
 
 
     public void showReceiverMessage(String message){
