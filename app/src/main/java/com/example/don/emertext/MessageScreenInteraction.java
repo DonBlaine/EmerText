@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -32,6 +33,37 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
+
+
+        //get data from previous activities
+        Intent i = getIntent();
+        String gps = i.getExtras().getString("gps");
+        String buttonSelected = i.getExtras().getString("buttonselected");
+        String userLocation = i.getExtras().getString("userLocation");
+        if (userLocation == null) userLocation = "n/a";
+        String emergencyType = i.getExtras().getString("emergencyType");
+        String peopleWith = i.getExtras().getString("peopleWith");
+        String extraDetails = i.getExtras().getString("extraDetails");
+
+        String message =
+                "Please send: " + buttonSelected + ". \n" +
+                "Location: " + userLocation + ". \n" +
+                        "GPS: " + gps + ". \n";
+
+
+        if (peopleWith != null && !peopleWith.equals(""))
+            message = message + "People with me: " + peopleWith + ". \n";
+        if (peopleWith != null && !peopleWith.equals(""))
+            message = message + "Additional details: " + extraDetails + ". \n";
+        if (emergencyType != null && !emergencyType.equals(""))
+            message = message + "Emergency Type: " + emergencyType + ". \n";
+
+
+
+        msgText.setText(message);
+        sendSMS(findViewById(android.R.id.content).getRootView());
+
+
     }
 
     public void sendSMS(View view) {
@@ -39,10 +71,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
 
-        if (q.getText().toString().trim() !=null)
-        {
             message = q.getText().toString();
-        }
         text.sendTextMessage(number // Number to send to
                 , null               // Message centre to send to (we'll never want to change this)
                 , message            // Message to send
@@ -78,55 +107,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     }
 
-    public class SMSListener extends BroadcastReceiver {
-        private Bundle bundle;
-        private SmsMessage currentSMS;
-        private String sender;
-        private String message;
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
-                bundle = intent.getExtras();
-                if (bundle != null) {
-                    Object[] pdu_Objects = (Object[]) bundle.get("pdus");
-                    if (pdu_Objects != null) {
-
-                        for (Object aObject : pdu_Objects) {
-
-                            currentSMS = getIncomingMessage(aObject, bundle);
-
-                            sender = currentSMS.getDisplayOriginatingAddress();
-                            message = currentSMS.getDisplayMessageBody().toString();
-
-                            if(PhoneNumberUtils.compare(sender, "0868303866")) {
-
-                                message = message.trim();
-                                if (!message.equals("")) {
-                                    showReceiverMessage(message);
-                                }
-                                abortBroadcast();
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-
-
-        private SmsMessage getIncomingMessage(Object aObject, Bundle bundle) {
-            SmsMessage currentSMS;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                String format = bundle.getString("format");
-                currentSMS = SmsMessage.createFromPdu((byte[]) aObject, format);
-            } else {
-                currentSMS = SmsMessage.createFromPdu((byte[]) aObject);
-            }
-            return currentSMS;
-        }
-    }
 
     public void showReceiverMessage(String message){
 
@@ -146,7 +126,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
         ll1.addView(nmsg);
     }
-
 
     // Code for timer
 //    private final int interval = 1000; // 1 Second
