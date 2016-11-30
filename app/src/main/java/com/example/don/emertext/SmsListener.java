@@ -30,10 +30,11 @@ public class SmsListener extends BroadcastReceiver
             }
             //---display the new SMS message---
             Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-            Intent pi = new Intent();
-            pi.putExtra("message",str);
-            pi.setClass(context,MessageScreenInteraction.class);
-            context.sendBroadcast(pi);
+
+            Intent i = new Intent(context, MessageScreenInteraction.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("message", str);
+            context.startActivity(i);
         }
     }
 }

@@ -12,10 +12,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
-import static java.security.AccessController.getContext;
 
 public class LocationDetails extends AppCompatActivity {
 
@@ -166,6 +164,8 @@ public class LocationDetails extends AppCompatActivity {
         i.putExtra("peopleWith", peopleWith);
         i.putExtra("extraDetails", extraDetails);
         i.putExtra("buttonselected", buttonSelected);
+        i.putExtra("include_medical", ((CheckBox) findViewById(R.id.med_conditions_checkbox)).isChecked());
+        i.putExtra("include_ice", ((CheckBox) findViewById(R.id.ice_checkbox)).isChecked());
         i.putExtra("gps", gps);
 
         startActivity(i);

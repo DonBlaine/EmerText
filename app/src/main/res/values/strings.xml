@@ -127,5 +127,7 @@
     <string name="emergency_service_number_key">emergency_service_number_key</string>
     <string name="override_emergency_services_number">Override emergency services number (dangerous)</string>
     <string name="emergency_services_number_textview">Emergency services number (for testing only)</string>
+    <string name="include_ice_contact_info">Include ICE contact info</string>
+    <string name="include_medical_conditions">Include medical conditions</string>
 
 </resources>
