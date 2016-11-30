@@ -90,6 +90,7 @@ public class Initial extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE).edit();
         editor.putBoolean(getString(R.string.setup_complete_key), true);
+        editor.putString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
         editor.apply();
     }
 

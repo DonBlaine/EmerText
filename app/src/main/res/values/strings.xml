@@ -124,5 +124,7 @@
     <string name="medical_conditions_key">medical_conditions_key</string>
     <string name="custom_message_hint">Enter any custom message you wish here</string>
     <string name="custom_message_key">custom_message_key</string>
+    <string name="emergency_service_number_key">emergency_service_number_key</string>
+    <string name="override_emergency_services_number">Override emergency services number (dangerous)</string>
 
 </resources>

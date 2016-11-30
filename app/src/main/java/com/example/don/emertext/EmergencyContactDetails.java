@@ -32,6 +32,7 @@ public class EmergencyContactDetails extends Fragment {
     private View rootView;
     private EditText contact_name_edittext;
     private EditText contact_number_edittext;
+    private EditText emergency_service_edittext;
     public EmergencyContactDetails() {
         // Required empty public constructor
     }
@@ -60,8 +61,10 @@ public class EmergencyContactDetails extends Fragment {
         });
         contact_name_edittext = (EditText) rootView.findViewById(R.id.emergency_contact_name);
         contact_number_edittext = (EditText) rootView.findViewById(R.id.emergency_contact_phone);
+        emergency_service_edittext = (EditText) rootView.findViewById(R.id.emergency_service_number_edittext);
         setEditableFocusChangeAutosave(contact_name_edittext);
         setEditableFocusChangeAutosave(contact_number_edittext);
+        setEditableFocusChangeAutosave(emergency_service_edittext);
     }
 
     public void getContacts(View view){
@@ -183,7 +186,7 @@ public class EmergencyContactDetails extends Fragment {
     public void restoreAllValues() {
         restoreViewValue(contact_name_edittext);
         restoreViewValue(contact_number_edittext);
-
+        restoreViewValue(emergency_service_edittext);
     }
 
 
