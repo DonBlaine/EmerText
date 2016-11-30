@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -32,6 +33,32 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
+
+
+        //get data from previous activities
+        Intent i = getIntent();
+        String gps = i.getExtras().getString("gps");
+        String buttonSelected = i.getExtras().getString("buttonselected");
+        String userLocation = i.getExtras().getString("userLocation");
+        if (userLocation == null) userLocation = "n/a";
+        String emergencyType = i.getExtras().getString("emergencyType");
+        if (emergencyType == null) emergencyType = "n/a";
+        String peopleWith = i.getExtras().getString("peopleWith");
+        if (peopleWith == null) peopleWith = "n/a";
+        String extraDetails = i.getExtras().getString("extraDetails");
+        if (extraDetails == null) extraDetails = "n/a";
+
+        String message = "I am hearing impaired and need help. \n"; /* +
+                "Please send: " + buttonSelected + ". \n" +
+                "Location: " + userLocation + ". \n" +
+                "GPS: " + gps + ". \n" +
+                "Emergency Type: " + emergencyType + ". \n" +
+                "People with me: " + peopleWith + ". \n" +
+                "Additional details: " + extraDetails + ". \n"; */
+        msgText.setText(message);
+        sendSMS(findViewById(android.R.id.content).getRootView());
+
+
     }
 
     public void sendSMS(View view) {
@@ -39,10 +66,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
 
-        if (q.getText().toString().trim() !=null)
-        {
             message = q.getText().toString();
-        }
         text.sendTextMessage(number // Number to send to
                 , null               // Message centre to send to (we'll never want to change this)
                 , message            // Message to send
@@ -88,6 +112,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
+                Toast.makeText(getApplicationContext(), "I'm here", Toast.LENGTH_SHORT).show();
                 bundle = intent.getExtras();
                 if (bundle != null) {
                     Object[] pdu_Objects = (Object[]) bundle.get("pdus");
@@ -100,7 +125,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                             sender = currentSMS.getDisplayOriginatingAddress();
                             message = currentSMS.getDisplayMessageBody().toString();
 
-                            if(PhoneNumberUtils.compare(sender, "0868303866")) {
+                            if (PhoneNumberUtils.compare(sender, number)) {
 
                                 message = message.trim();
                                 if (!message.equals("")) {
