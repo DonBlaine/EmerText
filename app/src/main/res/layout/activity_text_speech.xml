@@ -18,13 +18,18 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:id="@+id/topBar"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        >
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:id="@+id/agree"
-            android:text="Agree"
+            android:text="YES"
+            android:textColor="@color/black"
+            android:background="#00ff00"
+            android:src = "@drawable/round_corners"
             />
 
         <Button
@@ -32,22 +37,12 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:id="@+id/decline"
-            android:text="Decline"
+            android:text="No"
+            android:textColor="@color/black"
+            android:background="#ff00"
+            android:src = "@drawable/round_corners"
             />
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/displayScreen"
-        android:orientation="vertical"
-        android:layout_below="@id/topBar">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/saidMessage"/>
-
-    </RelativeLayout>
 
 
     <LinearLayout
@@ -123,7 +118,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:id="@+id/editText"
-        android:layout_below="@+id/displayScreen"
+        android:layout_below="@+id/topBar"
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="2dp"
@@ -159,7 +154,9 @@
         android:layout_height="wrap_content"
         android:text="Show where you are hurt"
         android:layout_above="@+id/buttonHolder"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/picture_btn"/>
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
