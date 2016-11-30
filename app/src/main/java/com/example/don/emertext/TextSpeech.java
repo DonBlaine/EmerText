@@ -86,7 +86,7 @@ public class TextSpeech extends AppCompatActivity {
             prop.setMargins(0, 0, 0, 8);
 
             nmsg.setLayoutParams(prop);
-            nmsg.setPadding(15, 15, 15, 15);
+            nmsg.setPadding(15, 5, 15, 5);
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
@@ -142,42 +142,42 @@ public class TextSpeech extends AppCompatActivity {
 
             switch (view.getId()){
                 case R.id.button11:
-                    toSpeak = "Can you get me some water to drink please";
+                    toSpeak = "Can you help me please";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button12:
-                    toSpeak = "Can you sprinkle some water on my face please";
+                    toSpeak = "Can you get my medicines";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button13:
-                    toSpeak = "Can you help me to a corner with back support please";
+                    toSpeak = "Can you please make a call for me";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button14:
-                    toSpeak = "Can you help me to some place warm please";
+                    toSpeak = "Can you please call a taxi for me";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button21:
-                    toSpeak = "Can you get me some water to drink please";
+                    toSpeak = "Yes please";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button22:
-                    toSpeak = "Can you sprinkle some water on my face please";
+                    toSpeak = "Can you help me sit down please";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button23:
-                    toSpeak = "Can you help me to a corner with back support please";
+                    toSpeak = "Can you get me some water to drink please";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
                 case R.id.button24:
-                    toSpeak = "Can you help me to some place warm please";
+                    toSpeak = "No thank you";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
