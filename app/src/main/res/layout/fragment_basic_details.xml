@@ -128,7 +128,8 @@
                     android:inputType="textPostalAddress"
                     android:padding="5dp"
                     android:tag="@string/county_key"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:imeOptions="actionNone" />
             </LinearLayout>
 
 
