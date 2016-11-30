@@ -138,7 +138,6 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
                 public void onMapLoaded() {
-                    Log.i(TAG, Boolean.toString(isNetworkConnected()));
                     markerButton.setVisibility(View.VISIBLE);
                     if (isNetworkConnected()) {
                         locationAddress = getLocation(mMap.getCameraPosition().target);
@@ -200,6 +199,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
                 nopermissions=false;
+                getCoord();
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
@@ -219,16 +219,20 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Location services connected.");
+        getCoord();
+    }
+
+    private void getCoord(){
         nopermissions = (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
 
         if (Build.VERSION.SDK_INT >= 23) {
             if(nopermissions){
-                    ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
-                    REQUEST_LOCATION);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
+                        REQUEST_LOCATION);
             }
         }
-        if (!nopermissions){
+        if (!nopermissions && isNetworkConnected()){
             Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (location == null) {
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -237,6 +241,8 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
             if (location != null) {
                 handleNewLocation(location);
             }
+        } else {
+            Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
         }
     }
 
