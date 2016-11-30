@@ -28,33 +28,45 @@
                 android:id="@+id/allergies_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+            android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/medical_allergies_hint"
+            android:background="#acacac"
+            android:ems="10"
+            android:hint="@string/medical_allergies_hint"
             android:inputType="textMultiLine"
             android:maxLines="3"
-            android:tag="@string/allergies_key"/>
+            android:padding="5dp"
+            android:tag="@string/allergies_key"
+            android:textColor="#000000" />
 
 
         <EditText
             android:id="@+id/current_medications_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#acacac"
             android:ems="10"
             android:hint="@string/current_meds_hint"
             android:inputType="textMultiLine"
             android:maxLines="3"
-            android:tag="@string/current_meds_key"/>
+            android:padding="5dp"
+            android:tag="@string/current_meds_key"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/medical_conditions_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#acacac"
             android:ems="10"
             android:hint="@string/enter_any_medical_conditions_others_may_need_to_be_aware_of"
             android:inputType="textMultiLine"
             android:maxLines="3"
-            android:tag="@string/medical_conditions_key" />
+            android:padding="5dp"
+            android:tag="@string/medical_conditions_key"
+            android:textColor="#000000" />
 
 
         <TextView
@@ -67,11 +79,15 @@
             android:id="@+id/custom_message_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#acacac"
             android:ems="10"
             android:hint="@string/custom_message_hint"
             android:inputType="textMultiLine"
             android:maxLines="3"
-            android:tag="@string/custom_message_key" />
+            android:padding="5dp"
+            android:tag="@string/custom_message_key"
+            android:textColor="#000000" />
 
 
     </LinearLayout>

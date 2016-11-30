@@ -21,21 +21,29 @@
             android:id="@+id/emergency_contact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="0"
-            android:ems="10"
 
+            android:background="#acacac"
+            android:ems="10"
             android:hint="@string/contact_name"
             android:inputType="textPersonName"
-            android:tag="@string/emergency_contact_name_key" />
+            android:padding="5dp"
+            android:tag="@string/emergency_contact_name_key"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/emergency_contact_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#acacac"
             android:ems="10"
             android:hint="@string/emergency_contact_phone_number"
             android:inputType="phone"
-            android:tag="@string/emergency_contact_number_key" />
+            android:padding="5dp"
+            android:tag="@string/emergency_contact_number_key"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/fetch_button"
@@ -57,10 +65,14 @@
             android:id="@+id/emergency_service_number_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#acacac"
             android:ems="10"
             android:hint="@string/override_emergency_services_number"
             android:inputType="phone"
-            android:tag="@string/emergency_service_number_key" />
+            android:padding="5dp"
+            android:tag="@string/emergency_service_number_key"
+            android:textColor="#000000" />
     </LinearLayout>
 
 </FrameLayout>
