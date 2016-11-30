@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Geocoder;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -40,13 +41,15 @@ public class LocationDetails extends AppCompatActivity {
         Double lon = i.getExtras().getDouble("lon");
         buttonSelected = i.getExtras().getString("buttonselected");
 
-
         setContentView(R.layout.activity_location);
         String[] spinnerArray = getResources().getStringArray(R.array.emer_type);
         ((AutoCompleteTextView) findViewById(R.id.emertype_spinner)).setAdapter(
                 new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                         spinnerArray));
-        if(lat != null && lon != null ){ populateLocation(lat, lon);}
+
+        if (lat != 0.0 && lon != 0.0) {
+            populateLocation(lat, lon);
+        }
     }
 
     public void getHome(View view){
