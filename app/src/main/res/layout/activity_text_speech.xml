@@ -43,7 +43,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
-                app:srcCompat="@drawable/helpMe"
+                app:srcCompat="@drawable/helpme"
                 />
 
             <ImageButton
