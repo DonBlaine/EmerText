@@ -28,7 +28,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.registerReceiver(SmsReceiver, new IntentFilter(
-                "android.intent.action.TIME_TICK"));
+                "android.provider.Telephony.SMS_RECEIVED"));
         SmsReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -52,7 +52,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                         str += "n";
                     }
                     //---display the new SMS message---
-                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+                    showReceiverMessage(str);
                 }
 
             }
