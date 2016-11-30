@@ -223,11 +223,8 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         if (location == null) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (location != null){
-                handleNewLocation(location);
-            }
         }
-        else {
+        if (location != null) {
             handleNewLocation(location);
         }
     }
