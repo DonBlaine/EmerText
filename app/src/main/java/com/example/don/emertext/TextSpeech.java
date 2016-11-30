@@ -129,9 +129,6 @@ public class TextSpeech extends AppCompatActivity {
         findViewById(R.id.button23).setOnClickListener(buttonClickListener);
         findViewById(R.id.button24).setOnClickListener(buttonClickListener);
 
-        findViewById(R.id.agree).setOnClickListener(buttonClickListener);
-        findViewById(R.id.decline).setOnClickListener(buttonClickListener);
-
         findViewById(R.id.drawButton).setOnClickListener(buttonClickListener);
 
 
@@ -182,16 +179,6 @@ public class TextSpeech extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
-                case R.id.agree:
-                    toSpeak = "Yes, Thank you very much";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.decline:
-                    toSpeak = "No Just that please, Thank you";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
                 case R.id.drawButton:
                     Intent i = new Intent(TextSpeech.this, DrawNotifyScreen.class);
                     startActivity(i);
@@ -201,15 +188,10 @@ public class TextSpeech extends AppCompatActivity {
         }
     };
 
-
-
     public void speakNow() {
 
         Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
         ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
     }
-
-
-
 
 }

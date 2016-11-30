@@ -1,13 +1,12 @@
 package com.example.don.emertext;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
@@ -23,10 +22,13 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     EditText msgText;
     ScrollView scroll;
+    String number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        number = getSharedPreferences(
+                getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
@@ -34,7 +36,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
-        String number = "0868303866";  // The number on which you want to send SMS
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
 
@@ -42,16 +43,11 @@ public class MessageScreenInteraction extends AppCompatActivity {
         {
             message = q.getText().toString();
         }
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(this,
-                0,
-                resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
         text.sendTextMessage(number // Number to send to
                 , null               // Message centre to send to (we'll never want to change this)
                 , message            // Message to send
                 , null               // The PendingIntent to perform when the message is successfully sent
-                , intent);           // The PendingIntent to perform when the message is successfully delivered
+                , null);           // The PendingIntent to perform when the message is successfully delivered
 
         message = message.trim();
         if (!message.equals("")) {
