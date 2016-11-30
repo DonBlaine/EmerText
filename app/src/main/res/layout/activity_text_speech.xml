@@ -12,38 +12,6 @@
     tools:context="com.example.don.emertext.TextSpeech"
     android:background="#cacaca">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:id="@+id/topBar"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
-        >
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:id="@+id/agree"
-            android:text="YES"
-            android:textColor="@color/black"
-            android:background="#00ff00"
-            android:src = "@drawable/round_corners"
-            />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:id="@+id/decline"
-            android:text="No"
-            android:textColor="@color/black"
-            android:background="#ff00"
-            android:src = "@drawable/round_corners"
-            />
-    </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/buttonHolder"
@@ -68,9 +36,14 @@
                 android:layout_height="68dp"
                 android:layout_weight="1"
                 android:id="@+id/button11"
-                style="?android:buttonBarButtonStyle"
-                android:background="@drawable/watertap"
-                android:src="@drawable/round_view"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/helpMe"
                 />
 
             <ImageButton
@@ -78,39 +51,115 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/button12"
-                style="?android:buttonBarButtonStyle"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
-                app:srcCompat="@mipmap/ambulence"
+                app:srcCompat="@drawable/thumbMedicine"
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/button13"
-                style="?android:buttonBarButtonStyle"
-                android:background="@drawable/backsupport"
-                android:src="@drawable/round_view" />
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/phone" />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/button14"
-                style="?android:buttonBarButtonStyle"
-                android:background="@drawable/warm"
-                android:src="@drawable/round_view"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/taxi" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/buttonRow2"
+            android:weightSum="4"
+            >
+
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:id="@+id/button21"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/ThumbsUp"
+                />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button22"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/sitdown"
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button23"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/water" />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button24"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/picture_btn"
+                app:srcCompat="@drawable/ThumbsDown"
                 />
 
         </LinearLayout>
 
-    </LinearLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/buttonDisplayText"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Selectable options"-->
-        <!--android:layout_above="@id/buttonHolder"-->
-        <!--/>-->
+    </LinearLayout>
 
 
     <EditText
@@ -118,7 +167,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:id="@+id/editText"
-        android:layout_below="@+id/topBar"
+        android:layout_alignParentTop="true"
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="2dp"
@@ -126,6 +175,9 @@
         android:imeOptions="actionDone"
         android:background="@drawable/round_view"
         android:singleLine="true"
+        android:hint="Start typing"
+        android:textColor="@color/black"
+        android:textColorHint="#0000ff"
         />
 
 
@@ -135,6 +187,7 @@
         android:layout_above="@+id/drawButton"
         android:layout_below="@+id/editText"
         android:isScrollContainer="false"
+        android:id="@+id/scroller1"
         >
     <LinearLayout
         android:text="TextView"
@@ -157,16 +210,6 @@
         android:layout_marginBottom="12dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/picture_btn"/>
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:labelFor="@id/editText"-->
-        <!--android:text="helper response"-->
-        <!--android:layout_alignBaseline="@+id/displayScreen"-->
-        <!--android:layout_alignBottom="@+id/displayScreen"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:id="@+id/textView" />-->
 
 </RelativeLayout>
 
