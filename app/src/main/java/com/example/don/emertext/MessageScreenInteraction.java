@@ -70,12 +70,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
 
-    public void onResume(){
-
-        recmsg = receiver.getResultData();
-        showReceiverMessage(recmsg);
-    }
-
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
         String message = "";
