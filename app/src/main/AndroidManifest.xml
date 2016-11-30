@@ -70,11 +70,7 @@
             android:label="Text Screen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name=
-                    "android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </activity>
+            </activity>
         <activity
             android:name=".DrawNotifyScreen"
             android:screenOrientation="portrait" />
