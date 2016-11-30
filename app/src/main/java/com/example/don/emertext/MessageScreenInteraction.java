@@ -28,7 +28,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.registerReceiver(SmsReceiver, new IntentFilter(
-                "android.intent.action.TIME_TICK"));
+                "android.provider.Telephony.SMS_RECEIVED"));
         SmsReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
