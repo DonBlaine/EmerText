@@ -59,6 +59,14 @@ public class MessageScreenInteraction extends AppCompatActivity {
                     + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), "");
         }
+
+        if (i.getBooleanExtra("include_ice", false)) {
+            message += "Emergency contact:" + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), "")
+                    + "on" + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), "")
+            ;
+        }
         if (peopleWith != null && !peopleWith.equals(""))
             message = message + "People with me: " + peopleWith + ". \n";
         if (extraDetails != null && !extraDetails.equals(""))

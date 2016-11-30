@@ -162,6 +162,7 @@ public class LocationDetails extends AppCompatActivity {
         i.putExtra("extraDetails", extraDetails);
         i.putExtra("buttonselected", buttonSelected);
         i.putExtra("include_medical", ((CheckBox) findViewById(R.id.med_conditions_checkbox)).isChecked());
+        i.putExtra("include_ice", ((CheckBox) findViewById(R.id.ice_checkbox)).isChecked());
         i.putExtra("gps", gps);
 
         startActivity(i);

@@ -132,11 +132,18 @@
             android:background="@color/white" />
 
         <CheckBox
-            android:text="Include medical conditions"
+            android:text="@string/include_medical_conditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="false"
             android:id="@+id/med_conditions_checkbox" />
+
+        <CheckBox
+            android:text="@string/include_ice_contact_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="false"
+            android:id="@+id/ice_checkbox" />
     </LinearLayout>
 
 
