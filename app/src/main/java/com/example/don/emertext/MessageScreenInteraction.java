@@ -84,7 +84,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
 
     protected void onResume() {
-//
+
+        super.onResume();
         Intent intent = getIntent();
         String message = intent.getStringExtra("message");
         showReceiverMessage(message);
