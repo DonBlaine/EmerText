@@ -35,6 +35,9 @@ import java.util.List;
 import java.util.Locale;
 import static android.Manifest.permission_group.LOCATION;
 
+//This code uses a Google Map API key which only works for one Android studio license
+//therefore the map may be blank if you use it from another Android Studio copy.
+
 // This code was inspired by the tutorial http://blog.teamtreehouse.com/beginners-guide-location-android
 // which deals with creating google map with the user's current location.
 
