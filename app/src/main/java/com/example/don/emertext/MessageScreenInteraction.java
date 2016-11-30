@@ -136,13 +136,13 @@ public class MessageScreenInteraction extends AppCompatActivity {
         TextView nmsg = new TextView(this);
         nmsg.setText(message);
         nmsg.setBackgroundResource(R.drawable.message_wrap);
-        nmsg.setTextColor(Color.BLACK);
+        nmsg.setTextColor(Color.WHITE);
         LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         prop.setMargins(0,0,0,8);
         prop.gravity = Gravity.LEFT;
 
         nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,5,5);
+        nmsg.setPadding(15,5,5,5);
         nmsg.setTextSize(18);
 
         ll.addView(nmsg);
@@ -195,7 +195,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         prop.gravity = Gravity.RIGHT;
 
         nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,5,5);
+        nmsg.setPadding(5,5,15,5);
         nmsg.setTextSize(18);
 
         ll1.addView(nmsg);
