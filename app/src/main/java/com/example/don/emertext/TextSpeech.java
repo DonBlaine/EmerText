@@ -76,15 +76,17 @@ public class TextSpeech extends AppCompatActivity {
             nmsg.setText(writable.getText());
             if (i % 2 == 0) {
                 nmsg.setBackgroundResource(R.drawable.message_received_wrap);
+                nmsg.setTextColor(Color.BLACK);
             } else {
                 nmsg.setBackgroundResource(R.drawable.message_wrap);
+                nmsg.setTextColor(Color.WHITE);
             }
-            nmsg.setTextColor(Color.BLACK);
+//            nmsg.setTextColor(Color.BLACK);
             LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             prop.setMargins(0, 0, 0, 8);
 
             nmsg.setLayoutParams(prop);
-            nmsg.setPadding(5, 5, 5, 5);
+            nmsg.setPadding(15, 15, 15, 15);
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
