@@ -147,6 +147,12 @@
         />
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/drawButton"
+        android:layout_below="@+id/editText"
+        >
     <LinearLayout
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -155,9 +161,8 @@
         android:id="@+id/helperTextMessage"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/drawButton"
-        android:layout_below="@+id/editText" />
-
+        />
+    </ScrollView>
 
 </RelativeLayout>
 
