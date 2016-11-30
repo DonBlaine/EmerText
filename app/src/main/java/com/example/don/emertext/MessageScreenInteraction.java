@@ -16,17 +16,47 @@ import android.widget.TextView;
 
 public class MessageScreenInteraction extends AppCompatActivity {
     Boolean colorChanger=true;
+    String message = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen_interaction);
+
+        //get data from previous activities
+        Intent i = getIntent();
+        String gps = i.getExtras().getString("gps");
+        String buttonSelected = i.getExtras().getString("buttonselected");
+        String userLocation = i.getExtras().getString("userLocation");
+        if(userLocation == null) userLocation = "n/a";
+        String emergencyType = i.getExtras().getString("emergencyType");
+        if(emergencyType == null) emergencyType = "n/a";
+        String peopleWith = i.getExtras().getString("peopleWith");
+        if(peopleWith == null) peopleWith = "n/a";
+        String extraDetails = i.getExtras().getString("extraDetails");
+        if(extraDetails == null) extraDetails = "n/a";
+
+        //create initial sms message
+        message = "I am hearing impaired and need help. \n" +
+                "Please send: " + buttonSelected + ". \n" +
+                "Location: " + userLocation + ". \n" +
+                "GPS: " + gps + ". \n" +
+                "Emergency Type: " + emergencyType + ". \n" +
+                "People with me: " + peopleWith + ". \n" +
+                "Additional details: " + extraDetails + ". \n";
+
+        TextView messageBox = (TextView) findViewById(R.id.messageText);
+        messageBox.setText(message);
+
+        //send initial sms
+        View view = this.findViewById(android.R.id.content).getRootView();
+        sendSMS(view);
+        messageBox.setText("");
     }
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
         String number = "0868303866";  // The number on which you want to send SMS
-        String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
         if (q.getText()!=null){message = q.getText().toString();}
         Intent resultIntent = new Intent(this, MainActivity.class);
@@ -73,7 +103,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                             currentSMS = getIncomingMessage(aObject, bundle);
 
                             sender = currentSMS.getDisplayOriginatingAddress();
-                            message = currentSMS.getDisplayMessageBody().toString();
+                            message = currentSMS.getDisplayMessageBody();
 
                             if(PhoneNumberUtils.compare(sender, "0868303866")) {
 
@@ -99,7 +129,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
             }
             return currentSMS;
         }
-    };
+    }
 
 
     // Code for timer

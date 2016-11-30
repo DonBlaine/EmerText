@@ -1,4 +1,5 @@
 package com.example.don.emertext;
+//created by Donovan Blaine
 
 import android.app.Activity;
 import android.content.Context;
@@ -150,9 +151,13 @@ public class LocationDetails extends AppCompatActivity {
         EditText pw = (EditText) findViewById(R.id.people_with_you);
         EditText ed = (EditText) findViewById(R.id.extra_details);
         String userLocation = loc.getText().toString();
+        if (Objects.equals(userLocation, "")){userLocation = null;}
         String emergencyType = emt.getText().toString();
+        if (Objects.equals(emergencyType, "")){emergencyType = null;}
         String peopleWith = pw.getText().toString();
+        if (Objects.equals(peopleWith, "")){peopleWith = null;}
         String extraDetails = ed.getText().toString();
+        if (Objects.equals(extraDetails, "")){extraDetails = null;}
         i.putExtra("userLocation", userLocation);
         i.putExtra("emergencyType", emergencyType);
         i.putExtra("peopleWith", peopleWith);

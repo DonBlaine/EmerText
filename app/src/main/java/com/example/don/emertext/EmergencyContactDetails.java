@@ -16,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,12 +28,10 @@ import android.widget.Toast;
  * A simple {@link Fragment} subclass.
  */
 public class EmergencyContactDetails extends Fragment {
+    SharedPreferences sharedPref;
     private View rootView;
     private EditText contact_name_edittext;
     private EditText contact_number_edittext;
-    final int CONTACT_INTENT_CODE = 1;
-    private final int REQUEST_CONTACTS_CODE = 10;
-    SharedPreferences sharedPref;
     public EmergencyContactDetails() {
         // Required empty public constructor
     }
@@ -70,7 +67,7 @@ public class EmergencyContactDetails extends Fragment {
     public void getContacts(View view){
         if (requestContactsPermission(view)) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(intent, CONTACT_INTENT_CODE);
+            startActivityForResult(intent, Utilities.CONTACT_INTENT_CODE);
         } else {
             String message = getString(R.string.no_contacts_permission_error);
             Toast toast = Toast.makeText(getContext().getApplicationContext(), message, Toast.LENGTH_SHORT);
@@ -86,11 +83,11 @@ public class EmergencyContactDetails extends Fragment {
 
 
         // Make sure it's our original READ_CONTACTS request
-        if (requestCode == REQUEST_CONTACTS_CODE) {
+        if (requestCode == Utilities.REQUEST_CONTACTS_CODE) {
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, CONTACT_INTENT_CODE);
+                startActivityForResult(intent, Utilities.CONTACT_INTENT_CODE);
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
@@ -114,7 +111,7 @@ public class EmergencyContactDetails extends Fragment {
         super.onActivityResult(reqCode, resultCode, data);
 
         switch (reqCode) {
-            case (CONTACT_INTENT_CODE):
+            case (Utilities.CONTACT_INTENT_CODE):
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     Cursor c = getContext().getContentResolver().query(contactData, null, null, null, null);
@@ -173,7 +170,7 @@ public class EmergencyContactDetails extends Fragment {
             //try to get permission
             requestPermissions(
                     new String[]{Manifest.permission.READ_CONTACTS},
-                    REQUEST_CONTACTS_CODE);
+                    Utilities.REQUEST_CONTACTS_CODE);
             if (checkContactsPermission(view)) {
                 return true;
             }
@@ -192,29 +189,29 @@ public class EmergencyContactDetails extends Fragment {
 
     //Form helper methods here
     public void restoreViewValue(EditText e) {
-        FormUtilities.restoreViewValue(sharedPref, e);
+        Utilities.restoreViewValue(sharedPref, e);
 
     }
 
     public void restoreViewValue(CheckBox c) {
-        FormUtilities.restoreViewValue(sharedPref, c);
+        Utilities.restoreViewValue(sharedPref, c);
     }
 
     public void setEditableFocusChangeAutosave(final EditText e) {
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref, e);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, e);
     }
 
     public void saveViewValue(EditText e) {
-        FormUtilities.saveViewValue(sharedPref, e);
+        Utilities.saveViewValue(sharedPref, e);
     }
 
     public void saveViewValue(CheckBox c) {
-        FormUtilities.saveViewValue(sharedPref, c);
+        Utilities.saveViewValue(sharedPref, c);
 
     }
 
     public void setEditableFocusChangeAutosave(CheckBox c) {
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref, c);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, c);
     }
 
 }

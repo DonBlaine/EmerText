@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
@@ -18,19 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import static com.example.don.emertext.R.string.details_initialised_key;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BasicDetails extends Fragment {
 
+    SharedPreferences sharedPref;
     private String EMERGENCY_NUMBER;
     private EditText firstname_edittext;
     private EditText lastname_edittext;
@@ -38,7 +33,6 @@ public class BasicDetails extends Fragment {
     private EditText address2_edittext;
     private AutoCompleteTextView county_autocomplete;
     private EditText eircode_edittext;
-    SharedPreferences sharedPref;
     private View rootView;
     private CheckBox fingerprint_checkbox;
 
@@ -57,13 +51,6 @@ public class BasicDetails extends Fragment {
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
-        Button return_button = (Button) rootView.findViewById(R.id.welcom_button);
-        return_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToWelcomeScreen();
-            }
-        });
         county_autocomplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +67,7 @@ public class BasicDetails extends Fragment {
                     PackageManager.PERMISSION_GRANTED) {
 
                 if (fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints()) {
-                    fingerprint_checkbox.setVisibility(View.VISIBLE);
+                    fingerprint_checkbox.setText(getString(R.string.lock_using_fingerprint));
                 }
             }
         }
@@ -91,13 +78,7 @@ public class BasicDetails extends Fragment {
 
         county_autocomplete.setAdapter(adapter);
 
-        if (sharedPref.getBoolean(getString(R.string.details_initialised_key), false)) {
-            return_button.setVisibility(View.GONE);
-        }
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(getString(details_initialised_key), true);
-        editor.apply();
         restoreAllValues();
         return rootView;
     }
@@ -123,10 +104,10 @@ public class BasicDetails extends Fragment {
     public void autosetDublin() {
         String eircode = eircode_edittext.getText().toString();
         if (eircode.length() > 3 && eircode.toCharArray()[0] == 'D') {
-            String post = eircode.substring(1, 3);
-            if (post.toCharArray()[0] == '0') {
-                post = post.substring(1, 2);
-            }
+            String post = Integer.parseInt(eircode.substring(1, 3)) + "";
+            //   if (post.toCharArray()[0] == '0') {
+            //      post = post.substring(1, 2);
+            // }
             county_autocomplete.setText("Dublin " + post);
         }
     }
@@ -146,7 +127,7 @@ public class BasicDetails extends Fragment {
 
     public void findEditViews(){
         firstname_edittext = (EditText) rootView.findViewById(R.id.fnameInput);
-        lastname_edittext = (EditText) rootView.findViewById(R.id.lnamepinput);
+        lastname_edittext = (EditText) rootView.findViewById(R.id.lnameinput);
         address1_edittext = (EditText) rootView.findViewById(R.id.address1);
         address2_edittext = (EditText) rootView.findViewById(R.id.address2);
         county_autocomplete = (AutoCompleteTextView) rootView.findViewById(R.id.county_select_input);
@@ -161,11 +142,6 @@ public class BasicDetails extends Fragment {
         setEditableFocusChangeAutosave(fingerprint_checkbox);
     }
 
-    public void goToWelcomeScreen() {
-        Intent intent = new Intent(getContext(), WelcomeActivity.class);
-        startActivity(intent);
-
-    }
 
 
 
@@ -189,28 +165,28 @@ public class BasicDetails extends Fragment {
 
     //Form helper methods here
     public void restoreViewValue(EditText e) {
-        FormUtilities.restoreViewValue(sharedPref, e);
+        Utilities.restoreViewValue(sharedPref, e);
 
     }
 
     public void restoreViewValue(CheckBox c) {
-        FormUtilities.restoreViewValue(sharedPref, c);
+        Utilities.restoreViewValue(sharedPref, c);
     }
 
     public void setEditableFocusChangeAutosave(final EditText e) {
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref, e);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, e);
     }
 
     public void saveViewValue(EditText e) {
-        FormUtilities.saveViewValue(sharedPref, e);
+        Utilities.saveViewValue(sharedPref, e);
     }
 
     public void saveViewValue(CheckBox c) {
-        FormUtilities.saveViewValue(sharedPref, c);
+        Utilities.saveViewValue(sharedPref, c);
 
     }
 
     public void setEditableFocusChangeAutosave(CheckBox c) {
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref, c);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, c);
     }
 }

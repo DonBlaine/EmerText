@@ -24,7 +24,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,10 +34,12 @@
         </activity>
         <activity
             android:name=".LocationDetails"
-            android:label="t" />
+            android:label="@string/title_activity_location"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MapPin"
-            android:label="@string/title_activity_location" />
+            android:label="MapPin"
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -55,18 +58,27 @@
         <activity
             android:name=".TabbedDetails"
             android:label="@string/title_activity_tabbed_details"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WelcomeActivity"
-            android:label="Emergency text" />
-        <activity android:name=".MessageScreenInteraction" />
+            android:label="Emergency text"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageScreenInteraction"
+            android:label="Text Screen"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DrawNotifyScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TextSpeech"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Initial"></activity>
+            android:label="Text Speech"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Initial"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SecurityActivity"></activity>
     </application>
 
 </manifest>

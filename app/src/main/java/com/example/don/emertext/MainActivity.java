@@ -1,26 +1,12 @@
 package com.example.don.emertext;
 
-import android.Manifest;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     private TextView network_text;
@@ -42,11 +28,10 @@ public class MainActivity extends AppCompatActivity {
         boolean statusOK = checkMatch() && checkSim() && checkNetwork();
         statusOK = true;
 
-        if (statusOK && sharedPref.getBoolean(getString(R.string.details_initialised_key), false)) {
+        if (statusOK && sharedPref.getBoolean(getString(R.string.setup_complete_key), false)) {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
-                Intent intent = new Intent(this, FingerScannerActivity.class);
-
+                Intent intent = new Intent(this, SecurityActivity.class);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, WelcomeActivity.class);

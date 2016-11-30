@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:maxLines="1"
             android:inputType="textPersonName"
             android:id="@+id/curLocation"
             android:background="@color/white"
@@ -84,7 +85,6 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 tools:ignore="HardcodedText" />
-
         </LinearLayout>
 
         <AutoCompleteTextView
@@ -95,6 +95,9 @@
             android:layout_marginTop="10dp"
             android:id="@+id/emertype_spinner"
             android:hint="Enter Emergency Type"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:entries="@array/emer_type"
@@ -107,9 +110,9 @@
             android:textColor="@color/black"
             android:hint="Enter Details"
             android:gravity="top|left"
+            android:maxLines="1"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:minLines="1"
             android:padding="10dp"
             android:inputType="textCapSentences|textAutoCorrect"
             android:id="@+id/extra_details"
@@ -119,6 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
             android:padding="10dp"
+            android:maxLines="1"
             android:hint="Enter People With You"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
@@ -127,8 +131,6 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/white" />
-
-
     </LinearLayout>
 
 
