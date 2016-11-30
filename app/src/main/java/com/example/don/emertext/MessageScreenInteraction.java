@@ -1,9 +1,7 @@
 package com.example.don.emertext;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +13,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -48,12 +45,20 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String peopleWith = i.getExtras().getString("peopleWith");
         String extraDetails = i.getExtras().getString("extraDetails");
 
+
         String message =
                 "Please send: " + buttonSelected + ". \n" +
                 "Location: " + userLocation + ". \n" +
                         "GPS: " + gps + ". \n";
 
-
+        if (i.getBooleanExtra("include_medical", false)) {
+            message += getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.medical_conditions_key), "")
+                    + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.current_meds_key), "")
+                    + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), "");
+        }
         if (peopleWith != null && !peopleWith.equals(""))
             message = message + "People with me: " + peopleWith + ". \n";
         if (extraDetails != null && !extraDetails.equals(""))
