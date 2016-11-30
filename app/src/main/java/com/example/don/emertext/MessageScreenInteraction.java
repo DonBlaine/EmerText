@@ -71,10 +71,13 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
 
     public void onResume(){
-
-        recmsg = receiver.getResultData();
+    super.onResume();
+        recmsg = getIntent().getStringExtra("message");
         showReceiverMessage(recmsg);
+        //recmsg = receiver.getResultData();
+        //showReceiverMessage(recmsg);
     }
+
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
