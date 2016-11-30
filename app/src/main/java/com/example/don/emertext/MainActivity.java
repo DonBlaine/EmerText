@@ -3,8 +3,8 @@ package com.example.don.emertext;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.widget.TextView;
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         boolean statusOK = checkMatch() && checkSim() && checkNetwork();
         statusOK = true;
 
-        if (statusOK && sharedPref.getBoolean(getString(R.string.details_initialised_key), false)) {
+        if (statusOK && sharedPref.getBoolean(getString(R.string.setup_complete_key), false)) {
 
             if (sharedPref.getBoolean(getString(R.string.useFingerprint_key), false)) {
                 Intent intent = new Intent(this, SecurityActivity.class);

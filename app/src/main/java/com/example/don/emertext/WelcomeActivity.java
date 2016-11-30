@@ -114,7 +114,6 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1000);
 
-
         // help gotten from https://www.youtube.com/watch?v=gh4nX-m6BEo
         // define all the buttons on the screen
         defineButtons();
