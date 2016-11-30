@@ -2,16 +2,13 @@ package com.example.don.emertext;
 
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +21,7 @@ import android.widget.EditText;
  * A simple {@link Fragment} subclass.
  */
 public class BasicDetails extends Fragment {
+    //Fragment for basic details section of the
 
     SharedPreferences sharedPref;
     private String EMERGENCY_NUMBER;
@@ -86,6 +84,7 @@ public class BasicDetails extends Fragment {
 
 
     public void restoreAllValues() {
+        //Function to load all view values from stored values
         restoreViewValue(firstname_edittext);
         restoreViewValue(lastname_edittext);
         restoreViewValue(address1_edittext);
@@ -102,6 +101,8 @@ public class BasicDetails extends Fragment {
     }
 
     public void autosetDublin() {
+        //Function to autoset county if the Eircode is supplied and starts with D
+        //The rest of the database is random, and is not open, therefore only D-- ---- Eircodes can be inferred
         String eircode = eircode_edittext.getText().toString();
         if (eircode.length() > 3 && eircode.toCharArray()[0] == 'D') {
             String post = Integer.parseInt(eircode.substring(1, 3)) + "";
@@ -110,19 +111,6 @@ public class BasicDetails extends Fragment {
             // }
             county_autocomplete.setText("Dublin " + post);
         }
-    }
-
-
-    public String composeMessage(View view) {
-        AutoCompleteTextView county = (AutoCompleteTextView) rootView.findViewById(R.id.county_select_input);
-
-        String message = firstname_edittext.getText().toString() + " " +
-                lastname_edittext.getText().toString() + " " +
-                address1_edittext.getText().toString() + " " +
-                address2_edittext.getText().toString() + " " +
-                county.getText().toString() + " " +
-                "requires an ambulance.";
-        return message;
     }
 
     public void findEditViews(){
@@ -143,27 +131,7 @@ public class BasicDetails extends Fragment {
     }
 
 
-
-
-    public void sendSMS(View view) {
-
-        SmsManager text = SmsManager.getDefault();
-        String number = EMERGENCY_NUMBER;
-        String message = composeMessage(view);
-        Intent resultIntent = new Intent(getContext(), MainActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(getContext(),
-                0,
-                resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        text.sendTextMessage(number // Number to send to
-                , null               // Message centre to send to (we'll never want to change this)
-                , message            // Message to send
-                , null               // The PendingIntent to perform when the message is successfully sent
-                , intent);           // The PendingIntent to perform when the message is successfully delivered
-
-    }
-
-    //Form helper methods here
+    //Methods below just mirror those in Utilities but with the SharedPreferences parameter passed
     public void restoreViewValue(EditText e) {
         Utilities.restoreViewValue(sharedPref, e);
 

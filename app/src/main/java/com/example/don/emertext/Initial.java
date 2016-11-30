@@ -1,5 +1,6 @@
 package com.example.don.emertext;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,8 +32,8 @@ public class Initial extends AppCompatActivity {
 
 
     public void registerForService(View view) {
+        //Function to request SMS permission and send registration text
         Context context = getApplicationContext();
-
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
             sendRegistrationText();
 
@@ -51,16 +52,17 @@ public class Initial extends AppCompatActivity {
                                            @NonNull int[] grantResults) {
 
 
-        // Make sure it's our original READ_CONTACTS request
+        // Make sure it's our original SEND_SMS request
         if (requestCode == Utilities.SMS_REQUEST_CODE) {
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //If permission granted, now send the text
                 sendRegistrationText();
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS);
                 }
 
                 if (!showRationale) {
@@ -75,7 +77,7 @@ public class Initial extends AppCompatActivity {
     }
 
     public void sendRegistrationText() {
-
+        //Function to send the registration text to the default emergency number as defined in
         SmsManager text = SmsManager.getDefault();
         String number = getString(R.string.default_emergency_number);
         String message = "register";

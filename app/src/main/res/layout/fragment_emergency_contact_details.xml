@@ -48,6 +48,11 @@
             android:elevation="0dp"
             android:text="@string/from_contacts" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/emergency_services_number_textview"
+            android:textSize="18sp" />
         <EditText
             android:id="@+id/emergency_service_number_edittext"
             android:layout_width="match_parent"
