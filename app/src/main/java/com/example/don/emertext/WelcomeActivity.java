@@ -40,6 +40,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private boolean smsGranted = false;
+    private boolean nopermissions = true;
 
 
     @Override
@@ -175,26 +176,43 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Location services connected.");
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+        nopermissions = (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
+
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (nopermissions){
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, LOCATION},
                         Utilities.REQUEST_LOCATION);
             }
-        }
-        if (isNetworkConnected()) {
-            Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (mlocation == null) {
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-                mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (isNetworkConnected() && !nopermissions) {
+                Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                if (mlocation == null) {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                    mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                }
+                if (mlocation!=null){
+                    lat = mlocation.getLatitude();
+                    lon = mlocation.getLongitude();
+                }
+            } else {
+                Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
             }
-            if (mlocation!=null){
-                lat = mlocation.getLatitude();
-                lon = mlocation.getLongitude();
+
+        }else{
+            if (isNetworkConnected()) {
+                Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                if (mlocation == null) {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                    mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                }
+                if (mlocation!=null){
+                    lat = mlocation.getLatitude();
+                    lon = mlocation.getLongitude();
+                }
+            } else {
+                Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(this, "Error, No Network Connection Detected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -230,6 +248,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
+                nopermissions = false;
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;

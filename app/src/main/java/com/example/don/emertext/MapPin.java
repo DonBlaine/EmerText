@@ -37,6 +37,8 @@ import static android.Manifest.permission_group.LOCATION;
 
 //This code uses a Google Map API key which only works for one Android studio license
 //therefore the map may be blank if you use it from another Android Studio copy.
+//for further info see:
+// https://stackoverflow.com/questions/29878593/android-studio-using-google-maps-apis-key-by-multiple-developers
 
 // This code was inspired by the tutorial http://blog.teamtreehouse.com/beginners-guide-location-android
 // which deals with creating google map with the user's current location.
@@ -57,6 +59,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     private TextView markerButton;
     private String locationAddress = null;
     private String gps = null;
+    boolean nopermissions = true;
 
 
     @Override
@@ -196,6 +199,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
+                nopermissions=false;
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
@@ -215,20 +219,24 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Location services connected.");
+        nopermissions = (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
+
         if (Build.VERSION.SDK_INT >= 23) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
-                        REQUEST_LOCATION);
+            if(nopermissions){
+                    ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,LOCATION},
+                    REQUEST_LOCATION);
             }
         }
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (location == null) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        }
-        if (location != null) {
-            handleNewLocation(location);
+        if (!nopermissions){
+            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (location == null) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            }
+            if (location != null) {
+                handleNewLocation(location);
+            }
         }
     }
 
