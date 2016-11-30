@@ -237,7 +237,6 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
                 nopermissions = false;
-                getCoord();
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
