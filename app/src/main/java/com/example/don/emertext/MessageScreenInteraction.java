@@ -1,29 +1,31 @@
 package com.example.don.emertext;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
     Boolean colorChanger=true;
     String message = "";
+    String number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen_interaction);
-
+        number = getSharedPreferences(getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
         //get data from previous activities
+        Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
         Intent i = getIntent();
         String gps = i.getExtras().getString("gps");
         String buttonSelected = i.getExtras().getString("buttonselected");
@@ -51,26 +53,22 @@ public class MessageScreenInteraction extends AppCompatActivity {
         //send initial sms
         View view = this.findViewById(android.R.id.content).getRootView();
         sendSMS(view);
-        messageBox.setText("");
+
     }
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
-        String number = "0868303866";  // The number on which you want to send SMS
         TextView q = (TextView) findViewById(R.id.messageText);
         if (q.getText()!=null){message = q.getText().toString();}
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(this,
-                0,
-                resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+
         text.sendTextMessage(number // Number to send to
                 , null               // Message centre to send to (we'll never want to change this)
                 , message            // Message to send
                 , null               // The PendingIntent to perform when the message is successfully sent
-                , intent);           // The PendingIntent to perform when the message is successfully delivered
+                , null);           // The PendingIntent to perform when the message is successfully delivered
 
         showMessage(message);
+        q.setText("");
     }
 
     public void showMessage(String message){
@@ -79,7 +77,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
         TextView c = new TextView(this);
         c.setText(message);
-
         ll.addView(c);
     }
 
