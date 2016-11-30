@@ -1,6 +1,5 @@
 package com.example.don.emertext;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -33,6 +33,37 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
+
+
+        //get data from previous activities
+        Intent i = getIntent();
+        String gps = i.getExtras().getString("gps");
+        String buttonSelected = i.getExtras().getString("buttonselected");
+        String userLocation = i.getExtras().getString("userLocation");
+        if (userLocation == null) userLocation = "n/a";
+        String emergencyType = i.getExtras().getString("emergencyType");
+        String peopleWith = i.getExtras().getString("peopleWith");
+        String extraDetails = i.getExtras().getString("extraDetails");
+
+        String message =
+                "Please send: " + buttonSelected + ". \n" +
+                "Location: " + userLocation + ". \n" +
+                        "GPS: " + gps + ". \n";
+
+
+        if (peopleWith != null && !peopleWith.equals(""))
+            message = message + "People with me: " + peopleWith + ". \n";
+        if (peopleWith != null && !peopleWith.equals(""))
+            message = message + "Additional details: " + extraDetails + ". \n";
+        if (emergencyType != null && !emergencyType.equals(""))
+            message = message + "Emergency Type: " + emergencyType + ". \n";
+
+
+
+        msgText.setText(message);
+        sendSMS(findViewById(android.R.id.content).getRootView());
+
+
     }
 
     public void sendSMS(View view) {
@@ -40,20 +71,12 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
 
-        if (q.getText().toString().trim() !=null)
-        {
             message = q.getText().toString();
-        }
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(this,
-                0,
-                resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
         text.sendTextMessage(number // Number to send to
                 , null               // Message centre to send to (we'll never want to change this)
                 , message            // Message to send
                 , null               // The PendingIntent to perform when the message is successfully sent
-                , intent);           // The PendingIntent to perform when the message is successfully delivered
+                , null);           // The PendingIntent to perform when the message is successfully delivered
 
         message = message.trim();
         if (!message.equals("")) {
