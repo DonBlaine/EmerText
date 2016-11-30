@@ -46,8 +46,7 @@ public class LocationDetails extends AppCompatActivity {
         ((AutoCompleteTextView) findViewById(R.id.emertype_spinner)).setAdapter(
                 new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                         spinnerArray));
-
-        populateLocation(lat, lon);
+        if(lat != null && lon != null ){ populateLocation(lat, lon);}
     }
 
     public void getHome(View view){
