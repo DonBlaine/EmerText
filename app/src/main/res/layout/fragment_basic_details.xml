@@ -129,7 +129,8 @@
                     android:padding="5dp"
                     android:tag="@string/county_key"
                     android:textColor="#000000"
-                    android:imeOptions="actionDone" />
+                    android:nextFocusDown="@+id/county_select_input"
+                    android:imeOptions="actionNext" />
             </LinearLayout>
 
 
