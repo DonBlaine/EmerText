@@ -71,13 +71,28 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
 
-            message = q.getText().toString();
-        text.sendTextMessage(number // Number to send to
-                , null               // Message centre to send to (we'll never want to change this)
-                , message            // Message to send
-                , null               // The PendingIntent to perform when the message is successfully sent
-                , null);           // The PendingIntent to perform when the message is successfully delivered
-
+        message = q.getText().toString();
+        String currentmessage;
+        for (int part = 0; part <= message.length() / 160; part++) {
+            if (part == message.length() / 160) {
+                currentmessage = message.substring(160 * part);
+            } else {
+                currentmessage = message.substring(160 * part, 160 * part + 160);
+            }
+            text.sendTextMessage(number // Number to send to
+                    , null               // Message centre to send to (we'll never want to change this)
+                    , currentmessage            // Message to send
+                    , null               // The PendingIntent to perform when the message is successfully sent
+                    , null);           // The PendingIntent to perform when the message is successfully delivered
+        }/*
+        else
+        {
+            text.sendTextMessage(number // Number to send to
+                    , null               // Message centre to send to (we'll never want to change this)
+                    , message            // Message to send
+                    , null               // The PendingIntent to perform when the message is successfully sent
+                    , null);           // The PendingIntent to perform when the message is successfully delivered
+        }*/
         message = message.trim();
         if (!message.equals("")) {
             showSenderMessage(message);
