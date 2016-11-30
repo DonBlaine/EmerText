@@ -22,7 +22,6 @@ public class TextSpeech extends AppCompatActivity {
     TextToSpeech ts;
     String toSpeak;
     LinearLayout helperText;
-    TextView speakText;
     int i=1;
     EditText writable;
 
@@ -32,7 +31,6 @@ public class TextSpeech extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_speech);
         helperText = (LinearLayout) findViewById(R.id.helperTextMessage);
-        speakText = (TextView) findViewById(R.id.saidMessage);
         writable = (EditText) findViewById(R.id.editText);
 
     }
