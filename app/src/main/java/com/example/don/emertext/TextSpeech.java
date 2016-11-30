@@ -188,15 +188,10 @@ public class TextSpeech extends AppCompatActivity {
         }
     };
 
-
-
     public void speakNow() {
 
         Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
         ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
     }
-
-
-
 
 }
