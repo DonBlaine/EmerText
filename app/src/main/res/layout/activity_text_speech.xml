@@ -152,6 +152,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/drawButton"
         android:layout_below="@+id/editText"
+        android:isScrollContainer="false"
         >
     <LinearLayout
         android:text="TextView"
