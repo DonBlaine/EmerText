@@ -129,9 +129,6 @@ public class TextSpeech extends AppCompatActivity {
         findViewById(R.id.button23).setOnClickListener(buttonClickListener);
         findViewById(R.id.button24).setOnClickListener(buttonClickListener);
 
-        findViewById(R.id.agree).setOnClickListener(buttonClickListener);
-        findViewById(R.id.decline).setOnClickListener(buttonClickListener);
-
         findViewById(R.id.drawButton).setOnClickListener(buttonClickListener);
 
 
@@ -179,16 +176,6 @@ public class TextSpeech extends AppCompatActivity {
                     break;
                 case R.id.button24:
                     toSpeak = "Can you help me to some place warm please";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.agree:
-                    toSpeak = "Yes, Thank you very much";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.decline:
-                    toSpeak = "No Just that please, Thank you";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
