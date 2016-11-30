@@ -249,9 +249,9 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                     Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 
     @Override
