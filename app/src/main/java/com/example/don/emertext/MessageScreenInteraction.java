@@ -21,6 +21,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     String number;
     SmsListener receiver;
     String recmsg;
+    String lastmessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
+        lastmessage="";
 
 
         //get data from previous activities
@@ -86,18 +88,10 @@ public class MessageScreenInteraction extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
+
         Intent intent = getIntent();
         String message = intent.getStringExtra("message");
         showReceiverMessage(message);
-
-//        receiver = new SmsListener(){
-//            public void onReceive(Context context, Intent intent) {
-//                //get data from intent and populate textview
-//
-//            }
-//        };
-//        IntentFilter filter  = new IntentFilter(".SmsListener.SENT_STRING");
-
     }
 
 
@@ -159,22 +153,25 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
 
     public void showReceiverMessage(String message){
+        if (!message.equals(lastmessage)) {
 
-        LinearLayout ll1 = (LinearLayout)findViewById(R.id.messageHolder);
+            lastmessage = message;
+            LinearLayout ll1 = (LinearLayout) findViewById(R.id.messageHolder);
 
-        TextView nmsg = new TextView(this);
-        nmsg.setText(message);
-        nmsg.setBackgroundResource(R.drawable.message_received_wrap);
-        nmsg.setTextColor(Color.BLACK);
-        LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        prop.setMargins(0,0,0,8);
-        prop.gravity = Gravity.RIGHT;
+            TextView nmsg = new TextView(this);
+            nmsg.setText(message);
+            nmsg.setBackgroundResource(R.drawable.message_received_wrap);
+            nmsg.setTextColor(Color.BLACK);
+            LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            prop.setMargins(0, 0, 0, 8);
+            prop.gravity = Gravity.RIGHT;
 
-        nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,15,5);
-        nmsg.setTextSize(18);
+            nmsg.setLayoutParams(prop);
+            nmsg.setPadding(5, 5, 15, 5);
+            nmsg.setTextSize(18);
 
-        ll1.addView(nmsg);
+            ll1.addView(nmsg);
+        }
     }
 
     // Code for timer

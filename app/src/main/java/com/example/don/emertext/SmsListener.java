@@ -16,6 +16,7 @@ public class SmsListener extends BroadcastReceiver
         Bundle bundle = intent.getExtras();
         SmsMessage[] msgs = null;
         String str = "";
+        String number = "";
         if (bundle != null)
         {
             //---retrieve the SMS message received---
@@ -23,13 +24,10 @@ public class SmsListener extends BroadcastReceiver
             msgs = new SmsMessage[pdus.length];
             for (int i=0; i<msgs.length; i++){
                 msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
-                str += "SMS from " + msgs[i].getOriginatingAddress();
-                str += " :";
+                number += msgs[i].getOriginatingAddress();
                 str += msgs[i].getMessageBody().toString();
-                str += "n";
             }
             //---display the new SMS message---
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
 
             Intent i = new Intent(context, MessageScreenInteraction.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
