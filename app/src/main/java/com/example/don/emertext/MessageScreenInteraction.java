@@ -3,6 +3,7 @@ package com.example.don.emertext;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +22,41 @@ public class MessageScreenInteraction extends AppCompatActivity {
     EditText msgText;
     ScrollView scroll;
     String number;
+    BroadcastReceiver SmsReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.registerReceiver(SmsReceiver, new IntentFilter(
+                "android.intent.action.TIME_TICK"));
+        SmsReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+
+
+                //---get the SMS message passed in---
+                Bundle bundle = intent.getExtras();
+                android.telephony.SmsMessage[] msgs = null;
+                String str = "";
+                if (bundle != null)
+                {
+                    //---retrieve the SMS message received---
+                    Object[] pdus = (Object[]) bundle.get("pdus");
+                    msgs = new android.telephony.SmsMessage[pdus.length];
+                    for (int i=0; i<msgs.length; i++){
+                        msgs[i] = android.telephony.SmsMessage.createFromPdu((byte[])pdus[i]);
+                        str += "SMS from " + msgs[i].getOriginatingAddress();
+                        str += " :";
+                        str += msgs[i].getMessageBody().toString();
+                        str += "n";
+                    }
+                    //---display the new SMS message---
+                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        };
         number = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
         setContentView(R.layout.activity_message_screen_interaction);
@@ -120,33 +152,34 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
     // taken from mobiforge
-
-    private BroadcastReceiver SmsReceiver = new BroadcastReceiver()
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            //---get the SMS message passed in---
-            Bundle bundle = intent.getExtras();
-            android.telephony.SmsMessage[] msgs = null;
-            String str = "";
-            if (bundle != null)
-            {
-                //---retrieve the SMS message received---
-                Object[] pdus = (Object[]) bundle.get("pdus");
-                msgs = new android.telephony.SmsMessage[pdus.length];
-                for (int i=0; i<msgs.length; i++){
-                    msgs[i] = android.telephony.SmsMessage.createFromPdu((byte[])pdus[i]);
-                    str += "SMS from " + msgs[i].getOriginatingAddress();
-                    str += " :";
-                    str += msgs[i].getMessageBody().toString();
-                    str += "n";
-                }
-                //---display the new SMS message---
-                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
+//
+//    BroadcastReceiver SmsReceiver = new BroadcastReceiver()
+//    {
+//        @Override
+//        public void onReceive(Context context, Intent intent)
+//        {
+//
+//            //---get the SMS message passed in---
+//            Bundle bundle = intent.getExtras();
+//            android.telephony.SmsMessage[] msgs = null;
+//            String str = "";
+//            if (bundle != null)
+//            {
+//                //---retrieve the SMS message received---
+//                Object[] pdus = (Object[]) bundle.get("pdus");
+//                msgs = new android.telephony.SmsMessage[pdus.length];
+//                for (int i=0; i<msgs.length; i++){
+//                    msgs[i] = android.telephony.SmsMessage.createFromPdu((byte[])pdus[i]);
+//                    str += "SMS from " + msgs[i].getOriginatingAddress();
+//                    str += " :";
+//                    str += msgs[i].getMessageBody().toString();
+//                    str += "n";
+//                }
+//                //---display the new SMS message---
+//                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    };
 
 
     public void showReceiverMessage(String message){
