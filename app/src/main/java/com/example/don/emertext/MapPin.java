@@ -221,6 +221,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         getCoord();
     }
 
+    //checks permissions and starts handlenewlocation method.
     private void getCoord(){
         nopermissions = (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
 
