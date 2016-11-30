@@ -42,19 +42,24 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String userLocation = i.getExtras().getString("userLocation");
         if (userLocation == null) userLocation = "n/a";
         String emergencyType = i.getExtras().getString("emergencyType");
-        if (emergencyType == null) emergencyType = "n/a";
         String peopleWith = i.getExtras().getString("peopleWith");
-        if (peopleWith == null) peopleWith = "n/a";
         String extraDetails = i.getExtras().getString("extraDetails");
-        if (extraDetails == null) extraDetails = "n/a";
 
-        String message = "I am hearing impaired and need help. \n"; /* +
+        String message =
                 "Please send: " + buttonSelected + ". \n" +
                 "Location: " + userLocation + ". \n" +
-                "GPS: " + gps + ". \n" +
-                "Emergency Type: " + emergencyType + ". \n" +
-                "People with me: " + peopleWith + ". \n" +
-                "Additional details: " + extraDetails + ". \n"; */
+                        "GPS: " + gps + ". \n";
+
+
+        if (peopleWith != null && !peopleWith.equals(""))
+            message = message + "People with me: " + peopleWith + ". \n";
+        if (peopleWith != null && !peopleWith.equals(""))
+            message = message + "Additional details: " + extraDetails + ". \n";
+        if (emergencyType != null && !emergencyType.equals(""))
+            message = message + "Emergency Type: " + emergencyType + ". \n";
+
+
+
         msgText.setText(message);
         sendSMS(findViewById(android.R.id.content).getRootView());
 
@@ -123,7 +128,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                             currentSMS = getIncomingMessage(aObject, bundle);
 
                             sender = currentSMS.getDisplayOriginatingAddress();
-                            message = currentSMS.getDisplayMessageBody().toString();
+                            message = currentSMS.getDisplayMessageBody();
 
                             if (PhoneNumberUtils.compare(sender, number)) {
 
