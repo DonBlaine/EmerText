@@ -38,7 +38,7 @@
 
     </string-array>
 
-    <string name="title_activity_location">EmerText</string>
+    <string name="title_activity_location">Location Details</string>
     <string name="location">Location</string>
     <string name="emertype">Emergency Type</string>
     <string name="whois">People With You?</string>

@@ -40,6 +40,60 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private boolean smsGranted = false;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+        enterDetails(null);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1000);
+
+
+        // help gotten from https://www.youtube.com/watch?v=gh4nX-m6BEo
+        // define all the buttons on the screen
+        defineButtons();
+    } // end onCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    public void defineButtons(){
+        findViewById(R.id.details_btn).setOnClickListener(buttonClickListener);
+        findViewById(R.id.talk_stranger_btn).setOnClickListener(buttonClickListener);
+
+        findViewById(R.id.fire_btn).setOnClickListener(buttonClickListener);
+        findViewById(R.id.ambu_btn).setOnClickListener(buttonClickListener);
+        findViewById(R.id.garda_btn).setOnClickListener(buttonClickListener);
+        findViewById(R.id.coast_btn).setOnClickListener(buttonClickListener);
+
+        findViewById(R.id.fire_btn).setOnLongClickListener(buttonLongClickListener);
+        findViewById(R.id.ambu_btn).setOnLongClickListener(buttonLongClickListener);
+        findViewById(R.id.garda_btn).setOnLongClickListener(buttonLongClickListener);
+        findViewById(R.id.coast_btn).setOnLongClickListener(buttonLongClickListener);
+    }
+
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -97,57 +151,6 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             return true;
         }
     }; // end OnLongClickListener
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        enterDetails(null);
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        // Create the LocationRequest object
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1000);
-
-        // help gotten from https://www.youtube.com/watch?v=gh4nX-m6BEo
-        // define all the buttons on the screen
-        defineButtons();
-    } // end onCreate
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mGoogleApiClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            mGoogleApiClient.disconnect();
-        }
-    }
-
-    public void defineButtons(){
-        findViewById(R.id.details_btn).setOnClickListener(buttonClickListener);
-        findViewById(R.id.talk_stranger_btn).setOnClickListener(buttonClickListener);
-
-        findViewById(R.id.fire_btn).setOnClickListener(buttonClickListener);
-        findViewById(R.id.ambu_btn).setOnClickListener(buttonClickListener);
-        findViewById(R.id.garda_btn).setOnClickListener(buttonClickListener);
-        findViewById(R.id.coast_btn).setOnClickListener(buttonClickListener);
-
-        findViewById(R.id.fire_btn).setOnLongClickListener(buttonLongClickListener);
-        findViewById(R.id.ambu_btn).setOnLongClickListener(buttonLongClickListener);
-        findViewById(R.id.garda_btn).setOnLongClickListener(buttonLongClickListener);
-        findViewById(R.id.coast_btn).setOnLongClickListener(buttonLongClickListener);
-    }
 
     private void LaunchNext() {
         if (smsGranted){
