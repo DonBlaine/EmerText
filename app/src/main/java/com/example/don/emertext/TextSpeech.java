@@ -86,7 +86,7 @@ public class TextSpeech extends AppCompatActivity {
             prop.setMargins(0, 0, 0, 8);
 
             nmsg.setLayoutParams(prop);
-            nmsg.setPadding(15, 15, 15, 15);
+            nmsg.setPadding(15, 5, 15, 5);
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);

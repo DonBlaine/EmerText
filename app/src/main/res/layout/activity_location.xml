@@ -12,37 +12,18 @@
     tools:context="com.example.don.emertext.LocationDetails">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <Button
-            android:text="Send Text"
-            android:layout_width="275dp"
-            android:padding="10dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/send_text"
-            android:onClick="submitInfo"
-            android:background="@drawable/plain_btn"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
-
-    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="7dp"
             android:maxLines="1"
             android:inputType="textPersonName"
             android:id="@+id/curLocation"
@@ -89,11 +70,11 @@
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="7dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/emertype_spinner"
-            android:hint="Enter Emergency Type"
+            android:hint="Select Emergency Description"
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:inputType="text"
@@ -107,12 +88,12 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
-            android:hint="Enter Details"
+            android:hint="Additional Details"
             android:gravity="top|left"
             android:maxLines="1"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:padding="10dp"
+            android:padding="7dp"
             android:inputType="textCapSentences|textAutoCorrect"
             android:id="@+id/extra_details"
             android:background="@color/white" />
@@ -120,7 +101,7 @@
         <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="7dp"
             android:maxLines="1"
             android:hint="Enter People With You"
             android:textColorHint="@color/black"
@@ -133,17 +114,40 @@
 
         <CheckBox
             android:text="@string/include_medical_conditions"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="false"
             android:id="@+id/med_conditions_checkbox" />
 
+
         <CheckBox
             android:text="@string/include_ice_contact_info"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="false"
             android:id="@+id/ice_checkbox" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:text="Send Text"
+            android:layout_width="275dp"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/send_text"
+            android:onClick="submitInfo"
+            android:background="@drawable/plain_btn"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 
