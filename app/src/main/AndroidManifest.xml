@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".LocationDetails"
-            android:label="@string/title_activity_location" />
+            android:label="t" />
         <activity
             android:name=".MapPin"
             android:label="@string/title_activity_location" />
