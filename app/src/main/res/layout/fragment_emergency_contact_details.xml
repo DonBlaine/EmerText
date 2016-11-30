@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,9 +11,9 @@
         android:orientation="vertical">
 
         <TextView
-        android:text="@string/next_kin_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/next_kin_details"
             android:textSize="18sp"
         />
 
@@ -30,26 +29,33 @@
             android:tag="@string/emergency_contact_name_key" />
 
         <EditText
+            android:id="@+id/emergency_contact_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:hint="@string/emergency_contact_phone_number"
             android:ems="10"
-            android:id="@+id/emergency_contact_phone"
+            android:hint="@string/emergency_contact_phone_number"
+            android:inputType="phone"
             android:tag="@string/emergency_contact_number_key" />
 
         <Button
-            android:text="@string/from_contacts"
+            android:id="@+id/fetch_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fetch_button"
+            android:layout_gravity="center"
             android:layout_weight="0"
             android:drawableLeft="@drawable/contacts_icon"
-            android:elevation="0dp"
             android:drawablePadding="10dp"
-            android:layout_gravity="center" />
+            android:elevation="0dp"
+            android:text="@string/from_contacts" />
 
-
+        <EditText
+            android:id="@+id/emergency_service_number_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/override_emergency_services_number"
+            android:inputType="phone"
+            android:tag="@string/emergency_service_number_key" />
     </LinearLayout>
 
 </FrameLayout>

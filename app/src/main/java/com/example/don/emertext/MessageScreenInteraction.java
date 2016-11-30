@@ -4,38 +4,59 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MessageScreenInteraction extends AppCompatActivity {
-
-    EditText msgText;
-    ScrollView scroll;
+    Boolean colorChanger=true;
+    String message = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen_interaction);
-        msgText = (EditText) findViewById(R.id.messageText);
-        scroll = (ScrollView) findViewById(R.id.scroller);
+
+        //get data from previous activities
+        Intent i = getIntent();
+        String gps = i.getExtras().getString("gps");
+        String buttonSelected = i.getExtras().getString("buttonselected");
+        String userLocation = i.getExtras().getString("userLocation");
+        if(userLocation == null) userLocation = "n/a";
+        String emergencyType = i.getExtras().getString("emergencyType");
+        if(emergencyType == null) emergencyType = "n/a";
+        String peopleWith = i.getExtras().getString("peopleWith");
+        if(peopleWith == null) peopleWith = "n/a";
+        String extraDetails = i.getExtras().getString("extraDetails");
+        if(extraDetails == null) extraDetails = "n/a";
+
+        //create initial sms message
+        message = "I am hearing impaired and need help. \n" +
+                "Please send: " + buttonSelected + ". \n" +
+                "Location: " + userLocation + ". \n" +
+                "GPS: " + gps + ". \n" +
+                "Emergency Type: " + emergencyType + ". \n" +
+                "People with me: " + peopleWith + ". \n" +
+                "Additional details: " + extraDetails + ". \n";
+
+        TextView messageBox = (TextView) findViewById(R.id.messageText);
+        messageBox.setText(message);
+
+        //send initial sms
+        View view = this.findViewById(android.R.id.content).getRootView();
+        sendSMS(view);
+        messageBox.setText("");
     }
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
         String number = "0868303866";  // The number on which you want to send SMS
-        String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
         if (q.getText()!=null){message = q.getText().toString();}
         Intent resultIntent = new Intent(this, MainActivity.class);
@@ -49,33 +70,17 @@ public class MessageScreenInteraction extends AppCompatActivity {
                 , null               // The PendingIntent to perform when the message is successfully sent
                 , intent);           // The PendingIntent to perform when the message is successfully delivered
 
-        message = message.trim();
-        if (!message.equals("")) {
-            showSenderMessage(message);
-        }
+        showMessage(message);
     }
 
-    public void showSenderMessage(String message){
-
+    public void showMessage(String message){
 
         LinearLayout ll = (LinearLayout)findViewById(R.id.messageHolder);
 
-        TextView nmsg = new TextView(this);
-        nmsg.setText(message);
-        nmsg.setBackgroundResource(R.drawable.message_wrap);
-        nmsg.setTextColor(Color.BLACK);
-        LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        prop.setMargins(0,0,0,8);
-        prop.gravity = Gravity.LEFT;
+        TextView c = new TextView(this);
+        c.setText(message);
 
-        nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,5,5);
-        nmsg.setTextSize(18);
-
-        ll.addView(nmsg);
-        scroll.fullScroll(View.FOCUS_DOWN);
-        msgText.setText("");
-
+        ll.addView(c);
     }
 
     public class SMSListener extends BroadcastReceiver {
@@ -98,14 +103,12 @@ public class MessageScreenInteraction extends AppCompatActivity {
                             currentSMS = getIncomingMessage(aObject, bundle);
 
                             sender = currentSMS.getDisplayOriginatingAddress();
-                            message = currentSMS.getDisplayMessageBody().toString();
+                            message = currentSMS.getDisplayMessageBody();
 
                             if(PhoneNumberUtils.compare(sender, "0868303866")) {
 
-                                message = message.trim();
-                                if (!message.equals("")) {
-                                    showReceiverMessage(message);
-                                }
+                                showMessage(message);
+
                                 abortBroadcast();
                             }
 
@@ -128,25 +131,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         }
     }
 
-    public void showReceiverMessage(String message){
-
-        LinearLayout ll1 = (LinearLayout)findViewById(R.id.messageHolder);
-
-        TextView nmsg = new TextView(this);
-        nmsg.setText(message);
-        nmsg.setBackgroundResource(R.drawable.message_received_wrap);
-        nmsg.setTextColor(Color.BLACK);
-        LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        prop.setMargins(0,0,0,8);
-        prop.gravity = Gravity.RIGHT;
-
-        nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,5,5);
-        nmsg.setTextSize(18);
-
-        ll1.addView(nmsg);
-    }
-
 
     // Code for timer
 //    private final int interval = 1000; // 1 Second
@@ -162,26 +146,3 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
 
 }
-
-
-//    public void setupUI(View view) {
-//
-//        // Set up touch listener for non-text box views to hide keyboard.
-//        if (!(view instanceof EditText)) {
-//            view.setOnTouchListener(new View.OnTouchListener() {
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    hideSoftKeyboard(TextSpeech.this);
-//                    return false;
-//                }
-//            });
-//        }
-//    }
-//
-//    public static void hideSoftKeyboard(Activity activity) {
-//        InputMethodManager inputMethodManager =
-//                (InputMethodManager) activity.getSystemService(
-//                        Activity.INPUT_METHOD_SERVICE);
-//        inputMethodManager.hideSoftInputFromWindow(
-//                activity.getCurrentFocus().getWindowToken(), 0);
-//    }
-//

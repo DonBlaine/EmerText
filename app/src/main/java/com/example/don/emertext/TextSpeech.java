@@ -12,7 +12,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,18 +21,19 @@ public class TextSpeech extends AppCompatActivity {
 
     TextToSpeech ts;
     String toSpeak;
-    ScrollView scroll;
+    LinearLayout helperText;
+    TextView speakText;
+    int i=1;
     EditText writable;
-    int i;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_speech);
-        scroll = (ScrollView) findViewById(R.id.helperTextMessage);
-        writable = (EditText)findViewById(R.id.editText);
-        i=0;
+        helperText = (LinearLayout) findViewById(R.id.helperTextMessage);
+        speakText = (TextView) findViewById(R.id.saidMessage);
+        writable = (EditText) findViewById(R.id.editText);
 
     }
 
@@ -49,17 +49,13 @@ public class TextSpeech extends AppCompatActivity {
         });
         defineButtons();
 
-
-
-        (writable).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        ((EditText)findViewById(R.id.editText)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
                 if  ((actionId == EditorInfo.IME_ACTION_DONE)) {
 
-                    if (!writable.getText().equals("")) {
-                        showMessage();
-                    }
+                    showMessage();
                 }
 
                 return false;
@@ -71,7 +67,7 @@ public class TextSpeech extends AppCompatActivity {
     public void showMessage(){
 
         i+=1;
-        LinearLayout ll1 = (LinearLayout)findViewById(R.id.textexchange);
+        LinearLayout ll1 = (LinearLayout)findViewById(R.id.helperTextMessage);
 
         TextView nmsg = new TextView(this);
         nmsg.setText(writable.getText());
@@ -123,7 +119,6 @@ public class TextSpeech extends AppCompatActivity {
         findViewById(R.id.button12).setOnClickListener(buttonClickListener);
         findViewById(R.id.button13).setOnClickListener(buttonClickListener);
         findViewById(R.id.button14).setOnClickListener(buttonClickListener);
-
 
         findViewById(R.id.agree).setOnClickListener(buttonClickListener);
         findViewById(R.id.decline).setOnClickListener(buttonClickListener);
@@ -184,6 +179,7 @@ public class TextSpeech extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
         ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
     }
+
 
 
 
