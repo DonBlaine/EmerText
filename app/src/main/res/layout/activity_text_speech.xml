@@ -104,96 +104,6 @@
                 />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/buttonRow2"
-            android:weightSum="4"
-            >
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="68dp"
-                android:layout_weight="1"
-                android:id="@+id/button21"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/call"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button22"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/standup"
-                android:contentDescription="Standup"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button23"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/find"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button24"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/family"
-
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/buttonRow3"
-            android:weightSum="4"
-            >
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="68dp"
-                android:layout_weight="1"
-                android:id="@+id/button31"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/medbag"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button32"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/callcab"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button33"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/panic"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button34"
-                style="?android:buttonBarButtonStyle"
-                android:src="@drawable/round_view"
-                android:background="@drawable/help"
-                />
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -236,16 +146,27 @@
         android:layout_above="@id/editText"
         />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/helperTextMessage"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/drawButton"
-        android:layout_below="@+id/editText" />
 
+    <ScrollView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/helperTextMessage"
+        android:layout_above="@+id/drawButton"
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:id="@+id/textexchange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
 

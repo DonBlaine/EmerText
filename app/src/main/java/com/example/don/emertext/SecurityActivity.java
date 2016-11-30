@@ -1,41 +1,21 @@
 package com.example.don.emertext;
 
-import android.*;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
-import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-
-
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.guardanis.applock.CreateLockDialogBuilder;
 import com.guardanis.applock.UnlockDialogBuilder;
 import com.guardanis.applock.locking.ActionLockingHelper;
-import com.guardanis.applock.locking.ActivityLockingHelper;
 import com.guardanis.applock.locking.LockingHelper;
 
 import java.io.IOException;
@@ -53,12 +33,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-/**
- * Created by Abhijeet on 11/10/2016.
- */
-
-public class FingerScannerActivity extends AppCompatActivity {
-
+public class SecurityActivity extends AppCompatActivity {
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
     private KeyStore keyStore;
@@ -67,18 +42,22 @@ public class FingerScannerActivity extends AppCompatActivity {
     private Cipher cipher;
     private FingerprintManager.CryptoObject cryptoObject;
 
+    public SecurityActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_security);
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             fingerScannerMain();
         } else {
+
             onResume();
         }
     }
+
     @Override
     public void onResume(){
         super.onResume();
@@ -95,7 +74,6 @@ public class FingerScannerActivity extends AppCompatActivity {
                 }})
                     .show();
     }
-
     private void showUnlockDialog(){
         ActionLockingHelper.unlockIfRequired(this, new UnlockDialogBuilder.UnlockEventListener() {
             public void onCanceled() {
@@ -105,7 +83,7 @@ public class FingerScannerActivity extends AppCompatActivity {
                 finish(); // No PIN entered, don't let them through
             } // Not called with default Dialog, instead is handled internally
             public void onUnlockSuccessful() {
-                Intent intent = new Intent(FingerScannerActivity.this, WelcomeActivity.class);
+                Intent intent = new Intent(SecurityActivity.this, WelcomeActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -120,7 +98,7 @@ public class FingerScannerActivity extends AppCompatActivity {
 
         if (fingerprintManager.isHardwareDetected()){
 
-            setContentView(R.layout.activity_fingerprint);
+            setContentView(R.layout.activity_security);
             keyguardManager =
                     (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
 

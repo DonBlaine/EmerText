@@ -1,30 +1,20 @@
 package com.example.don.emertext;
 
-import android.content.pm.PackageManager;
-import android.hardware.fingerprint.FingerprintManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.content.res.Resources.Theme;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ThemedSpinnerAdapter;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.content.Context;
-import android.support.v7.widget.ThemedSpinnerAdapter;
-import android.content.res.Resources.Theme;
-
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TabbedDetails extends AppCompatActivity {
 
@@ -52,7 +42,7 @@ public class TabbedDetails extends AppCompatActivity {
                 toolbar.getContext(),
                 new String[]{
                         getString(R.string.basic_details),
-                        getString(R.string.medical_information),
+                        getString(R.string.medical_other_information),
                         getString(R.string.next_kin_details),
                 }));
 
@@ -88,9 +78,12 @@ public class TabbedDetails extends AppCompatActivity {
 
     }
 
-
-
-
+    @Override
+    public void onDestroy() {
+        basicDetails = null;
+        medicalInfo = null;
+        super.onDestroy();
+    }
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
         private final ThemedSpinnerAdapter.Helper mDropDownHelper;
@@ -127,13 +120,6 @@ public class TabbedDetails extends AppCompatActivity {
         public void setDropDownViewTheme(Theme theme) {
             mDropDownHelper.setDropDownViewTheme(theme);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        basicDetails = null;
-        medicalInfo = null;
-        super.onDestroy();
     }
 
 }

@@ -1,14 +1,18 @@
 package com.example.don.emertext;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,16 +22,18 @@ public class TextSpeech extends AppCompatActivity {
 
     TextToSpeech ts;
     String toSpeak;
-    TextView helperText;
-    TextView speakText;
+    ScrollView scroll;
+    EditText writable;
+    int i;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_speech);
-        helperText = (TextView) findViewById(R.id.helperTextMessage);
-        speakText = (TextView) findViewById(R.id.saidMessage);
+        scroll = (ScrollView) findViewById(R.id.helperTextMessage);
+        writable = (EditText)findViewById(R.id.editText);
+        i=0;
 
     }
 
@@ -43,18 +49,49 @@ public class TextSpeech extends AppCompatActivity {
         });
         defineButtons();
 
-        ((EditText)findViewById(R.id.editText)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+
+        (writable).setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
                 if  ((actionId == EditorInfo.IME_ACTION_DONE)) {
 
-                    helperText.setText(((EditText) findViewById(R.id.editText)).getText());
+                    if (!writable.getText().equals("")) {
+                        showMessage();
+                    }
                 }
 
                 return false;
             }
         });
+    }
+
+
+    public void showMessage(){
+
+        i+=1;
+        LinearLayout ll1 = (LinearLayout)findViewById(R.id.textexchange);
+
+        TextView nmsg = new TextView(this);
+        nmsg.setText(writable.getText());
+
+        if(i%2==0) {
+            nmsg.setBackgroundResource(R.drawable.message_received_wrap);
+        }
+        else {
+            nmsg.setBackgroundResource(R.drawable.message_wrap);
+        }
+        nmsg.setTextColor(Color.BLACK);
+        LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        prop.setMargins(0,0,0,8);
+
+        nmsg.setLayoutParams(prop);
+        nmsg.setPadding(5,5,5,5);
+        nmsg.setTextSize(18);
+
+        ll1.addView(nmsg);
+        writable.setText("");
     }
 
     protected void onRestart(){
@@ -87,15 +124,6 @@ public class TextSpeech extends AppCompatActivity {
         findViewById(R.id.button13).setOnClickListener(buttonClickListener);
         findViewById(R.id.button14).setOnClickListener(buttonClickListener);
 
-        findViewById(R.id.button21).setOnClickListener(buttonClickListener);
-        findViewById(R.id.button22).setOnClickListener(buttonClickListener);
-        findViewById(R.id.button23).setOnClickListener(buttonClickListener);
-        findViewById(R.id.button24).setOnClickListener(buttonClickListener);
-
-        findViewById(R.id.button31).setOnClickListener(buttonClickListener);
-        findViewById(R.id.button32).setOnClickListener(buttonClickListener);
-        findViewById(R.id.button33).setOnClickListener(buttonClickListener);
-        findViewById(R.id.button34).setOnClickListener(buttonClickListener);
 
         findViewById(R.id.agree).setOnClickListener(buttonClickListener);
         findViewById(R.id.decline).setOnClickListener(buttonClickListener);
@@ -130,46 +158,6 @@ public class TextSpeech extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
-                case R.id.button21:
-                    toSpeak = "Can you help me call one of my friends";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button22:
-                    toSpeak = "could you please help me stand up";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button23:
-                    toSpeak = "Could you please help me find my stuff";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button24:
-                    toSpeak = "Can you help me inform my parents";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button31:
-                    toSpeak = "My medicine is in my bag, can you please help me take it";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button32:
-                    toSpeak = "I am hurt, could you help me with a cab";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button33:
-                    toSpeak = "I am having a panic attack. Could you please talk to me for a while";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button34:
-                    toSpeak = "Help Help Help Help";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
                 case R.id.agree:
                     toSpeak = "Yes, Thank you very much";
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
@@ -196,7 +184,6 @@ public class TextSpeech extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
         ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
     }
-
 
 
 

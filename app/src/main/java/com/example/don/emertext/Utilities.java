@@ -1,6 +1,5 @@
 package com.example.don.emertext;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.CheckBox;
@@ -11,8 +10,17 @@ import android.widget.EditText;
  * Created by gerard on 20/11/16.
  */
 
-public class FormUtilities {
+public class Utilities {
+    //Permission request codes
+    static final int SMS_REQUEST_CODE = 1;
+    static final int REQUEST_CONTACTS_CODE = 2;
+    static final int REQUEST_LOCATION = 3;
 
+    //Variables to override certain functionalities for testing
+    static final boolean SKIP_NETWORK_CHECK = false;
+
+    //Intent result codes (these can overlap with the ones above）
+    static final int CONTACT_INTENT_CODE = 1;
 
     public static void restoreViewValue(SharedPreferences sharedPref, EditText e){
         String key=e.getTag().toString();

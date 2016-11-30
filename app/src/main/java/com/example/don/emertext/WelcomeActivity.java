@@ -1,19 +1,20 @@
 package com.example.don.emertext;
+//created by Donovan Blaine
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -31,15 +32,15 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    public static final String TAG = WelcomeActivity.class.getSimpleName();
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private String buttonSelected = "";
     private Double lat = null;
     private Double lon = null;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    public static final String TAG = WelcomeActivity.class.getSimpleName();
-    private static final int REQUEST_LOCATION = 1;
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private boolean smsGranted = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +94,11 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         findViewById(R.id.coast_btn).setOnLongClickListener(buttonLongClickListener);
     }
 
-    private View.OnClickListener buttonClickListener = new View.OnClickListener(){
+    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.details_btn:
                     //change to point to user details page
                     launchDetails(view);
@@ -125,22 +126,11 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             }
         }
     }; // end OnClickListener
-
-    private void LaunchNext() {
-        if (smsGranted){
-            Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
-            intent3.putExtra("buttonselected", buttonSelected);
-            intent3.putExtra("lat", lat);
-            intent3.putExtra("lon", lon);
-            startActivity(intent3);
-        }
-    }
-
-    private View.OnLongClickListener buttonLongClickListener = new View.OnLongClickListener(){
+    private View.OnLongClickListener buttonLongClickListener = new View.OnLongClickListener() {
         // if a button is long clicked go straight to the final text screen.
         @Override
         public boolean onLongClick(View view) {
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.fire_btn:
                     buttonSelected = "Fire";
                     LaunchFinal();
@@ -162,12 +152,22 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
     }; // end OnLongClickListener
 
+    private void LaunchNext() {
+        if (smsGranted){
+            Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
+            intent3.putExtra("buttonselected", buttonSelected);
+            intent3.putExtra("lat", lat);
+            intent3.putExtra("lon", lon);
+            startActivity(intent3);
+        }
+    }
+
     private void LaunchFinal() {
         if (smsGranted){
             Intent intent3 = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
             intent3.putExtra("buttonselected", buttonSelected);
-            intent3.putExtra("lat", lat);
-            intent3.putExtra("lon", lon);
+            String gps = "Lat: " + Double.toString(lat) + ", Lon: " + Double.toString(lon);
+            intent3.putExtra("gps", gps);
             startActivity(intent3);
         }
     }
@@ -180,7 +180,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, LOCATION},
-                        REQUEST_LOCATION);
+                        Utilities.REQUEST_LOCATION);
             }
         } else {
             if (isNetworkConnected()) {
@@ -223,7 +223,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                                            @NonNull int[] grantResults) {
 
         // Make sure it's our original READ_CONTACTS request
-        if (requestCode == REQUEST_LOCATION) {
+        if (requestCode == Utilities.REQUEST_LOCATION) {
             if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();

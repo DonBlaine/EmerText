@@ -5,25 +5,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.don.emertext.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MedicalInformation extends Fragment {
+    SharedPreferences sharedPref;
     private EditText allergies_edittext;
     private EditText current_med_edittext;
-    SharedPreferences sharedPref;
+    private EditText medical_conditions;
+    private EditText custom_message;
     private View rootView;
 
     public MedicalInformation() {
@@ -40,44 +36,50 @@ public class MedicalInformation extends Fragment {
 
         sharedPref = getContext().getSharedPreferences(getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         findEditViews();
-        restoreSavedValue();
+        restoreAllSavedValues();
         return rootView;
     }
 
-    public void restoreSavedValue(){
+    public void restoreAllSavedValues() {
     restoreViewValue(allergies_edittext);
         restoreViewValue(current_med_edittext);
+        restoreViewValue(medical_conditions);
+        restoreViewValue(custom_message);
     }
 
 
     public void findEditViews(){
         allergies_edittext=(EditText) rootView.findViewById(R.id.allergies_edittext);
         current_med_edittext=(EditText) rootView.findViewById(R.id.current_medications_edittext);
+        medical_conditions = (EditText) rootView.findViewById(R.id.medical_conditions_edittext);
+        custom_message = (EditText) rootView.findViewById(R.id.custom_message_edittext);
         setEditableFocusChangeAutosave(allergies_edittext);
         setEditableFocusChangeAutosave(current_med_edittext);
+        setEditableFocusChangeAutosave(medical_conditions);
+        setEditableFocusChangeAutosave(custom_message);
     }
 
 
 
     public void restoreViewValue(EditText e){
-        FormUtilities.restoreViewValue(sharedPref,e);
+        Utilities.restoreViewValue(sharedPref, e);
 
     }
     public void restoreViewValue(CheckBox c){
-        FormUtilities.restoreViewValue(sharedPref,c);
+        Utilities.restoreViewValue(sharedPref, c);
     }
     public void setEditableFocusChangeAutosave(final EditText e){
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref,e);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, e);
     }
     public void saveViewValue(EditText e){
-        FormUtilities.saveViewValue(sharedPref,e);
+        Utilities.saveViewValue(sharedPref, e);
     }
     public void saveViewValue(CheckBox c){
-        FormUtilities.saveViewValue(sharedPref,c);
+        Utilities.saveViewValue(sharedPref, c);
 
     }
     public void setEditableFocusChangeAutosave(CheckBox c){
-        FormUtilities.setEditableFocusChangeAutosave(sharedPref,c);
+        Utilities.setEditableFocusChangeAutosave(sharedPref, c);
     }
 
 }

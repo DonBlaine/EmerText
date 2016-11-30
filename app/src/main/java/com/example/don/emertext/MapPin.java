@@ -1,5 +1,5 @@
 package com.example.don.emertext;
-
+//Created by Donovan Blaine
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
