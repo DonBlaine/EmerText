@@ -34,23 +34,31 @@
                     android:id="@+id/fnameInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:background="#acacac"
                     android:ems="10"
                     android:hint="@string/firstName"
                     android:inputType="textPersonName"
                     android:nextFocusDown="@+id/lnameinput"
-                    android:tag="@string/fname_key" />
+                    android:padding="5dp"
+                    android:tag="@string/fname_key"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/lnameinput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:background="#acacac"
                     android:ems="10"
                     android:hint="@string/surname"
                     android:inputType="textPersonName"
                     android:nextFocusDown="@+id/address1"
-                    android:tag="@string/lname_key" />
+                    android:padding="5dp"
+                    android:tag="@string/lname_key"
+                    android:textColor="#000000" />
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -61,22 +69,30 @@
                 android:id="@+id/address1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="#acacac"
                 android:ems="10"
                 android:hint="@string/address_line_1"
                 android:inputType="textPostalAddress"
                 android:nextFocusDown="@+id/address2"
-                android:tag="@string/address_1_key" />
+                android:padding="5dp"
+                android:tag="@string/address_1_key"
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#acacac"
                 android:ems="10"
                 android:hint="@string/address_line_2"
                 android:inputType="textPostalAddress"
                 android:nextFocusDown="@+id/eircode_edittext"
-                android:tag="@string/address_2_key" />
+                android:padding="5dp"
+                android:tag="@string/address_2_key"
+                android:textColor="#000000" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,25 +102,33 @@
                     android:id="@+id/eircode_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:background="#acacac"
                     android:ems="10"
                     android:hint="@string/eircode"
                     android:imeOptions="actionNext"
                     android:inputType="textCapCharacters|textNoSuggestions"
                     android:maxLength="7"
                     android:nextFocusDown="@+id/county_select_input"
-                    android:tag="@string/eircode_key" />
+                    android:padding="5dp"
+                    android:tag="@string/eircode_key"
+                    android:textColor="#000000" />
 
                 <AutoCompleteTextView
                     android:id="@+id/county_select_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:completionThreshold="1"
 
+                    android:background="#acacac"
+                    android:completionThreshold="1"
                     android:hint="@string/county"
                     android:inputType="textPostalAddress"
-                    android:tag="@string/county_key" />
+                    android:padding="5dp"
+                    android:tag="@string/county_key"
+                    android:textColor="#000000" />
             </LinearLayout>
 
 

@@ -181,6 +181,14 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, LOCATION},
                         Utilities.REQUEST_LOCATION);
+            } else {
+                Location mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                if (mlocation == null) {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                } else {
+                    lat = mlocation.getLatitude();
+                    lon = mlocation.getLongitude();
+                }
             }
         } else {
             if (isNetworkConnected()) {
