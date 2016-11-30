@@ -11,34 +11,43 @@
     tools:context="com.example.don.emertext.Initial">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/initial_screen_display_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/initial_screen_display_block">
+        android:orientation="vertical">
 
         <TextView
-            android:text="@string/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/welcome"
             android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/maintext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/maintext"
             android:text="@string/welcome_splash" />
 
         <Button
-            android:text="@string/register"
+            android:id="@+id/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/register_button"
-            android:onClick="registerForService" />
+            android:onClick="registerForService"
+            android:text="@string/register_button_text" />
 
         <Button
-            android:text="@string/enter_your_details_button_text"
+            android:id="@+id/enter_details_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="enterFragmentDetails" />
+            android:enabled="false"
+            android:onClick="enterFragmentDetails"
+            android:text="@string/enter_your_details_button_text" />
+
+        <Button
+            android:id="@+id/welcome_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/welcome_screen_button" />
     </LinearLayout>
 </RelativeLayout>

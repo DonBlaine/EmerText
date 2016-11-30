@@ -13,15 +13,15 @@
 
 
         <TextView
-            android:text="@string/medical_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/medical_information"
             android:textSize="18sp"
             />
         <TextView
-            android:text="@string/medicinal_allegies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/medicinal_allegies"
             />
 
         <EditText
@@ -30,24 +30,48 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textMultiLine"
                 android:hint="@string/medical_allergies_hint"
-            android:minLines="2"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
             android:tag="@string/allergies_key"/>
 
 
         <EditText
+            android:id="@+id/current_medications_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/current_medications_edittext"
             android:hint="@string/current_meds_hint"
-            android:minLines="2"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
             android:tag="@string/current_meds_key"/>
 
+        <EditText
+            android:id="@+id/medical_conditions_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/enter_any_medical_conditions_others_may_need_to_be_aware_of"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:tag="@string/medical_conditions_key" />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/other_information"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/custom_message_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/custom_message_hint"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:tag="@string/custom_message_key" />
 
 
     </LinearLayout>
