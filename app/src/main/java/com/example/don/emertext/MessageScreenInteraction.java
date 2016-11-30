@@ -70,11 +70,20 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
 
-    public void onResume(){
-    super.onResume();
+    protected void onResume() {
+//
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("message");
+        showReceiverMessage(message);
 
-        recmsg = getIntent().getStringExtra("message");
-        showReceiverMessage(recmsg);
+//        receiver = new SmsListener(){
+//            public void onReceive(Context context, Intent intent) {
+//                //get data from intent and populate textview
+//
+//            }
+//        };
+//        IntentFilter filter  = new IntentFilter(".SmsListener.SENT_STRING");
+
     }
 
 
