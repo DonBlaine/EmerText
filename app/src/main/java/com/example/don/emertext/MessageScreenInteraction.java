@@ -72,10 +72,9 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     public void onResume(){
     super.onResume();
-        recmsg = getIntent().getStringExtra("message");
+
+        recmsg = receiver.getResultData();
         showReceiverMessage(recmsg);
-        //recmsg = receiver.getResultData();
-        //showReceiverMessage(recmsg);
     }
 
 
