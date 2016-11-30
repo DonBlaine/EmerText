@@ -124,7 +124,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     // taken from mobiforge
 
-    public class SmsReceiver extends BroadcastReceiver
+    private BroadcastReceiver SmsReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent)
@@ -149,7 +149,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                 Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    };
 
 
     public void showReceiverMessage(String message){
