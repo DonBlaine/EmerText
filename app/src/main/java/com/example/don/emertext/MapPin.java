@@ -199,7 +199,6 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
                 nopermissions=false;
-                getCoord();
             } else {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
@@ -210,10 +209,10 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
                 if (!showRationale) {
                     Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
                 }
-                }
-            } else {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
         }
 
     @Override
