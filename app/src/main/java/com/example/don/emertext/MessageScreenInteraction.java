@@ -30,8 +30,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         receiver = new SmsListener();
-        recmsg = receiver.getResultData();
-        showReceiverMessage(recmsg);
 
         number = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
