@@ -18,6 +18,8 @@ public class MedicalInformation extends Fragment {
     SharedPreferences sharedPref;
     private EditText allergies_edittext;
     private EditText current_med_edittext;
+    private EditText medical_conditions;
+    private EditText custom_message;
     private View rootView;
 
     public MedicalInformation() {
@@ -41,14 +43,20 @@ public class MedicalInformation extends Fragment {
     public void restoreAllSavedValues() {
     restoreViewValue(allergies_edittext);
         restoreViewValue(current_med_edittext);
+        restoreViewValue(medical_conditions);
+        restoreViewValue(custom_message);
     }
 
 
     public void findEditViews(){
         allergies_edittext=(EditText) rootView.findViewById(R.id.allergies_edittext);
         current_med_edittext=(EditText) rootView.findViewById(R.id.current_medications_edittext);
+        medical_conditions = (EditText) rootView.findViewById(R.id.medical_conditions_edittext);
+        custom_message = (EditText) rootView.findViewById(R.id.custom_message_edittext);
         setEditableFocusChangeAutosave(allergies_edittext);
         setEditableFocusChangeAutosave(current_med_edittext);
+        setEditableFocusChangeAutosave(medical_conditions);
+        setEditableFocusChangeAutosave(custom_message);
     }
 
 
