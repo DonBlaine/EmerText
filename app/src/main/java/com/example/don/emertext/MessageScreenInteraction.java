@@ -3,6 +3,7 @@ package com.example.don.emertext;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         number = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
         setContentView(R.layout.activity_message_screen_interaction);
@@ -104,13 +106,13 @@ public class MessageScreenInteraction extends AppCompatActivity {
         TextView nmsg = new TextView(this);
         nmsg.setText(message);
         nmsg.setBackgroundResource(R.drawable.message_wrap);
-        nmsg.setTextColor(Color.BLACK);
+        nmsg.setTextColor(Color.WHITE);
         LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         prop.setMargins(0,0,0,8);
         prop.gravity = Gravity.LEFT;
 
         nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,5,5);
+        nmsg.setPadding(15,5,5,5);
         nmsg.setTextSize(18);
 
         ll.addView(nmsg);
@@ -118,35 +120,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         msgText.setText("");
 
     }
-
-    // taken from mobiforge
-
-    private BroadcastReceiver SmsReceiver = new BroadcastReceiver()
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            //---get the SMS message passed in---
-            Bundle bundle = intent.getExtras();
-            android.telephony.SmsMessage[] msgs = null;
-            String str = "";
-            if (bundle != null)
-            {
-                //---retrieve the SMS message received---
-                Object[] pdus = (Object[]) bundle.get("pdus");
-                msgs = new android.telephony.SmsMessage[pdus.length];
-                for (int i=0; i<msgs.length; i++){
-                    msgs[i] = android.telephony.SmsMessage.createFromPdu((byte[])pdus[i]);
-                    str += "SMS from " + msgs[i].getOriginatingAddress();
-                    str += " :";
-                    str += msgs[i].getMessageBody().toString();
-                    str += "n";
-                }
-                //---display the new SMS message---
-                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 
 
     public void showReceiverMessage(String message){
@@ -162,7 +135,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         prop.gravity = Gravity.RIGHT;
 
         nmsg.setLayoutParams(prop);
-        nmsg.setPadding(5,5,5,5);
+        nmsg.setPadding(5,5,15,5);
         nmsg.setTextSize(18);
 
         ll1.addView(nmsg);
