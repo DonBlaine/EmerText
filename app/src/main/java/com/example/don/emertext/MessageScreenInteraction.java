@@ -51,22 +51,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
                 "Location: " + userLocation + ". \n" +
                         "GPS: " + gps + ". \n";
 
-        if (i.getBooleanExtra("include_medical", false)) {
-            message += getSharedPreferences(
-                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.medical_conditions_key), " ")
-                    + getSharedPreferences(
-                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.current_meds_key), " ")
-                    + getSharedPreferences(
-                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), " ");
-        }
-
-        if (i.getBooleanExtra("include_ice", false)) {
-            message += "Emergency contact:" + getSharedPreferences(
-                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), " ")
-                    + "on " + getSharedPreferences(
-                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), " ")
-            ;
-        }
         if (peopleWith != null && !peopleWith.equals(""))
             message = message + "People with me: " + peopleWith + ". \n";
         if (extraDetails != null && !extraDetails.equals(""))
@@ -74,6 +58,24 @@ public class MessageScreenInteraction extends AppCompatActivity {
         if (emergencyType != null && !emergencyType.equals(""))
             message = message + "Emergency Type: " + emergencyType + ". \n";
 
+        if (i.getBooleanExtra("include_medical", false)) {
+            message += "Medical Information: " + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.medical_conditions_key), " ")
+                    + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.current_meds_key), " ")
+                    + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), " ") +
+                    ". \n";
+        }
+
+        if (i.getBooleanExtra("include_ice", false)) {
+            message += "Emergency contact: " + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), " ")
+                    + "on " + getSharedPreferences(
+                    getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), " ") +
+                    ". \n"
+            ;
+        }
 
 
         msgText.setText(message);
