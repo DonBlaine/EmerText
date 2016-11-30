@@ -52,7 +52,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                         str += "n";
                     }
                     //---display the new SMS message---
-                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+                    showReceiverMessage(str);
                 }
 
             }
