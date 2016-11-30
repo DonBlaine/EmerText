@@ -1,6 +1,5 @@
 package com.example.don.emertext;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,16 +43,11 @@ public class MessageScreenInteraction extends AppCompatActivity {
         {
             message = q.getText().toString();
         }
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(this,
-                0,
-                resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
         text.sendTextMessage(number // Number to send to
                 , null               // Message centre to send to (we'll never want to change this)
                 , message            // Message to send
                 , null               // The PendingIntent to perform when the message is successfully sent
-                , intent);           // The PendingIntent to perform when the message is successfully delivered
+                , null);           // The PendingIntent to perform when the message is successfully delivered
 
         message = message.trim();
         if (!message.equals("")) {
