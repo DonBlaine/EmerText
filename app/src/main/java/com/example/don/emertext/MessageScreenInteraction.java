@@ -71,13 +71,28 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
 
-            message = q.getText().toString();
-        text.sendTextMessage(number // Number to send to
-                , null               // Message centre to send to (we'll never want to change this)
-                , message            // Message to send
-                , null               // The PendingIntent to perform when the message is successfully sent
-                , null);           // The PendingIntent to perform when the message is successfully delivered
-
+        message = q.getText().toString();
+        String currentmessage;
+        for (int part = 0; part <= message.length() / 160; part++) {
+            if (part == message.length() / 160) {
+                currentmessage = message.substring(160 * part);
+            } else {
+                currentmessage = message.substring(160 * part, 160 * part + 160);
+            }
+            text.sendTextMessage(number // Number to send to
+                    , null               // Message centre to send to (we'll never want to change this)
+                    , currentmessage            // Message to send
+                    , null               // The PendingIntent to perform when the message is successfully sent
+                    , null);           // The PendingIntent to perform when the message is successfully delivered
+        }/*
+        else
+        {
+            text.sendTextMessage(number // Number to send to
+                    , null               // Message centre to send to (we'll never want to change this)
+                    , message            // Message to send
+                    , null               // The PendingIntent to perform when the message is successfully sent
+                    , null);           // The PendingIntent to perform when the message is successfully delivered
+        }*/
         message = message.trim();
         if (!message.equals("")) {
             showSenderMessage(message);
@@ -105,6 +120,35 @@ public class MessageScreenInteraction extends AppCompatActivity {
         scroll.fullScroll(View.FOCUS_DOWN);
         msgText.setText("");
 
+    }
+
+    // taken from mobiforge
+
+    public class SmsReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            //---get the SMS message passed in---
+            Bundle bundle = intent.getExtras();
+            android.telephony.SmsMessage[] msgs = null;
+            String str = "";
+            if (bundle != null)
+            {
+                //---retrieve the SMS message received---
+                Object[] pdus = (Object[]) bundle.get("pdus");
+                msgs = new android.telephony.SmsMessage[pdus.length];
+                for (int i=0; i<msgs.length; i++){
+                    msgs[i] = android.telephony.SmsMessage.createFromPdu((byte[])pdus[i]);
+                    str += "SMS from " + msgs[i].getOriginatingAddress();
+                    str += " :";
+                    str += msgs[i].getMessageBody().toString();
+                    str += "n";
+                }
+                //---display the new SMS message---
+                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 

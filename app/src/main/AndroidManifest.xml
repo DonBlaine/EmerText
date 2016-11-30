@@ -69,7 +69,12 @@
             android:name=".MessageScreenInteraction"
             android:label="Text Screen"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name=
+                    "android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".DrawNotifyScreen"
             android:screenOrientation="portrait" />
@@ -82,12 +87,6 @@
             android:name=".Initial"
             android:screenOrientation="portrait" />
         <activity android:name=".SecurityActivity" />
-        <receiver android:name=".SmsReceiver">
-            <intent-filter>
-                <action android:name=
-                    "android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
