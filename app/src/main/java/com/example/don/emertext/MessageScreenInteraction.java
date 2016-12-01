@@ -20,7 +20,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     ScrollView scroll;
     String number;
     String recmsg;
-    String lastmessage;
+    String lastmessage="";
     Boolean sendOnce =true;
 
     @Override
@@ -31,7 +31,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
-        lastmessage="";
 
 
         //get data from previous activities
@@ -113,15 +112,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                     , currentmessage            // Message to send
                     , null               // The PendingIntent to perform when the message is successfully sent
                     , null);           // The PendingIntent to perform when the message is successfully delivered
-        }/*
-        else
-        {
-            text.sendTextMessage(number // Number to send to
-                    , null               // Message centre to send to (we'll never want to change this)
-                    , message            // Message to send
-                    , null               // The PendingIntent to perform when the message is successfully sent
-                    , null);           // The PendingIntent to perform when the message is successfully delivered
-        }*/
+        }
         message = message.trim();
         if (!message.equals("")) {
             showSenderMessage(message);
@@ -129,7 +120,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
     public void showSenderMessage(String message){
-
 
         LinearLayout ll = (LinearLayout)findViewById(R.id.messageHolder);
 
@@ -153,7 +143,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
 
     public void showReceiverMessage(String message){
-        if (!message.equals(lastmessage)) {
 
             lastmessage = message;
             LinearLayout ll1 = (LinearLayout) findViewById(R.id.messageHolder);
@@ -171,7 +160,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
-        }
     }
 
     // Code for timer
