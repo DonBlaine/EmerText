@@ -85,17 +85,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         msgText.setText(message);
         sendSMS(findViewById(android.R.id.content).getRootView());
 
-
-        while (true){
-            if (recievedMessageTime){
-                receiveTime = System.currentTimeMillis();
-                if (receiveTime-sentTime > 180000){
-                    sendSMS(findViewById(android.R.id.content).getRootView());
-
-                }
-            }
-        }
-
     }
 
 
