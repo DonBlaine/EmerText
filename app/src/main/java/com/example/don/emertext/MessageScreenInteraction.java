@@ -63,9 +63,9 @@ public class MessageScreenInteraction extends AppCompatActivity {
         if (i.getBooleanExtra("include_medical", false)) {
             message += "Medical Information: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.medical_conditions_key), " ")
-                    + getSharedPreferences(
+                    + " " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.current_meds_key), " ")
-                    + getSharedPreferences(
+                    + " " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), " ") +
                     ". \n";
         }
@@ -73,7 +73,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         if (i.getBooleanExtra("include_ice", false)) {
             message += "Emergency contact: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), " ")
-                    + "on " + getSharedPreferences(
+                    + " at " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), " ") +
                     ". \n"
             ;
