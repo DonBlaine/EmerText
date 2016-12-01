@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -57,7 +56,7 @@ public class EmergencyContactDetails extends Fragment {
         getcontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getContacts(v);
+                getContacts();
             }
         });
         contact_name_edittext = (EditText) rootView.findViewById(R.id.emergency_contact_name);
@@ -68,9 +67,9 @@ public class EmergencyContactDetails extends Fragment {
         setEditableFocusChangeAutosave(emergency_service_edittext);
     }
 
-    public void getContacts(View view){
+    public void getContacts() {
         //Method to try to get a contact from the Contacts and request permission if required
-        if (requestContactsPermission(view)) {
+        if (requestContactsPermission()) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(intent, Utilities.CONTACT_INTENT_CODE);
         } else {
@@ -121,14 +120,16 @@ public class EmergencyContactDetails extends Fragment {
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     Cursor c = getContext().getContentResolver().query(contactData, null, null, null, null);
-                    if (c.moveToFirst()) {
+                    if (c != null && c.moveToFirst()) {
                         String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
                         String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 
                         if (hasPhone.equalsIgnoreCase("1")) {
                             Cursor phones = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
-                            phones.moveToFirst();
+
+                            if (phones != null) {
+                                phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                             String nameContact = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
                             cNumber = stripPhone(cNumber);
@@ -136,23 +137,20 @@ public class EmergencyContactDetails extends Fragment {
                             contact_number_edittext.setText(cNumber);
                             saveViewValue(contact_name_edittext);
                             saveViewValue(contact_number_edittext);
-
+                                phones.close();
+                            }
                         }
+                        c.close();
                     }
+
                 }
         }
     }
 
 
     //  Function to just check if we have SEND_SMS permission
-    public boolean checkContactsPermission(View view){
-        boolean permissionGranted = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-        if (permissionGranted) {
-            return true;
-        }
-        else
-        {  return false;
-        }
+    public boolean checkContactsPermission() {
+        return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
     }
 
     public String stripPhone(String phone) {
@@ -168,8 +166,8 @@ public class EmergencyContactDetails extends Fragment {
 
 
     // Function to check if we have SEND_SMS and request it if we don't.
-    public boolean requestContactsPermission(View view){
-        if (checkContactsPermission(view)){
+    public boolean requestContactsPermission() {
+        if (checkContactsPermission()) {
             return true;
         }
         else{
@@ -177,12 +175,7 @@ public class EmergencyContactDetails extends Fragment {
             requestPermissions(
                     new String[]{Manifest.permission.READ_CONTACTS},
                     Utilities.REQUEST_CONTACTS_CODE);
-            if (checkContactsPermission(view)) {
-                return true;
-            }
-            else{
-                return false;
-            }
+            return checkContactsPermission();
         }
     }
 
@@ -199,9 +192,6 @@ public class EmergencyContactDetails extends Fragment {
 
     }
 
-    public void restoreViewValue(CheckBox c) {
-        Utilities.restoreViewValue(sharedPref, c);
-    }
 
     public void setEditableFocusChangeAutosave(final EditText e) {
         Utilities.setEditableFocusChangeAutosave(sharedPref, e);
@@ -211,13 +201,5 @@ public class EmergencyContactDetails extends Fragment {
         Utilities.saveViewValue(sharedPref, e);
     }
 
-    public void saveViewValue(CheckBox c) {
-        Utilities.saveViewValue(sharedPref, c);
-
-    }
-
-    public void setEditableFocusChangeAutosave(CheckBox c) {
-        Utilities.setEditableFocusChangeAutosave(sharedPref, c);
-    }
 
 }

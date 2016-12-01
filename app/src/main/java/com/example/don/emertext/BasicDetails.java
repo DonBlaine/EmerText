@@ -24,7 +24,6 @@ public class BasicDetails extends Fragment {
     //Fragment for basic details section of the
 
     SharedPreferences sharedPref;
-    private String EMERGENCY_NUMBER;
     private EditText firstname_edittext;
     private EditText lastname_edittext;
     private EditText address1_edittext;
@@ -44,7 +43,6 @@ public class BasicDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_basic_details, container, false);
-        EMERGENCY_NUMBER = getString(R.string.default_emergency_number);
 
         sharedPref = getContext().getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
@@ -95,11 +93,6 @@ public class BasicDetails extends Fragment {
     }
 
 
-
-    public void autosetDublin(View view){
-        autosetDublin();
-    }
-
     public void autosetDublin() {
         //Function to autoset county if the Eircode is supplied and starts with D
         //The rest of the Eircode database is random, and is not open, therefore only D-- ---- Eircodes can be inferred
@@ -109,7 +102,7 @@ public class BasicDetails extends Fragment {
             //   if (post.toCharArray()[0] == '0') {
             //      post = post.substring(1, 2);
             // }
-            county_autocomplete.setText("Dublin " + post);
+            county_autocomplete.setText(getString(R.string.dublin) + post);
         }
     }
 
@@ -145,14 +138,6 @@ public class BasicDetails extends Fragment {
         Utilities.setEditableFocusChangeAutosave(sharedPref, e);
     }
 
-    public void saveViewValue(EditText e) {
-        Utilities.saveViewValue(sharedPref, e);
-    }
-
-    public void saveViewValue(CheckBox c) {
-        Utilities.saveViewValue(sharedPref, c);
-
-    }
 
     public void setEditableFocusChangeAutosave(CheckBox c) {
         Utilities.setEditableFocusChangeAutosave(sharedPref, c);

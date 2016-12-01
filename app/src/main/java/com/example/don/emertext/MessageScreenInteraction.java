@@ -108,7 +108,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     public void sendSMS(View view) {
 
         SmsManager text = SmsManager.getDefault();
-        String message = "";
+        String message;
         TextView q = (TextView) findViewById(R.id.messageText);
 
         message = q.getText().toString();
