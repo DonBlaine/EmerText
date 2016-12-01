@@ -102,7 +102,7 @@ public class BasicDetails extends Fragment {
 
     public void autosetDublin() {
         //Function to autoset county if the Eircode is supplied and starts with D
-        //The rest of the database is random, and is not open, therefore only D-- ---- Eircodes can be inferred
+        //The rest of the Eircode database is random, and is not open, therefore only D-- ---- Eircodes can be inferred
         String eircode = eircode_edittext.getText().toString();
         if (eircode.length() > 3 && eircode.toCharArray()[0] == 'D') {
             String post = Integer.parseInt(eircode.substring(1, 3)) + "";
