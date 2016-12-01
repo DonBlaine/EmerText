@@ -72,7 +72,8 @@ public class TextSpeech extends AppCompatActivity {
 
         TextView nmsg = new TextView(this);
         toSpeak = writable.getText().toString();
-        if (writable.getText().toString()!= null) {
+
+        if (!writable.getText().toString().equals("")) {
             nmsg.setText(writable.getText());
             if (i % 2 == 0) {
                 nmsg.setBackgroundResource(R.drawable.message_received_wrap);
@@ -210,8 +211,7 @@ public class TextSpeech extends AppCompatActivity {
 
     public void speakNow() {
 
-        Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-        ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
+        ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);
     }
 
 }

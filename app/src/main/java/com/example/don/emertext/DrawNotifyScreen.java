@@ -1,5 +1,6 @@
 package com.example.don.emertext;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 public class DrawNotifyScreen extends AppCompatActivity {
     // contained locally to the class
     private RelativeLayout rl;
+    Bitmap b;
+    DisplayMetrics displayMetrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class DrawNotifyScreen extends AppCompatActivity {
         rl = (RelativeLayout) findViewById(R.id.imageHolder);
         //adding a new view with our canvas and paint
         rl.addView(new MyView(this));
+        b=BitmapFactory.decodeResource(getResources(), R.drawable.my_img);
+        // 0, 0 represents the matrix position of the image
+        displayMetrics = new DisplayMetrics();
 
 
     }
@@ -52,15 +58,13 @@ public class DrawNotifyScreen extends AppCompatActivity {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            Bitmap b=BitmapFactory.decodeResource(getResources(), R.drawable.my_img);
-            // 0, 0 represents the matrix position of the image
-            DisplayMetrics displaymetrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
             int h = rl.getHeight();
             int w = rl.getWidth();
 
-
+            @SuppressLint("DrawAllocation")
             Bitmap resized = Bitmap.createScaledBitmap(b,w,h,true);
             canvas.drawBitmap(resized, 0, 0, paint);
             canvas.drawCircle(x, y, 30, paint);

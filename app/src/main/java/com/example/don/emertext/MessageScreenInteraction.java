@@ -108,7 +108,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     public void sendSMS(View view) {
 
         SmsManager text = SmsManager.getDefault();
-        String message = "";
+        String message;
         TextView q = (TextView) findViewById(R.id.messageText);
 
         message = q.getText().toString();
@@ -142,7 +142,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         nmsg.setTextColor(Color.WHITE);
         LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         prop.setMargins(0,0,0,8);
-        prop.gravity = Gravity.LEFT;
+        prop.gravity = Gravity.START;
 
         nmsg.setLayoutParams(prop);
         nmsg.setPadding(15,8,15,8);
@@ -165,7 +165,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
             nmsg.setTextColor(Color.BLACK);
             LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             prop.setMargins(0, 0, 0, 8);
-            prop.gravity = Gravity.RIGHT;
+            prop.gravity = Gravity.END;
 
             nmsg.setLayoutParams(prop);
             nmsg.setPadding(15, 8, 15, 8);
