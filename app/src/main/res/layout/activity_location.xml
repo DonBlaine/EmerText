@@ -48,8 +48,8 @@
             android:id="@+id/curLocation"
             android:background="@color/white"
             android:hint="Enter Location"
-            android:textColor="@color/darkGrey"
-            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey"
             tools:ignore="HardcodedText" />
 
         <LinearLayout
@@ -93,11 +93,11 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/emertype_spinner"
-            android:hint="Select Emergency Description"
+            android:hint="@color/lightGrey"
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:inputType="text"
-            android:textColorHint="@color/darkGrey"
+            android:textColorHint="@color/lightGrey"
             android:textColor="@color/black"
             android:entries="@array/emer_type"
             android:background="@color/white" />
@@ -105,7 +105,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/darkGrey"
+            android:textColorHint="@color/lightGrey"
             android:textColor="@color/black"
             android:hint="Additional Details"
             android:gravity="top|left"
@@ -118,12 +118,12 @@
             android:background="@color/white" />
 
         <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="7dp"
             android:maxLines="1"
             android:hint="Enter People With You"
-            android:textColorHint="@color/darkGrey"
+            android:textColorHint="@color/lightGrey"
             android:textColor="@color/black"
             android:inputType="textPersonName"
             android:id="@+id/people_with_you"
