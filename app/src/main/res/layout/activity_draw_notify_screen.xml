@@ -23,7 +23,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go back to Interaction screen"
+            android:text="@string/gobacktopreviousscreen"
             android:id="@+id/goBack"
             android:onClick="simonGoBack"
             android:background="@drawable/picture_btn"

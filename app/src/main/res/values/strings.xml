@@ -43,6 +43,7 @@
     <string name="emertype">Emergency Type</string>
     <string name="whois">People With You?</string>
     <string name="exdetails">Extra Details</string>
+    <string name="gobacktopreviousscreen">Go back to Interaction screen</string>
 
     <string-array name="emer_type">
         <item>Heart Attack</item>
