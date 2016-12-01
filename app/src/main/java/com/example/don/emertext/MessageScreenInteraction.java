@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -61,17 +60,17 @@ public class MessageScreenInteraction extends AppCompatActivity {
             message = message + "Emergency Type: " + emergencyType + ". \n";
 
         if (i.getBooleanExtra("include_medical", false)) {
-            message += "Medical Information: " + getSharedPreferences(
+            message += " Medical Information: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.medical_conditions_key), " ")
-                    + getSharedPreferences(
+                    + " " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.current_meds_key), " ")
-                    + getSharedPreferences(
+                    + " " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), " ") +
                     ". \n";
         }
 
         if (i.getBooleanExtra("include_ice", false)) {
-            message += "Emergency contact: " + getSharedPreferences(
+            message += " Emergency contact: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), " ")
                     + "on " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), " ") +
