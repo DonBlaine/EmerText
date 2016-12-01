@@ -69,7 +69,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         if (i.getBooleanExtra("include_ice", false)) {
             message += " Emergency contact: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), " ")
-                    + "on " + getSharedPreferences(
+                    + " at " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), " ") +
                     ". \n"
             ;
