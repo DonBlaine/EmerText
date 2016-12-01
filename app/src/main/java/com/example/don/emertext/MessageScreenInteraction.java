@@ -159,6 +159,15 @@ public class MessageScreenInteraction extends AppCompatActivity {
         scroll.fullScroll(View.FOCUS_DOWN);
         msgText.setText("");
 
+        while (recievedMessageTime){
+                receiveTime = System.currentTimeMillis();
+                if (receiveTime-sentTime > 180000){
+                    sendSMS(findViewById(android.R.id.content).getRootView());
+
+                }
+        }
+
+
     }
 
 
