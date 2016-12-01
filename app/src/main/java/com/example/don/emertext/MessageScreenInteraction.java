@@ -1,7 +1,9 @@
 package com.example.don.emertext;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +23,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     String number;
     String recmsg;
     String lastmessage;
-    Boolean sendOnce =true;
+    private BroadcastReceiver mIntentReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,23 +79,35 @@ public class MessageScreenInteraction extends AppCompatActivity {
         }
 
 
-        if (sendOnce) {
-            msgText.setText(message);
-            sendSMS(findViewById(android.R.id.content).getRootView());
-            sendOnce = false;
-        }
+        msgText.setText(message);
+        sendSMS(findViewById(android.R.id.content).getRootView());
+        //    sendOnce = false;
 
     }
 
 
+    @Override
     protected void onResume() {
-
         super.onResume();
-        Intent intent = getIntent();
-        String message = intent.getStringExtra("message");
-        showReceiverMessage(message);
+
+        IntentFilter intentFilter = new IntentFilter("SmsMessage.intent.MAIN");
+        mIntentReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String msg = intent.getStringExtra("get_msg");
+                showReceiverMessage(msg);
+            }
+        };
+        this.registerReceiver(mIntentReceiver, intentFilter);
     }
 
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        this.unregisterReceiver(this.mIntentReceiver);
+    }
 
     public void sendSMS(View view) {
         SmsManager text = SmsManager.getDefault();
@@ -113,15 +127,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
                     , currentmessage            // Message to send
                     , null               // The PendingIntent to perform when the message is successfully sent
                     , null);           // The PendingIntent to perform when the message is successfully delivered
-        }/*
-        else
-        {
-            text.sendTextMessage(number // Number to send to
-                    , null               // Message centre to send to (we'll never want to change this)
-                    , message            // Message to send
-                    , null               // The PendingIntent to perform when the message is successfully sent
-                    , null);           // The PendingIntent to perform when the message is successfully delivered
-        }*/
+        }
         message = message.trim();
         if (!message.equals("")) {
             showSenderMessage(message);
