@@ -46,9 +46,10 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
         String message =
                 "Please send: " + buttonSelected + ". \n" +
-                "Location: " + userLocation + ". \n" +
-                        "GPS: " + gps + ". \n";
+                "Location: " + userLocation + ". \n";
 
+        if (gps != null && !gps.equals(""))
+            message = message + "GPS: " + gps + ". \n";
         if (peopleWith != null && !peopleWith.equals(""))
             message = message + "People with me: " + peopleWith + ". \n";
         if (extraDetails != null && !extraDetails.equals(""))
@@ -108,7 +109,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     public void sendSMS(View view) {
 
         SmsManager text = SmsManager.getDefault();
-        String message = "";
+        String message;
         TextView q = (TextView) findViewById(R.id.messageText);
 
         message = q.getText().toString();
