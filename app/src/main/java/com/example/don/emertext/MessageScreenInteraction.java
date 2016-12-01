@@ -46,9 +46,10 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
         String message =
                 "Please send: " + buttonSelected + ". \n" +
-                "Location: " + userLocation + ". \n" +
-                        "GPS: " + gps + ". \n";
+                "Location: " + userLocation + ". \n";
 
+        if (gps != null && !gps.equals(""))
+            message = message + "GPS: " + gps + ". \n";
         if (peopleWith != null && !peopleWith.equals(""))
             message = message + "People with me: " + peopleWith + ". \n";
         if (extraDetails != null && !extraDetails.equals(""))
@@ -142,7 +143,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         nmsg.setTextColor(Color.WHITE);
         LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         prop.setMargins(0,0,0,8);
-        prop.gravity = Gravity.LEFT;
+        prop.gravity = Gravity.START;
 
         nmsg.setLayoutParams(prop);
         nmsg.setPadding(15,8,15,8);
@@ -165,7 +166,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
             nmsg.setTextColor(Color.BLACK);
             LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             prop.setMargins(0, 0, 0, 8);
-            prop.gravity = Gravity.RIGHT;
+            prop.gravity = Gravity.END;
 
             nmsg.setLayoutParams(prop);
             nmsg.setPadding(15, 8, 15, 8);

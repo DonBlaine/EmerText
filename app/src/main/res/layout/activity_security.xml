@@ -18,15 +18,18 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/finger_scan"
         android:id="@+id/imageView"
-        android:paddingTop="126dp" />
+        android:paddingTop="126dp"
+        tools:ignore="ContentDescription,HardcodedText" />
 
     <TextView
-        android:text="Please Scan your Finger"
+        android:text="@string/please_scan_your_finger"
         android:layout_width="390dp"
-        android:layout_height="0dp"
         android:id="@+id/textView2"
-        android:layout_weight="0.38"
-        android:textSize="34sp"
-        android:layout_marginTop="26dp"
-        android:layout_marginLeft="12dp" />
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_height="40dp"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="44dp" />
 </RelativeLayout>

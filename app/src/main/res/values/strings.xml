@@ -129,6 +129,7 @@
     <string name="emergency_services_number_textview">Emergency services number (for testing only)</string>
     <string name="include_ice_contact_info">Include ICE contact info</string>
     <string name="include_medical_conditions">Include medical conditions</string>
+    <string name="please_scan_your_finger">Please Scan your Finger</string>
     <string name="dublin">"Dublin "</string>
     <string name="ignore">ignore</string>
 
