@@ -125,71 +125,88 @@ public class TextSpeech extends AppCompatActivity {
         findViewById(R.id.button12).setOnClickListener(buttonClickListener);
         findViewById(R.id.button13).setOnClickListener(buttonClickListener);
         findViewById(R.id.button14).setOnClickListener(buttonClickListener);
-
         findViewById(R.id.button21).setOnClickListener(buttonClickListener);
         findViewById(R.id.button22).setOnClickListener(buttonClickListener);
         findViewById(R.id.button23).setOnClickListener(buttonClickListener);
         findViewById(R.id.button24).setOnClickListener(buttonClickListener);
-
         findViewById(R.id.drawButton).setOnClickListener(buttonClickListener);
 
+        findViewById(R.id.button11).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button12).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button13).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button14).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button21).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button22).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button23).setOnLongClickListener(longClickListener);
+        findViewById(R.id.button24).setOnLongClickListener(longClickListener);
 
     }
+
+    private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            values(v, false);
+            return false;
+        }
+    };
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-
-            switch (view.getId()){
-                case R.id.button11:
-                    toSpeak = "Can you help me please";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button12:
-                    toSpeak = "Can you get my medicines";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button13:
-                    toSpeak = "Can you please make a call for me";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button14:
-                    toSpeak = "Can you please call a taxi for me";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button21:
-                    toSpeak = "Yes please";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button22:
-                    toSpeak = getSharedPreferences(
-                            getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.custom_message_key), "");
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button23:
-                    toSpeak = "Can you get me some water to drink please";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.button24:
-                    toSpeak = "No thank you";
-                    Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-                    speakNow();
-                    break;
-                case R.id.drawButton:
-                    Intent i = new Intent(TextSpeech.this, DrawNotifyScreen.class);
-                    startActivity(i);
-                    break;
-
-            }
+            values(view, true);
         }
     };
+
+    public void values(View view, boolean speak) {
+        switch (view.getId()) {
+            case R.id.button11:
+                toSpeak = "Can you help me please";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.button12:
+                toSpeak = "Can you get my medicines";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.button13:
+                toSpeak = "Can you please make a call for me";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.button14:
+                toSpeak = "Can you please call a taxi for me";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                speakNow();
+                break;
+            case R.id.button21:
+                toSpeak = "Yes please";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.button22:
+                toSpeak = getSharedPreferences(
+                        getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.custom_message_key), "");
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.button23:
+                toSpeak = "Can you get me some water to drink please";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.button24:
+                toSpeak = "No thank you";
+                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                if (speak) speakNow();
+                break;
+            case R.id.drawButton:
+                Intent i = new Intent(TextSpeech.this, DrawNotifyScreen.class);
+                startActivity(i);
+                break;
+
+        }
+    }
 
     public void speakNow() {
 
