@@ -145,7 +145,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         prop.gravity = Gravity.LEFT;
 
         nmsg.setLayoutParams(prop);
-        nmsg.setPadding(15,5,5,5);
+        nmsg.setPadding(15,8,15,8);
         nmsg.setTextSize(18);
 
         ll.addView(nmsg);
@@ -168,7 +168,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
             prop.gravity = Gravity.RIGHT;
 
             nmsg.setLayoutParams(prop);
-            nmsg.setPadding(5, 5, 15, 5);
+            nmsg.setPadding(15, 8, 15, 8);
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
