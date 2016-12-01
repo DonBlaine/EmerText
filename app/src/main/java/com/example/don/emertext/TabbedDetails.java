@@ -30,8 +30,10 @@ public class TabbedDetails extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         basicDetails = new BasicDetails();
         medicalInfo = new MedicalInformation();
         nextkin = new EmergencyContactDetails();

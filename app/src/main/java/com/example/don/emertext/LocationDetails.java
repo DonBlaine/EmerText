@@ -63,7 +63,7 @@ public class LocationDetails extends AppCompatActivity {
         String fullAddress = sharedPref.getString(getString(R.string.address_1_key), " ")
                 + " " + sharedPref.getString(getString(R.string.address_2_key), " ")
                 + " " + sharedPref.getString(getString(R.string.county_key), " ")
-                + " " + sharedPref.getString(getString(R.string.eircode_key), " ");
+                + " " + sharedPref.getString(getString(R.string.eircode_key), "");
 
         if (Objects.equals(fullAddress.trim(), "")) {
             Toast.makeText(this, "Error, no home address stored", Toast.LENGTH_SHORT).show();

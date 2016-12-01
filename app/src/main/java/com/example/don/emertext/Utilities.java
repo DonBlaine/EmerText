@@ -11,7 +11,7 @@ import android.widget.EditText;
  * Class to store repeated methods used in several classes and variables which need to be globally unique
  */
 
-public class Utilities {
+class Utilities {
     //Permission request codes
     static final int SMS_REQUEST_CODE = 1;
     static final int REQUEST_CONTACTS_CODE = 2;
@@ -23,7 +23,7 @@ public class Utilities {
     //Intent result codes (these can overlap with the ones above）
     static final int CONTACT_INTENT_CODE = 1;
 
-    public static void restoreViewValue(SharedPreferences sharedPref, EditText e){
+    static void restoreViewValue(SharedPreferences sharedPref, EditText e) {
         //Takes an EditText and retrieves the value stored for it based on its tag, or blank string otherwise
         String key=e.getTag().toString();
         String retrievedValue = sharedPref.getString(key, "");
@@ -31,7 +31,7 @@ public class Utilities {
 
     }
 
-    public static void setEditableFocusChangeAutosave(final SharedPreferences sharedPref, final CheckBox c){
+    static void setEditableFocusChangeAutosave(final SharedPreferences sharedPref, final CheckBox c) {
         //Quickset an autosave for a CheckBox when it loses focus
         c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -40,7 +40,7 @@ public class Utilities {
             }
         });}
 
-    public static void setEditableFocusChangeAutosave(final SharedPreferences sharedPref, final EditText e){
+    static void setEditableFocusChangeAutosave(final SharedPreferences sharedPref, final EditText e) {
         //Quickset an autosave for an EditText when it loses focus
         e.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
@@ -54,7 +54,7 @@ public class Utilities {
     }
 
 
-    public static void restoreViewValue(SharedPreferences sharedPref, CheckBox c){
+    static void restoreViewValue(SharedPreferences sharedPref, CheckBox c) {
         //Takes an Checkbox and retrieves the value stored for it based on its tag, or false otherwise
         String key=c.getTag().toString();
         boolean retrievedValue = sharedPref.getBoolean(key,false);
@@ -62,7 +62,7 @@ public class Utilities {
 
     }
 
-    public static void saveViewValue(SharedPreferences sharedPref, EditText e){
+    static void saveViewValue(SharedPreferences sharedPref, EditText e) {
         //Saves EditText to key based on its tag
         SharedPreferences.Editor editor = sharedPref.edit();
         String value = e.getText().toString();
@@ -71,7 +71,8 @@ public class Utilities {
         editor.apply();
     }
 
-    public static void saveViewValue(SharedPreferences sharedPref, CheckBox c){
+    //This may be needed outside the class in future
+    static void saveViewValue(SharedPreferences sharedPref, CheckBox c) {
         //Saves CheckBox to key based on its tag
         SharedPreferences.Editor editor = sharedPref.edit();
         boolean value = c.isChecked();

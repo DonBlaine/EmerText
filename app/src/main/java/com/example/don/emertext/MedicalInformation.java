@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 /**
@@ -66,21 +65,8 @@ public class MedicalInformation extends Fragment {
         Utilities.restoreViewValue(sharedPref, e);
 
     }
-    public void restoreViewValue(CheckBox c){
-        Utilities.restoreViewValue(sharedPref, c);
-    }
     public void setEditableFocusChangeAutosave(final EditText e){
         Utilities.setEditableFocusChangeAutosave(sharedPref, e);
-    }
-    public void saveViewValue(EditText e){
-        Utilities.saveViewValue(sharedPref, e);
-    }
-    public void saveViewValue(CheckBox c){
-        Utilities.saveViewValue(sharedPref, c);
-
-    }
-    public void setEditableFocusChangeAutosave(CheckBox c){
-        Utilities.setEditableFocusChangeAutosave(sharedPref, c);
     }
 
 }
