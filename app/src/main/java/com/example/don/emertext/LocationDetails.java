@@ -61,11 +61,11 @@ public class LocationDetails extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
         String fullAddress = sharedPref.getString(getString(R.string.address_1_key), " ")
-                + sharedPref.getString(getString(R.string.address_2_key), " ")
-                + sharedPref.getString(getString(R.string.county_key), " ")
-                + sharedPref.getString(getString(R.string.eircode_key), " ");
+                + " " + sharedPref.getString(getString(R.string.address_2_key), " ")
+                + " " + sharedPref.getString(getString(R.string.county_key), " ")
+                + " " + sharedPref.getString(getString(R.string.eircode_key), " ");
 
-        if (Objects.equals(fullAddress, "")) {
+        if (Objects.equals(fullAddress.trim(), "")) {
             Toast.makeText(this, "Error, no home address stored", Toast.LENGTH_SHORT).show();
         } else {
             EditText locationTextBox = (EditText) findViewById(R.id.curLocation);
