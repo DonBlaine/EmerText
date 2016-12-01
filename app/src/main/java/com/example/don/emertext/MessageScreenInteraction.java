@@ -19,16 +19,13 @@ public class MessageScreenInteraction extends AppCompatActivity {
     EditText msgText;
     ScrollView scroll;
     String number;
-    SmsListener receiver;
     String recmsg;
     String lastmessage;
+    Boolean sendOnce =true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        receiver = new SmsListener();
-
         number = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
         setContentView(R.layout.activity_message_screen_interaction);
@@ -80,9 +77,11 @@ public class MessageScreenInteraction extends AppCompatActivity {
         }
 
 
-        msgText.setText(message);
-        sendSMS(findViewById(android.R.id.content).getRootView());
-
+        if (sendOnce) {
+            msgText.setText(message);
+            sendSMS(findViewById(android.R.id.content).getRootView());
+            sendOnce = false;
+        }
 
     }
 
