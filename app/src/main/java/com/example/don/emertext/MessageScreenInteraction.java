@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     String recmsg;
     String lastmessage;
     private BroadcastReceiver mIntentReceiver;
+    Long sentTime, receiveTime;
+    Boolean recievedMessageTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +85,24 @@ public class MessageScreenInteraction extends AppCompatActivity {
         msgText.setText(message);
         sendSMS(findViewById(android.R.id.content).getRootView());
 
+
+        while (true){
+            if (recievedMessageTime){
+                receiveTime = System.currentTimeMillis();
+                if (receiveTime-sentTime > 180000){
+                    sendSMS(findViewById(android.R.id.content).getRootView());
+
+                }
+            }
+        }
+
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        recievedMessageTime = false;
         IntentFilter intentFilter = new IntentFilter("SmsMessage.intent.EMERGENCY");
         mIntentReceiver = new BroadcastReceiver() {
             @Override
@@ -109,6 +123,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
     public void sendSMS(View view) {
+        sentTime = System.currentTimeMillis();
+        recievedMessageTime = true;
         SmsManager text = SmsManager.getDefault();
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
