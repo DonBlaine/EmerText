@@ -25,7 +25,7 @@ import java.util.Objects;
 
 public class LocationDetails extends AppCompatActivity {
 
-
+    //create variables used in activity and passed to other activities
     private boolean locationEnabled = false;
     private String gps = null;
     private String stringLocation = null;
@@ -33,6 +33,9 @@ public class LocationDetails extends AppCompatActivity {
     private String buttonSelected;
 
     @Override
+    //define initial layout, populate textview with address of lat/lon coordinates
+    //passed in from welcome activity if they are not null/0.0 and set up spinner
+    //autocomplete functionality.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
@@ -51,6 +54,9 @@ public class LocationDetails extends AppCompatActivity {
         }
     }
 
+    //functionality to populate location textview with the home address user entered in their
+    //personal details which is stored in local database. Action happens when user clicks on button
+    //defined in xml.
     public void getHome(View view){
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE);
@@ -70,15 +76,20 @@ public class LocationDetails extends AppCompatActivity {
     }
 
     @Override
+    //stating method in case we need to add functionality later on
     protected void onResume() {
         super.onResume();
     }
 
     @Override
+    //stating method in case we need to add functionality later on
     protected void onPause() {
         super.onPause();
     }
 
+    //xml on click button method which starts map pin activity provided the user has location and
+    //data enabled. Will produce a toast if not as google maps api needs data to load map.
+    //starts activity for result which is the gps coordinates/ address the user selected.
     public void startMap(View view) {
         if (locationEnabled){
             Intent intent = new Intent(LocationDetails.this, MapPin.class);
@@ -89,6 +100,7 @@ public class LocationDetails extends AppCompatActivity {
     }
 
     @Override
+    //get the gps and address the user entered or create toast if they did not select anything.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
@@ -106,6 +118,7 @@ public class LocationDetails extends AppCompatActivity {
     }
 
     @Nullable
+    //get the address location of the lat/lon coordinates
     private String getLocation(Double latitude, Double longitude) {
 
         gps = "Lat: " + Double.toString(latitude) + ", Lon: " + Double.toString(longitude);
@@ -121,6 +134,8 @@ public class LocationDetails extends AppCompatActivity {
         return addresses.get(0).getAddressLine(0);
     }
 
+    //method that checks if user has entered their own address and if network connected
+    // gets user address and if sets the textview with that address if not null
     public void populateLocation(Double latitude, Double longitude) {
         if (!userEnteredLocation && isNetworkConnected()) {
             stringLocation = getLocation(latitude, longitude);
@@ -135,6 +150,7 @@ public class LocationDetails extends AppCompatActivity {
         }
     }
 
+    //method that checks if user is connected to network
     private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -142,6 +158,8 @@ public class LocationDetails extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    //method that starts intent to message screen interaction activity and passes in the variable
+    //values that are used in that activity.
     public void submitInfo(View view) {
         Intent i = new Intent(LocationDetails.this, MessageScreenInteraction.class);
 
