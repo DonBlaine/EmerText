@@ -32,6 +32,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    //creating variables used in activity
     public static final String TAG = WelcomeActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private String buttonSelected = "";
@@ -44,6 +45,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
 
     @Override
+    //setup initial page layout and create location/googleapi client
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
@@ -59,19 +61,18 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1000);
 
-
-        // help gotten from https://www.youtube.com/watch?v=gh4nX-m6BEo
-        // define all the buttons on the screen
         defineButtons();
-    } // end onCreate
+    }
 
     @Override
+    //start resources on resume.
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
     }
 
     @Override
+    //stop resources on pause
     protected void onPause() {
         super.onPause();
         if (mGoogleApiClient.isConnected()) {
@@ -80,6 +81,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    //define buttons for clickability
     public void defineButtons(){
         findViewById(R.id.details_btn).setOnClickListener(buttonClickListener);
         findViewById(R.id.talk_stranger_btn).setOnClickListener(buttonClickListener);
@@ -95,6 +97,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         findViewById(R.id.coast_btn).setOnLongClickListener(buttonLongClickListener);
     }
 
+    //set up button click listener with a actions on click
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -126,7 +129,9 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
                     break;
             }
         }
-    }; // end OnClickListener
+    };
+
+    //set up button click listner for long click functionality
     private View.OnLongClickListener buttonLongClickListener = new View.OnLongClickListener() {
         // if a button is long clicked go straight to the final text screen.
         @Override
@@ -151,8 +156,10 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             }
             return true;
         }
-    }; // end OnLongClickListener
+    };
 
+    //define method to start intent on button short click to location details activity
+    //passes in user's lat/lon coordinates and the button they selected
     private void LaunchNext() {
         if (smsGranted){
             Intent intent3 = new Intent(WelcomeActivity.this, LocationDetails.class);
@@ -163,6 +170,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    //define method to start intent on button long click to messagescreeninteraction activity
     private void LaunchFinal() {
         if (smsGranted){
             Intent intent3 = new Intent(WelcomeActivity.this, MessageScreenInteraction.class);
@@ -174,12 +182,14 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     @Override
+    //method called when checking location connected
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Location services connected.");
         getCoord();
     }
 
-    //checks permissions and returns user's lat/lon coordinates
+    //checks permissions and returns updates lat/lon variables
+    //checks what permissions user has granted and network connectivity
     private void getCoord(){
         nopermissions = (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
 
@@ -208,11 +218,14 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
 
 
     @Override
+    //method called when connection is suspended.
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Location services suspended. Please reconnect.");
     }
 
     @Override
+    //method called when connection has failed.
+    //resolve connection if possible
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
@@ -228,6 +241,7 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     @Override
+    //method called if user did not grant permissions and api >= 23
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
@@ -255,11 +269,13 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     @Override
+    //method called when user's location changes, updates lat/lon variables
     public void onLocationChanged(Location location) {
         lat = location.getLatitude();
         lon = location.getLongitude();
     }
 
+    //checks if user is connected to a network and returns boolean
     private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -267,11 +283,13 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    //start tabbed details activity if user clicks on button
     public void launchDetails(View view){
         Intent intent = new Intent(WelcomeActivity.this, TabbedDetails.class);
         startActivity(intent);
     }
 
+    //start textspeech activity if user clicks on button
     public void launchPasserby(View view){
         if (smsGranted){
             Intent intent = new Intent(WelcomeActivity.this, TextSpeech.class);
@@ -280,14 +298,14 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     //  Function to just check if we have SEND_SMS permission
-    public boolean checkSendSMS(View view){
+    public boolean checkSendSMS(){
         return ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) ==
                 PackageManager.PERMISSION_GRANTED;
     }
 
     // Function to check if we have SEND_SMS and request it if we don't.
-    public boolean requestSendSMS(View view){
-        if (checkSendSMS(view)){
+    public boolean requestSendSMS(){
+        if (checkSendSMS()){
             return true;
         }
         else{
@@ -295,19 +313,19 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.SEND_SMS},
                     6);
-            return checkSendSMS(view);
+            return checkSendSMS();
         }
     }
 
     //  Function to just check if we have Receive sms permission
-    public boolean checkReceiveSMS(View view){
+    public boolean checkReceiveSMS(){
         return ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS) ==
                 PackageManager.PERMISSION_GRANTED;
     }
 
     // Function to check if we have receive sms and request it if we don't.
-    public boolean requestReceiveSMS(View view){
-        if (checkReceiveSMS(view)){
+    public boolean requestReceiveSMS(){
+        if (checkReceiveSMS()){
             return true;
         }
         else{
@@ -315,15 +333,16 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.RECEIVE_SMS},
                     6);
-            return checkReceiveSMS(view);
+            return checkReceiveSMS();
         }
     }
 
+    //method to check if user has granted send and receive sms functionality
     public void enterDetails(View view){
-        if (requestSendSMS(view) & requestReceiveSMS(view)) {
+        if (requestSendSMS() & requestReceiveSMS()) {
             smsGranted = true;
         }else {
-            if (!requestSendSMS(view)) {
+            if (!requestSendSMS()) {
                 Toast.makeText(this, "You did not grant send sms permission", Toast.LENGTH_LONG).show();
             }
             else {
@@ -331,6 +350,4 @@ public class WelcomeActivity extends AppCompatActivity implements GoogleApiClien
             }
         }
     }
-
-
-}// end main activity
+}
