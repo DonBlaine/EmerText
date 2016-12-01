@@ -23,11 +23,12 @@ public class SmsListener extends BroadcastReceiver
                     context.getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(context.getString(R.string.emergency_service_number_key), context.getString(R.string.default_emergency_number));
             String body = SMessage.getMessageBody().toString();
 
+            if (sender.equals(referenceNumber)) {
+                Intent in = new Intent("SmsMessage.intent.EMERGENCY").
+                        putExtra("get_msg", body);
 
-            Intent in = new Intent("SmsMessage.intent.EMERGENCY").
-                    putExtra("get_msg", body);
-
-            context.sendBroadcast(in);
+                context.sendBroadcast(in);
+            }
         }
     }
 }
