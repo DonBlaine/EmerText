@@ -23,7 +23,7 @@ public class SmsListener extends BroadcastReceiver
             String body = SMessage.getMessageBody().toString();
 
 
-            Intent in = new Intent("SmsMessage.intent.MAIN").
+            Intent in = new Intent("SmsMessage.intent.EMERGENCY").
                     putExtra("get_msg", body);
 
             context.sendBroadcast(in);

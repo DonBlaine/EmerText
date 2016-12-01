@@ -81,7 +81,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
         msgText.setText(message);
         sendSMS(findViewById(android.R.id.content).getRootView());
-        //    sendOnce = false;
 
     }
 
@@ -90,7 +89,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        IntentFilter intentFilter = new IntentFilter("SmsMessage.intent.MAIN");
+        IntentFilter intentFilter = new IntentFilter("SmsMessage.intent.EMERGENCY");
         mIntentReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
