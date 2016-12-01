@@ -22,8 +22,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
     EditText msgText;
     ScrollView scroll;
     String number;
-    String recmsg;
-    String lastmessage;
     private BroadcastReceiver mIntentReceiver;
 
     @Override
@@ -34,7 +32,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
-        lastmessage="";
 
 
         //get data from previous activities
@@ -160,9 +157,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
 
     public void showReceiverMessage(String message){
-        if (!message.equals(lastmessage)) {
 
-            lastmessage = message;
             LinearLayout ll1 = (LinearLayout) findViewById(R.id.messageHolder);
 
             TextView nmsg = new TextView(this);
@@ -178,7 +173,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
-        }
+
     }
 
     // Code for timer
