@@ -18,7 +18,7 @@ public class Utilities {
     static final int REQUEST_LOCATION = 3;
 
     //Variables to override certain functionalities for testing
-    static final boolean SKIP_NETWORK_CHECK = true;
+    static final boolean SKIP_NETWORK_CHECK = false;
 
     //Intent result codes (these can overlap with the ones above）
     static final int CONTACT_INTENT_CODE = 1;

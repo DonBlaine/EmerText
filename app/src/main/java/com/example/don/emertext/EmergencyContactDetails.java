@@ -23,7 +23,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+//EmergencyContact Frangment class
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -52,6 +52,7 @@ public class EmergencyContactDetails extends Fragment {
     }
 
     public void viewSetup() {
+        //Find EditTexts  and buttons and set their onClicks
         Button getcontact = (Button) rootView.findViewById(R.id.fetch_button);
         getcontact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +69,7 @@ public class EmergencyContactDetails extends Fragment {
     }
 
     public void getContacts(View view){
+        //Method to try to get a contact from the Contacts and request permission if required
         if (requestContactsPermission(view)) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(intent, Utilities.CONTACT_INTENT_CODE);
@@ -95,7 +97,7 @@ public class EmergencyContactDetails extends Fragment {
                 // showRationale = false if user clicks Never Ask Again, otherwise true
                 boolean showRationale = false;
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION);
+                    showRationale = ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_CONTACTS);
                 }
 
                 if (!showRationale) {
@@ -111,6 +113,7 @@ public class EmergencyContactDetails extends Fragment {
 
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        //Capture the contacts request result
         super.onActivityResult(reqCode, resultCode, data);
 
         switch (reqCode) {

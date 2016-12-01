@@ -15,18 +15,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
     EditText msgText;
     ScrollView scroll;
     String number;
-    String recmsg;
-    String lastmessage;
     private BroadcastReceiver mIntentReceiver;
-    Long sentTime, receiveTime;
-    Boolean recievedMessageTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +31,6 @@ public class MessageScreenInteraction extends AppCompatActivity {
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
-        lastmessage="";
 
 
         //get data from previous activities
@@ -63,19 +57,19 @@ public class MessageScreenInteraction extends AppCompatActivity {
             message = message + "Emergency Type: " + emergencyType + ". \n";
 
         if (i.getBooleanExtra("include_medical", false)) {
-            message += "Medical Information: " + getSharedPreferences(
+            message += " Medical Information: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.medical_conditions_key), " ")
-                    + getSharedPreferences(
+                    + " " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.current_meds_key), " ")
-                    + getSharedPreferences(
+                    + " " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.allergies_key), " ") +
                     ". \n";
         }
 
         if (i.getBooleanExtra("include_ice", false)) {
-            message += "Emergency contact: " + getSharedPreferences(
+            message += " Emergency contact: " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_name_key), " ")
-                    + "on " + getSharedPreferences(
+                    + " at " + getSharedPreferences(
                     getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_contact_number_key), " ") +
                     ". \n"
             ;
@@ -85,13 +79,13 @@ public class MessageScreenInteraction extends AppCompatActivity {
         msgText.setText(message);
         sendSMS(findViewById(android.R.id.content).getRootView());
 
+
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        recievedMessageTime = false;
         IntentFilter intentFilter = new IntentFilter("SmsMessage.intent.EMERGENCY");
         mIntentReceiver = new BroadcastReceiver() {
             @Override
@@ -112,8 +106,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
     public void sendSMS(View view) {
-        sentTime = System.currentTimeMillis();
-        recievedMessageTime = true;
+
         SmsManager text = SmsManager.getDefault();
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
@@ -152,29 +145,18 @@ public class MessageScreenInteraction extends AppCompatActivity {
         prop.gravity = Gravity.LEFT;
 
         nmsg.setLayoutParams(prop);
-        nmsg.setPadding(15,5,5,5);
+        nmsg.setPadding(15,8,15,8);
         nmsg.setTextSize(18);
 
         ll.addView(nmsg);
         scroll.fullScroll(View.FOCUS_DOWN);
         msgText.setText("");
 
-        while (recievedMessageTime){
-                receiveTime = System.currentTimeMillis();
-                if (receiveTime-sentTime > 180000){
-                    sendSMS(findViewById(android.R.id.content).getRootView());
-
-                }
-        }
-
-
     }
 
 
     public void showReceiverMessage(String message){
-        if (!message.equals(lastmessage)) {
 
-            lastmessage = message;
             LinearLayout ll1 = (LinearLayout) findViewById(R.id.messageHolder);
 
             TextView nmsg = new TextView(this);
@@ -186,11 +168,11 @@ public class MessageScreenInteraction extends AppCompatActivity {
             prop.gravity = Gravity.RIGHT;
 
             nmsg.setLayoutParams(prop);
-            nmsg.setPadding(5, 5, 15, 5);
+            nmsg.setPadding(15, 8, 15, 8);
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
-        }
+
     }
 
     // Code for timer
