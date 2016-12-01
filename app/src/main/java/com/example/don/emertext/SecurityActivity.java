@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+// External Library is Used for locking the application using password: https://github.com/mattsilber/applock
 import com.guardanis.applock.CreateLockDialogBuilder;
 import com.guardanis.applock.UnlockDialogBuilder;
 import com.guardanis.applock.locking.ActionLockingHelper;
@@ -34,13 +35,9 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 public class SecurityActivity extends AppCompatActivity {
-    private FingerprintManager fingerprintManager;
-    private KeyguardManager keyguardManager;
     private KeyStore keyStore;
-    private KeyGenerator keyGenerator;
-    private static final String KEY_NAME = "example_key";
+    private static final String KEY_NAME = "not_null";
     private Cipher cipher;
-    private FingerprintManager.CryptoObject cryptoObject;
 
     public SecurityActivity() {
     }
@@ -51,13 +48,14 @@ public class SecurityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_security);
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            fingerScannerMain();
+            fingerScannerMain(); // If android version greater than 23 call fingerscanning method
         } else {
 
-            onResume();
+            onResume(); // else go for the password lock
         }
     }
 
+    // Password locking method: checking if there are saved password if not prompting to create one
     @Override
     public void onResume(){
         super.onResume();
@@ -74,13 +72,15 @@ public class SecurityActivity extends AppCompatActivity {
                 }})
                     .show();
     }
+
+    // Shows the dialog box to unlock the next activity
     private void showUnlockDialog(){
         ActionLockingHelper.unlockIfRequired(this, new UnlockDialogBuilder.UnlockEventListener() {
             public void onCanceled() {
-                finish(); // No PIN entered, don't let them through
+                finish(); // If no pin entered, it will not allow user to enter the app
             } // Dialog was closed without entry
             public void onUnlockFailed(String reason) {
-                finish(); // No PIN entered, don't let them through
+                finish(); // If no pin entered, it will not allow user to enter the app
             } // Not called with default Dialog, instead is handled internally
             public void onUnlockSuccessful() {
                 Intent intent = new Intent(SecurityActivity.this, WelcomeActivity.class);
@@ -90,8 +90,12 @@ public class SecurityActivity extends AppCompatActivity {
         });
     }
 
+    // Main finger scanning method which includes checks for hardware, permissions, has enrolled finger prints and cipher
     @TargetApi(23)
     public void fingerScannerMain(){
+        KeyguardManager keyguardManager;
+        FingerprintManager fingerprintManager;
+        FingerprintManager.CryptoObject cryptoObject;
 
         fingerprintManager =
                 (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
@@ -140,9 +144,10 @@ public class SecurityActivity extends AppCompatActivity {
         }
     }
 
-
+    // Generates encrypted key which is then stored in the Android Keystore system securely
     @TargetApi(23)
     protected void generateKey() {
+        KeyGenerator keyGenerator;
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
         } catch (Exception e) {
@@ -177,6 +182,7 @@ public class SecurityActivity extends AppCompatActivity {
         }
     }
 
+    // It creates the cipher instance and initialise it with the key stored in keystore.
     @TargetApi(23)
     public boolean cipherInit() {
         try {
