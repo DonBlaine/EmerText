@@ -41,6 +41,7 @@ public class MedicalInformation extends Fragment {
     }
 
     public void restoreAllSavedValues() {
+        //Restore values for each of the EditTexts
     restoreViewValue(allergies_edittext);
         restoreViewValue(current_med_edittext);
         restoreViewValue(medical_conditions);
