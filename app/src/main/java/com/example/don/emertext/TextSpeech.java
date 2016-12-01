@@ -1,15 +1,15 @@
 package com.example.don.emertext;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -167,7 +167,8 @@ public class TextSpeech extends AppCompatActivity {
                     speakNow();
                     break;
                 case R.id.button22:
-                    toSpeak = "Can you help me sit down please";
+                    toSpeak = getSharedPreferences(
+                            getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.custom_message_key), "");
                     Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
                     speakNow();
                     break;
