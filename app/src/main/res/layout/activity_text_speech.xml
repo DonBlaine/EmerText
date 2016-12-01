@@ -44,7 +44,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
                 app:srcCompat="@drawable/helpme"
-                />
+                android:contentDescription="button1" />
 
             <ImageButton
                 android:layout_width="0dp"
@@ -59,7 +59,8 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
                 app:srcCompat="@drawable/thumbmedicine"
-                />
+                android:contentDescription="button2" />
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -72,7 +73,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
-                app:srcCompat="@drawable/phone" />
+                app:srcCompat="@drawable/phone"
+                android:contentDescription="button3" />
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -85,7 +88,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
-                app:srcCompat="@drawable/taxi" />
+                app:srcCompat="@drawable/taxi"
+                android:contentDescription="button4" />
 
         </LinearLayout>
 
@@ -112,7 +116,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
                 app:srcCompat="@drawable/thumbsup"
-                />
+                android:contentDescription="button5" />
 
             <ImageButton
                 android:layout_width="0dp"
@@ -127,7 +131,8 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
                 app:srcCompat="@drawable/sitdown"
-                />
+                android:contentDescription="button6" />
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -140,7 +145,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
-                app:srcCompat="@drawable/water" />
+                app:srcCompat="@drawable/water"
+                android:contentDescription="button7" />
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -154,7 +161,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/picture_btn"
                 app:srcCompat="@drawable/thumbsdown"
-                />
+                android:contentDescription="button7" />
 
         </LinearLayout>
 
