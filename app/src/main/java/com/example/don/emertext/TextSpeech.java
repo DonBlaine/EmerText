@@ -17,9 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+// The class is basically to convert text into speech. It enables the user to type in and
+// speak text as well. Apart from that it has some pre entered text that user could press button and speak.
+// Long press reveals the text the button speaks and a press just speaks the text.
 
 public class TextSpeech extends AppCompatActivity {
 
+    // declaring variables used throughout the class
     TextToSpeech ts;
     String toSpeak;
     LinearLayout helperText;
@@ -28,6 +32,8 @@ public class TextSpeech extends AppCompatActivity {
     ScrollView scroll;
 
 
+    // the on create function is displaying the layout while and also getting
+    // reference to views we want to manipulate in class.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,7 @@ public class TextSpeech extends AppCompatActivity {
 
     }
 
+    // Initializing the text to speech engine with Language UK
     protected void onStart(){
         super.onStart();
         ts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -48,8 +55,10 @@ public class TextSpeech extends AppCompatActivity {
                 }
             }
         });
+        //defining all the buttons that speak some text
         defineButtons();
 
+        // Once edit text field is done, the function calls show message function
         ((EditText)findViewById(R.id.editText)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -65,9 +74,15 @@ public class TextSpeech extends AppCompatActivity {
     }
 
 
+    // The function puts typed text on the field and also speaks it. It also implements putting focus
+    // to the last message displayed on the screen.
     public void showMessage(){
 
+        // using a random integer to distinguish between texts that are entered in sequence
+        // It has been implemented keeping in mind that the helper and the one in need may
+        // want to be communicating through texts.
         i+=1;
+
         LinearLayout ll1 = (LinearLayout)findViewById(R.id.helperTextMessage);
 
         TextView nmsg = new TextView(this);
@@ -82,7 +97,7 @@ public class TextSpeech extends AppCompatActivity {
                 nmsg.setBackgroundResource(R.drawable.message_wrap);
                 nmsg.setTextColor(Color.WHITE);
             }
-//            nmsg.setTextColor(Color.BLACK);
+
             LinearLayout.LayoutParams prop = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             prop.setMargins(0, 0, 0, 8);
 
@@ -91,19 +106,15 @@ public class TextSpeech extends AppCompatActivity {
             nmsg.setTextSize(18);
 
             ll1.addView(nmsg);
+            // pushing focus to bottom of the last message shown on screen
             scroll.fullScroll(View.FOCUS_DOWN);
+            // setting edit text to blank again.
             writable.setText("");
             speakNow();
         }
     }
 
-    protected void onRestart(){
-        super.onRestart();
-    }
-
-    protected void onResume(){
-        super.onResume();
-    }
+    // releasing text to speech engine resource when the focus is not on the activity
     protected void onPause(){
         if(ts !=null){
             ts.stop();
@@ -111,15 +122,9 @@ public class TextSpeech extends AppCompatActivity {
         }
         super.onPause();
     }
-    protected void onStop(){
-        super.onStop();
-    }
-
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
 
+    // Defining all the buttons and setting their on click listeners
     public  void defineButtons(){
 
         findViewById(R.id.button11).setOnClickListener(buttonClickListener);
@@ -143,6 +148,8 @@ public class TextSpeech extends AppCompatActivity {
 
     }
 
+
+    // function to display text when a longpress is done on the button
     private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
@@ -151,12 +158,16 @@ public class TextSpeech extends AppCompatActivity {
         }
     };
 
+    // function to speak text once button is clicked
     private View.OnClickListener buttonClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
             values(view, true);
         }
     };
+
+    // setting pre defined texs for most of the buttons and speaking it
+    // one of the buttons enable user to speak customizable text as well
 
     public void values(View view, boolean speak) {
         switch (view.getId()) {
@@ -209,6 +220,7 @@ public class TextSpeech extends AppCompatActivity {
         }
     }
 
+    // speaking text that has been defined in the buttons
     public void speakNow() {
 
         ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);

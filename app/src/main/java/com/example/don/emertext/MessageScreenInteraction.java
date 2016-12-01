@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+// The activity to exchange messages with the emergency services or the number that the
+// user sets manually
 public class MessageScreenInteraction extends AppCompatActivity {
 
     EditText msgText;
@@ -23,6 +25,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     String number;
     private BroadcastReceiver mIntentReceiver;
 
+    // It creates a predefined message that we send to the number in our database
+    // which is sent on the first instance that you enter the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
         String peopleWith = i.getExtras().getString("peopleWith");
         String extraDetails = i.getExtras().getString("extraDetails");
 
-
+        // Constructing the inittial message
         String message =
                 "Please send: " + buttonSelected + ". \n" +
                 "Location: " + userLocation + ". \n";
@@ -77,13 +81,15 @@ public class MessageScreenInteraction extends AppCompatActivity {
         }
 
 
+        // setting this as text in edit text since future implementation is set up based
+        // on text in edit text
         msgText.setText(message);
         sendSMS(findViewById(android.R.id.content).getRootView());
 
 
     }
 
-
+    // Receiving the message from the Broadcast receiver ans displaying it in the screen.
     @Override
     protected void onResume() {
         super.onResume();
@@ -99,6 +105,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
 
+    // unregistering receiver on pausing the activity since we do not want
+    // to receive messages inside the screen once the screen loses focus.
     @Override
     protected void onPause() {
 
@@ -106,14 +114,16 @@ public class MessageScreenInteraction extends AppCompatActivity {
         this.unregisterReceiver(this.mIntentReceiver);
     }
 
+    // function to send sms
     public void sendSMS(View view) {
 
         SmsManager text = SmsManager.getDefault();
         String message;
         TextView q = (TextView) findViewById(R.id.messageText);
-
+        // converting text in textview to string
         message = q.getText().toString();
         String currentmessage;
+        // Dividing messages into subpart if the length of message is > 160
         for (int part = 0; part <= message.length() / 160; part++) {
             if (part == message.length() / 160) {
                 currentmessage = message.substring(160 * part);
@@ -127,11 +137,15 @@ public class MessageScreenInteraction extends AppCompatActivity {
                     , null);           // The PendingIntent to perform when the message is successfully delivered
         }
         message = message.trim();
+        // displaying the message if it is not empty but allowing the user to send
+        // blank message in case the user is in extreme emergency.
+        // putting this check before sending SMS will stop the user from sending empty messages though.
         if (!message.equals("")) {
             showSenderMessage(message);
         }
     }
 
+    // Displaying sender message on screen
     public void showSenderMessage(String message){
 
 
@@ -156,6 +170,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
 
+    // Displaying receiver message on the screen
     public void showReceiverMessage(String message){
 
             LinearLayout ll1 = (LinearLayout) findViewById(R.id.messageHolder);
@@ -176,40 +191,4 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     }
 
-    // Code for timer
-//    private final int interval = 1000; // 1 Second
-//    private Handler handler = new Handler();
-//    private Runnable runnable = new Runnable(){
-//        public void run() {
-//            Toast.makeText(MyActivity.this, "C'Mom no hands!", Toast.LENGTH_SHORT).show();
-//        }
-//    };
-//    ...
-//            handler.postAtTime(runnable, System.currentTimeMillis()+interval);
-//    handler.postDelayed(runnable, interval);
-
-
 }
-
-
-//    public void setupUI(View view) {
-//
-//        // Set up touch listener for non-text box views to hide keyboard.
-//        if (!(view instanceof EditText)) {
-//            view.setOnTouchListener(new View.OnTouchListener() {
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    hideSoftKeyboard(TextSpeech.this);
-//                    return false;
-//                }
-//            });
-//        }
-//    }
-//
-//    public static void hideSoftKeyboard(Activity activity) {
-//        InputMethodManager inputMethodManager =
-//                (InputMethodManager) activity.getSystemService(
-//                        Activity.INPUT_METHOD_SERVICE);
-//        inputMethodManager.hideSoftInputFromWindow(
-//                activity.getCurrentFocus().getWindowToken(), 0);
-//    }
-//

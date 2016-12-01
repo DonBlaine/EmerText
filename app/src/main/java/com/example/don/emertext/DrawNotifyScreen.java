@@ -14,14 +14,16 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
-
+// Activity to display a body sketch that enables user to point out area of injury
 public class DrawNotifyScreen extends AppCompatActivity {
     // contained locally to the class
     private RelativeLayout rl;
+
     Bitmap b;
     DisplayMetrics displayMetrics;
 
     @Override
+    // creates the bitmap and add view to the screen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_notify_screen);
@@ -32,14 +34,15 @@ public class DrawNotifyScreen extends AppCompatActivity {
         // 0, 0 represents the matrix position of the image
         displayMetrics = new DisplayMetrics();
 
-
     }
 
+    // Function to go back to text speech screen on click of button
     public void simonGoBack(View v){
         Intent i = new Intent(DrawNotifyScreen.this,TextSpeech.class);
         startActivity(i);
     }
 
+    // defining class to manipulate view with canvas and paint objects
     class MyView extends View{
 
         //variables defined for storing touch points
@@ -56,6 +59,7 @@ public class DrawNotifyScreen extends AppCompatActivity {
             paint.setStyle(Paint.Style.STROKE);
         }
 
+        // Drawing the touches on screen and resizing image in case screen size/ orientation changes
         @Override
         protected void onDraw(Canvas canvas) {
 
@@ -70,6 +74,7 @@ public class DrawNotifyScreen extends AppCompatActivity {
             canvas.drawCircle(x, y, 30, paint);
         }
 
+        // getting the x,y co-ordinates of screen where the user touches
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             switch (event.getAction()) {
