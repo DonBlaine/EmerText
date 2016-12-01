@@ -50,6 +50,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         GoogleMap.OnCameraIdleListener,
         GoogleMap.OnCameraMoveListener {
 
+    //create variables used in activity
     public static final String TAG = MapPin.class.getSimpleName();
     private GoogleMap mMap;
     private LocationRequest mLocationRequest;
@@ -63,6 +64,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
 
 
     @Override
+    //create initial layout of map, start location and google api client
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_pin);
@@ -84,6 +86,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //connect google api client if not connected
     protected void onResume() {
         super.onResume();
         if (!mGoogleApiClient.isConnected()) {
@@ -93,6 +96,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //disconnect google api client if connected
     protected void onPause() {
         super.onPause();
         if (mGoogleApiClient.isConnected()) {
@@ -101,6 +105,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         }
     }
 
+    //define map if map is not set up
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -112,6 +117,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //when map is ready, added functionality to map and have map check location
     public void onMapReady(GoogleMap map) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // This check is handled in the onConnected method.
@@ -161,11 +167,13 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //remove marker when map moves
     public void onCameraMove() {
         markerButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
+    //make marker visible and get address when user stops moving map
     public void onCameraIdle() {
         markerButton.setVisibility(View.VISIBLE);
         if (isNetworkConnected()) {
@@ -181,6 +189,8 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         }
     }
 
+    //when user clicks button set the result of this activity to be the selected
+    //gps and address
     public void submitAddress(View view) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("locationaddress", locationAddress);
@@ -190,6 +200,9 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //method called if user has not given permissions for location
+    //this is called in previous methods however user could decide to change permissions mid-way
+    //if their api is >= 23
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
@@ -216,12 +229,13 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         }
 
     @Override
+    //method called when connected to location services
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Location services connected.");
         getCoord();
     }
 
-    //checks permissions and starts handlenewlocation method.
+    //checks permissions and starts handlenewlocation method which updates map
     private void getCoord(){
         nopermissions = (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
 
@@ -247,12 +261,14 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //method called when connection suspended, try to connect again
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Location services suspended. Please reconnect.");
         mGoogleApiClient.connect();
     }
 
     @Override
+    //method called when connection failed, try to resolve
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
@@ -267,11 +283,13 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    //method called when location changes. After initial map creation this is not needed
     public void onLocationChanged(Location location) {
         //no override necessary
     }
 
     @Nullable
+    //gets the address from a latlng object
     private String getLocation(LatLng curLocation){
 
         double latitude = curLocation.latitude;
@@ -288,6 +306,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         return addresses.get(0).getAddressLine(0);
     }
 
+    //turns latlng into the gps string that is passed to location details activity
     private String getGPS(LatLng curLocation) {
         double latitude = curLocation.latitude;
         double longitude = curLocation.longitude;
@@ -295,6 +314,7 @@ public class MapPin extends AppCompatActivity implements OnMapReadyCallback,
         return "Lat: " + Double.toString(latitude) + ", Lon: " + Double.toString(longitude);
     }
 
+    //method checks if network is connected
     private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageScreenInteraction extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     String recmsg;
     String lastmessage;
     private BroadcastReceiver mIntentReceiver;
+    Long sentTime, receiveTime;
+    Boolean recievedMessageTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +91,7 @@ public class MessageScreenInteraction extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        recievedMessageTime = false;
         IntentFilter intentFilter = new IntentFilter("SmsMessage.intent.EMERGENCY");
         mIntentReceiver = new BroadcastReceiver() {
             @Override
@@ -109,6 +112,8 @@ public class MessageScreenInteraction extends AppCompatActivity {
     }
 
     public void sendSMS(View view) {
+        sentTime = System.currentTimeMillis();
+        recievedMessageTime = true;
         SmsManager text = SmsManager.getDefault();
         String message = "";
         TextView q = (TextView) findViewById(R.id.messageText);
@@ -153,6 +158,15 @@ public class MessageScreenInteraction extends AppCompatActivity {
         ll.addView(nmsg);
         scroll.fullScroll(View.FOCUS_DOWN);
         msgText.setText("");
+
+        while (recievedMessageTime){
+                receiveTime = System.currentTimeMillis();
+                if (receiveTime-sentTime > 180000){
+                    sendSMS(findViewById(android.R.id.content).getRootView());
+
+                }
+        }
+
 
     }
 
