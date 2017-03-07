@@ -126,7 +126,7 @@ public class SecurityActivity extends AppCompatActivity {
             if (!fingerprintManager.hasEnrolledFingerprints()) {
                 // This happens when no fingerprints are registered.
                 Toast.makeText(this,
-                        "Register at least one fingerprint in Settings",
+                        "Register at least one fingerprint in settings to lock using fingerprint instead of pin",
                         Toast.LENGTH_LONG).show();
                 return;
             }

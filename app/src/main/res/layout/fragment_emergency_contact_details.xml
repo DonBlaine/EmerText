@@ -14,8 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next_kin_details"
-            android:textSize="18sp"
-        />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/emergency_contact_name"
@@ -69,7 +68,7 @@
             android:layout_margin="5dp"
             android:background="#acacac"
             android:ems="10"
-            android:hint="@string/override_emergency_services_number"
+            android:text= "@string/default_emergency_number"
             android:inputType="phone"
             android:padding="5dp"
             android:tag="@string/emergency_service_number_key"

@@ -71,7 +71,7 @@
     <string name="name">Name</string>
     <string name="address">Address</string>
     <string name="lock_using_fingerprint">Lock using fingerprint or PIN</string>
-    <string name="lock_using_pin">Lock using PIN</string>
+    <string name="lock_using_pin">Lock using PIN/Fingerprint</string>
     <string name="medical_allergies_hint">Enter any medical allergies you might need noted here.</string>
     <string name="current_meds_hint">Enter any medication you may be taking here</string>
     <string name="next_kin_details">Next-of-kin details</string>
@@ -127,7 +127,7 @@
     <string name="custom_message_key">custom_message_key</string>
     <string name="emergency_service_number_key">emergency_service_number_key</string>
     <string name="override_emergency_services_number">Override emergency services number (dangerous)</string>
-    <string name="emergency_services_number_textview">Emergency services number (for testing only)</string>
+    <string name="emergency_services_number_textview">Emergency services number </string>
     <string name="include_ice_contact_info">Include ICE contact info</string>
     <string name="include_medical_conditions">Include medical conditions</string>
     <string name="please_scan_your_finger">Please Scan your Finger</string>

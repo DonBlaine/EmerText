@@ -63,7 +63,7 @@ public class BasicDetails extends Fragment {
                     PackageManager.PERMISSION_GRANTED) {
 
                 if (fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints()) {
-                    fingerprint_checkbox.setText(getString(R.string.lock_using_fingerprint));
+                    fingerprint_checkbox.setText(getString(R.string.lock_using_pin));
                 }
             }
         }
