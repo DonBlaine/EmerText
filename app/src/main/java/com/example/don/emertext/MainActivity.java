@@ -9,6 +9,8 @@ import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 
+//Setting Utilities.skip_network_check to true allowing the app to be used outside of Ireland's
+//supported networks
 public class MainActivity extends AppCompatActivity {
     private TextView network_text;
     private TextView sim_text;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         sim_text = (TextView) findViewById(R.id.sim_status_text);
 
         boolean statusOK = (checkMatch() && checkSim() && checkNetwork()) || Utilities.SKIP_NETWORK_CHECK;
+        //Utilities.Skip_network_check  is set to true for app use in other countries.
 
         if (statusOK && sharedPref.getBoolean(getString(R.string.setup_complete_key), false)) {
             //If status is OK and is set to lock app, send to security screen

@@ -116,32 +116,34 @@ public class MessageScreenInteraction extends AppCompatActivity {
 
     // function to send sms
     public void sendSMS(View view) {
+        if (number != null){
 
-        SmsManager text = SmsManager.getDefault();
-        String message;
-        TextView q = (TextView) findViewById(R.id.messageText);
-        // converting text in textview to string
-        message = q.getText().toString();
-        String currentmessage;
-        // Dividing messages into subpart if the length of message is > 160
-        for (int part = 0; part <= message.length() / 160; part++) {
-            if (part == message.length() / 160) {
-                currentmessage = message.substring(160 * part);
-            } else {
-                currentmessage = message.substring(160 * part, 160 * part + 160);
+            SmsManager text = SmsManager.getDefault();
+            String message;
+            TextView q = (TextView) findViewById(R.id.messageText);
+            // converting text in textview to string
+            message = q.getText().toString();
+            String currentmessage;
+            // Dividing messages into subpart if the length of message is > 160
+            for (int part = 0; part <= message.length() / 160; part++) {
+                if (part == message.length() / 160) {
+                    currentmessage = message.substring(160 * part);
+                } else {
+                    currentmessage = message.substring(160 * part, 160 * part + 160);
+                }
+                text.sendTextMessage(number // Number to send to
+                        , null               // Message centre to send to (we'll never want to change this)
+                        , currentmessage            // Message to send
+                        , null               // The PendingIntent to perform when the message is successfully sent
+                        , null);           // The PendingIntent to perform when the message is successfully delivered
             }
-            text.sendTextMessage(number // Number to send to
-                    , null               // Message centre to send to (we'll never want to change this)
-                    , currentmessage            // Message to send
-                    , null               // The PendingIntent to perform when the message is successfully sent
-                    , null);           // The PendingIntent to perform when the message is successfully delivered
-        }
-        message = message.trim();
-        // displaying the message if it is not empty but allowing the user to send
-        // blank message in case the user is in extreme emergency.
-        // putting this check before sending SMS will stop the user from sending empty messages though.
-        if (!message.equals("")) {
-            showSenderMessage(message);
+            message = message.trim();
+            // displaying the message if it is not empty but allowing the user to send
+            // blank message in case the user is in extreme emergency.
+            // putting this check before sending SMS will stop the user from sending empty messages though.
+            if (!message.equals("")) {
+                showSenderMessage(message);
+            }
         }
     }
 

@@ -62,7 +62,7 @@
     <string name="send_message">Send dummy message!</string>
     <string name="delivery_pending">I will return to the main screen when message is delivered!</string>
     <string name="welcome_screen_button">3. Go to the home screen</string>
-    <string name="default_emergency_number">0831453528</string>
+    <string name="default_emergency_number">112</string>
     <string name="eircode">Eircode</string>
     <string name="personal_details_file">personaldets</string>
     <string name="title_activity_tabbed_details">Personal details</string>

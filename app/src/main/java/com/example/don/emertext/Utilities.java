@@ -18,7 +18,8 @@ class Utilities {
     static final int REQUEST_LOCATION = 3;
 
     //Variables to override certain functionalities for testing
-    static final boolean SKIP_NETWORK_CHECK = false;
+    //setting this to true so app can be used outside of Ireland's supported networks.
+    static final boolean SKIP_NETWORK_CHECK = true;
 
     //Intent result codes (these can overlap with the ones above）
     static final int CONTACT_INTENT_CODE = 1;
@@ -72,7 +73,7 @@ class Utilities {
     }
 
     //This may be needed outside the class in future
-    static void saveViewValue(SharedPreferences sharedPref, CheckBox c) {
+    private static void saveViewValue(SharedPreferences sharedPref, CheckBox c) {
         //Saves CheckBox to key based on its tag
         SharedPreferences.Editor editor = sharedPref.edit();
         boolean value = c.isChecked();

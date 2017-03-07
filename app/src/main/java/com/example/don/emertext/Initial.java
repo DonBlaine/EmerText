@@ -77,7 +77,7 @@ public class Initial extends AppCompatActivity {
     }
 
     public void sendRegistrationText() {
-        //Function to send the registration text to the default emergency number as defined in
+        //Function to send the registration text to the default emergency number as defined
         SmsManager text = SmsManager.getDefault();
         String number = getString(R.string.default_emergency_number);
         String message = "register";
