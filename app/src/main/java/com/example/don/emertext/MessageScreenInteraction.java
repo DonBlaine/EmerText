@@ -32,6 +32,10 @@ public class MessageScreenInteraction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         number = getSharedPreferences(
                 getString(R.string.personal_details_file), Context.MODE_PRIVATE).getString(getString(R.string.emergency_service_number_key), getString(R.string.default_emergency_number));
+        number = number.replaceAll("\\s","");
+        if(number.equals("")){
+            number = getString(R.string.default_emergency_number);
+        }
         setContentView(R.layout.activity_message_screen_interaction);
         msgText = (EditText) findViewById(R.id.messageText);
         scroll = (ScrollView) findViewById(R.id.scroller);
