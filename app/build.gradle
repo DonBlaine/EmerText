@@ -1,8 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'calbear403'
+            storeFile file('C:/Users/Donovan/AndroidStudioProjects/EmerText1/newkey.jks')
+            storePassword 'calbear403'
+        }
+    }
     compileSdkVersion 23
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '25'
     defaultConfig {
         applicationId "com.example.don.emertext"
         minSdkVersion 19
@@ -16,6 +24,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
