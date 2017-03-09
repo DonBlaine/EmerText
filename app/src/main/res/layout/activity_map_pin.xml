@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.don.emertext.MapPin">
+    tools:context="com.emertext.MapPin">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.don.emertext.MapPin" />
+        tools:context="com.emertext.MapPin" />
 
     <!--Below image taken from
     http://www.softicons.com/web-icons/vista-map-markers-icons-by-icons-land/map-marker-outside-azure-icon-->

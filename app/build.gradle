@@ -12,7 +12,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '25'
     defaultConfig {
-        applicationId "com.example.don.emertext"
+        applicationId "com.emertext"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1

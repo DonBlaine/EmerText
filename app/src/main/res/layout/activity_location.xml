@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#cacaca"
-    tools:context="com.example.don.emertext.LocationDetails">
+    tools:context="com.emertext.LocationDetails">
 
     <LinearLayout
         android:layout_width="match_parent"

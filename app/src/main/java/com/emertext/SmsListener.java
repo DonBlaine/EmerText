@@ -1,4 +1,4 @@
-package com.example.don.emertext;
+package com.emertext;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

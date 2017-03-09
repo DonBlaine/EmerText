@@ -1,4 +1,4 @@
-package com.example.don.emertext;
+package com.emertext;
 
 import android.Manifest;
 import android.content.Context;

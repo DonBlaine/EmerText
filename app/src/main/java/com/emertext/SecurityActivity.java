@@ -1,4 +1,4 @@
-package com.example.don.emertext;
+package com.emertext;
 
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;

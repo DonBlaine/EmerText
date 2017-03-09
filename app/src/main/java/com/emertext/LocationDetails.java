@@ -1,4 +1,4 @@
-package com.example.don.emertext;
+package com.emertext;
 //created by Donovan Blaine
 
 import android.app.Activity;
