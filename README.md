@@ -8,21 +8,21 @@ The deaf, hearing impaired or people with speech impediments have very rudimenta
 
 Bearing in mind the limitations that we identified in the current system we designed and implemented an app to address these issues. We expanded on features that will be useful to our target users. The main features of our app are:
 
-●	Automatic registration to 112 when the app is downloaded/
-●	Send the user’s position with the initial text to the emergency services.
-●	Local store of the user’s medical details, allergies, in case of emergency contact details and other relevant details.
-●	The ability to send medical or allergy details to the emergency services.
-●	Provide a screen with a pre-entered message to enable users to get aid from passers-by.
+*	Automatic registration to 112 when the app is downloaded.
+*	Send the user’s position with the initial text to the emergency services.
+*	Local store of the user’s medical details, allergies, in case of emergency contact details and other relevant details.
+*	The ability to send medical or allergy details to the emergency services.
+*	Provide a screen with a pre-entered message to enable users to get aid from passers-by.
 
 These are all features that we feel are not addressed with the current system.  We designed a system that is easy to use in emergency situations where time is often of the essence. Having information pre-entered in this way should hopefully save valuable time by allowing complex details, like medical information or addresses pre-entered, and also hinting to the user that they may want to consider including them, before an operator requests them.
 
 Our app is original in several ways.  While most of the apps out there solve one or two off the issues someone who is hard of hearing or who has a speech impediment may face while contacting the emergency services they do not solve all the problems. Our app offers the users a range of functionality that would be helpful to them in any difficult situation. 
 
-●	Automatically registering to the 112 text service will benefit users in that they will know once this app is on their phone they are registered to use it.  
-●	Allowing the user to communicate with passing strangers when they need help but do not need to contact the emergency services. 
-●	Storing the user's medical, allergy and in case of emergency contact details details in an easy to use and access location.Provide security to ensure that the app can not be used by accident or in the situation where a child may be playing with the phone.
-●	Provide a body map for the user to point out on the body where the issue may be.
-●	Automatically detect the gps coordinates and street address of a user as well as allow for a user to correct their address/ choose a new address if they so choose from a easy to use Google map interface. 
+*	Automatically registering to the 112 text service will benefit users in that they will know once this app is on their phone they are registered to use it.  
+*	Allowing the user to communicate with passing strangers when they need help but do not need to contact the emergency services. 
+*	Storing the user's medical, allergy and in case of emergency contact details details in an easy to use and access location.Provide security to ensure that the app can not be used by accident or in the situation where a child may be playing with the phone.
+*	Provide a body map for the user to point out on the body where the issue may be.
+*	Automatically detect the gps coordinates and street address of a user as well as allow for a user to correct their address/ choose a new address if they so choose from a easy to use Google map interface. 
 
 
 Enjoy the app :)
