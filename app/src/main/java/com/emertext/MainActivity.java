@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         String oldText = textView.getText().toString();
         String newText = oldText + " (" + networkCode + " — " + operatorName(networkCode) + ")";
         textView.setText(newText);
+        // drawable only available on lollipop or later
+
         if (value) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.green_check), null, null, null);
