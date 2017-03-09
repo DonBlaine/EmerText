@@ -6,7 +6,7 @@ Description:
 
 The deaf, hearing impaired or people with speech impediments have very rudimentary options when contacting the emergency services at present. There is a text service that works on a opt-in basis. The user registers their phone number with the service and provide some very basic information to be able to use the service. At present the emergency services have no means of getting the location of the phone where the message was sent from. This may pose multiple difficulties in locating the person in question: a panicked individual may find it difficult to quickly and accurately type their location, assuming they even know how to describe where the emergency is. Due to the latency imposed by text-messaging (composing and waiting for responses), there may be an unnecessary delay as the operator requests information which has been omitted. 
 
-	Bearing in mind the limitations that we identified in the current system we designed and implemented an app to address these issues. We expanded on features that will be useful to our target users. The main features of our app are:
+Bearing in mind the limitations that we identified in the current system we designed and implemented an app to address these issues. We expanded on features that will be useful to our target users. The main features of our app are:
 
 ●	Automatic registration to 112 when the app is downloaded/
 ●	Send the user’s position with the initial text to the emergency services.
