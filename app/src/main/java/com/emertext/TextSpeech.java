@@ -3,6 +3,7 @@ package com.emertext;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -223,7 +224,9 @@ public class TextSpeech extends AppCompatActivity {
     // speaking text that has been defined in the buttons
     public void speakNow() {
 
-        ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ts.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);
+        }
     }
 
 }

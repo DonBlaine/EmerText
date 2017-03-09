@@ -3,7 +3,9 @@ package com.emertext;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         return name;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setDrawableForStatusTextView(TextView textView, boolean value) {
         //Function to set the drawable to a tick or a red circle depending on whether or not the check passed
         if (value) {
@@ -117,9 +120,13 @@ public class MainActivity extends AppCompatActivity {
         String newText = oldText + " (" + networkCode + " — " + operatorName(networkCode) + ")";
         textView.setText(newText);
         if (value) {
-            textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.green_check), null, null, null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.green_check), null, null, null);
+            }
         } else {
-            textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.red_block), null, null, null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.red_block), null, null, null);
+            }
 
         }
     }
@@ -136,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
             isSupported = true;
         }
 
-        setDrawableForStatusTextView(network_match_text, isSupported);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setDrawableForStatusTextView(network_match_text, isSupported);
+        }
         return isSupported;
     }
 
