@@ -1,6 +1,6 @@
-This app was created by Donovan Blaine, Gerard Bonner, Velda Conaty, Abhijeet Kale, and Akhilesh Sharma as part of our Android project. It is intended for demonstrative purposes only and should be not be relied on in times of emergency. In case of emergency, please contact your nearest emergency services provided.
+This app was created by Donovan Blaine, Gerard Bonner, Velda Conaty, Abhijeet Kale, and Akhilesh Sharma as part of our Android project. It is intended for demonstrative purposes only and should be not be relied on in times of emergency. In case of emergency, please contact your nearest emergency services provider.
 
-When you first start the app you will be asked to send a registration text to 112 to register for emergency service texting. Afterwards you may set us security functionality and use the main app. Additionally, please ensure that you edit the emergency services number in the "next-of-kin" details page as this will be the number that is texted from the app. By default the number is set to 112 as this is one of the most commonly used emergency numbers.
+When you first start the app you will be asked to send a registration text to 112 to register for emergency service texting. Afterwards you may set up security functionality and use the main app. Additionally, please ensure that you edit the emergency services number in the "next-of-kin" personal details page as this will be the number that is texted from the app. By default the number is set to 112 as this is one of the most commonly used emergency numbers.
 
 Description:
 
